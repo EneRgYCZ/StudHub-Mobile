@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "786215154133",
+    "firebase_url": "https://studhub-340123-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "studhub-340123",
+    "storage_bucket": "studhub-340123.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786215154133:android:e1b8fcb806144f5bb78d5c",
+        "android_client_info": {
+          "package_name": "com.example.studhub"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "786215154133-63r048jtek2g3q5nbl3qjqce36gpnp9s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcyiQuXSYk7noO_mLbrvh2MSl23KbNwOU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "786215154133-63r048jtek2g3q5nbl3qjqce36gpnp9s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
