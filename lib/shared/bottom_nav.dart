@@ -15,8 +15,10 @@ class BottomNavBar extends StatelessWidget {
           children: <Widget>[
             IconButton(
               iconSize: 30.0,
-              icon: const Icon(FontAwesomeIcons.newspaper),
-              onPressed: () {},
+              icon: const Icon(FontAwesomeIcons.comment),
+              onPressed: () {
+                Navigator.pushNamed(context, '/chat');
+              },
             ),
             IconButton(
               iconSize: 30.0,

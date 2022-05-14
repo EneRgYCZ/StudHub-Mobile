@@ -22,3 +22,13 @@ class Post {
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
   Map<String, dynamic> toJson() => _$PostToJson(this);
 }
+
+@JsonSerializable()
+class UserExtraInfo {
+  String bio;
+
+  UserExtraInfo({this.bio = ''});
+  factory UserExtraInfo.fromJson(Map<String, dynamic> json) =>
+      _$UserExtraInfoFromJson(json);
+  Map<String, dynamic> toJson() => _$UserExtraInfoToJson(this);
+}

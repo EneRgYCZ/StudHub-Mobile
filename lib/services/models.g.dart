@@ -23,3 +23,13 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'userName': instance.userName,
       'userPhoto': instance.userPhoto,
     };
+
+UserExtraInfo _$UserExtraInfoFromJson(Map<String, dynamic> json) =>
+    UserExtraInfo(
+      bio: json['bio'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$UserExtraInfoToJson(UserExtraInfo instance) =>
+    <String, dynamic>{
+      'bio': instance.bio,
+    };

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:studhub/services/auth.dart';
+import 'package:studhub/services/models.dart';
 
 var user = AuthService().user!;
 
@@ -8,18 +10,30 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var userExtraData = Provider.of<UserExtraInfo>(context);
+    var bio = userExtraData.bio;
+
     return Scaffold(
       appBar: const PreferredSize(
         child: ProfileAppBar(),
         preferredSize: Size.fromHeight(180),
       ),
-      body: ElevatedButton(
-        child: const Text('signout'),
-        onPressed: () async {
-          await AuthService().signOut();
-          Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
-        },
-      ),
+      body: ProfileBody(bio: bio),
+    );
+  }
+}
+
+class ProfileBody extends StatelessWidget {
+  final String bio;
+
+  const ProfileBody({Key? key, required this.bio}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(children: [
+        Text(bio),
+      ]),
     );
   }
 }
