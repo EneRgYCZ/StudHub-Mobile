@@ -15,6 +15,27 @@ class FirestoreService {
     return posts.toList();
   }
 
+  Future<void> createPost(title, text) async {
+    var user = AuthService().user!;
+    var ref = _db.collection('posts');
+
+    var newData = {
+      'date': DateTime.now(),
+      'title': title,
+      'skills': ["laser", "cacat"],
+      'text': text,
+      'uid': user.uid,
+      'userName': user.displayName,
+      'userPhoto': user.photoURL,
+    };
+
+    try {
+      ref.add(newData);
+    } catch (e) {
+      //return e;
+    }
+  }
+
   Stream<UserExtraInfo> streamUserExtraData() {
     return AuthService().userStream.switchMap((user) {
       if (user != null) {
@@ -28,7 +49,7 @@ class FirestoreService {
     });
   }
 
-  Future<void> updateUserReport(UserExtraInfo userData) {
+  Future<void> updateUserData(UserExtraInfo userData) {
     var user = AuthService().user!;
     var ref = _db.collection('userExtraData').doc(user.uid);
 

@@ -18,7 +18,7 @@ var appTheme = ThemeData(
       fontWeight: FontWeight.bold,
     ),
     subtitle1: TextStyle(
-      color: Colors.grey,
+      color: Colors.orange,
     ),
   ),
   buttonTheme: const ButtonThemeData(),

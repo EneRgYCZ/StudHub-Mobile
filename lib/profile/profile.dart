@@ -31,9 +31,29 @@ class ProfileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(children: [
-        Text(bio),
-      ]),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Text(
+              bio,
+              style: Theme.of(context).textTheme.bodyText1,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 20),
+            child: ElevatedButton(
+              child: const Text('Logout'),
+              onPressed: () async {
+                await AuthService().signOut();
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('/', (route) => false);
+              },
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
