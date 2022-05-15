@@ -9,20 +9,42 @@ class BottomNavBar extends StatelessWidget {
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
       child: SizedBox(
-        height: 60,
+        height: 75,
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             IconButton(
               iconSize: 30.0,
-              icon: const Icon(FontAwesomeIcons.comment),
+              padding: const EdgeInsets.only(left: 28.0),
+              icon: const Icon(
+                FontAwesomeIcons.magento,
+                color: Colors.orange,
+              ),
               onPressed: () {
                 Navigator.pushNamed(context, '/chat');
               },
             ),
             IconButton(
               iconSize: 30.0,
-              icon: const Icon(FontAwesomeIcons.user),
+              padding: const EdgeInsets.only(right: 28.0),
+              icon: const Icon(FontAwesomeIcons.search, color: Colors.orange),
+              onPressed: () {
+                Navigator.pushNamed(context, '/profile');
+              },
+            ),
+            IconButton(
+              iconSize: 30.0,
+              padding: const EdgeInsets.only(left: 28.0),
+              icon: const Icon(FontAwesomeIcons.bell, color: Colors.orange),
+              onPressed: () {
+                Navigator.pushNamed(context, '/profile');
+              },
+            ),
+            IconButton(
+              iconSize: 30.0,
+              padding: const EdgeInsets.only(right: 28.0),
+              icon: const Icon(FontAwesomeIcons.user, color: Colors.orange),
               onPressed: () {
                 Navigator.pushNamed(context, '/profile');
               },
