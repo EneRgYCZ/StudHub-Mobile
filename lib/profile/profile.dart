@@ -35,7 +35,7 @@ class ProfileBody extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
             child: Text(
               bio,
               style: Theme.of(context).textTheme.bodyText1,
