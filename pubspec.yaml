@@ -46,6 +46,9 @@ dependencies:
   rxdart: ^0.27.2
   provider: ^6.0.1
   anim_search_bar: ^2.0.2
+  badges: ^2.0.2
+  expandable: ^5.0.1
+  bulletin: ^0.0.1
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +78,7 @@ flutter:
   assets:
     - assets/
     - assets/Logo.png
+    - assets/Handshake.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

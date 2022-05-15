@@ -1,3 +1,4 @@
+import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:studhub/posts/post_item.dart';
@@ -74,14 +75,17 @@ class MainAppBar extends StatelessWidget {
             width: 120,
             height: 120,
           ),
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/chat');
-            },
-            icon: const Icon(
-              FontAwesomeIcons.comment,
-              color: Colors.orange,
-              size: 25,
+          Badge(
+            badgeContent: const Text('3'),
+            child: IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/chat');
+              },
+              icon: const Icon(
+                FontAwesomeIcons.comment,
+                color: Colors.orange,
+                size: 25,
+              ),
             ),
           ),
         ],
