@@ -79,6 +79,7 @@ flutter:
     - assets/
     - assets/Logo.png
     - assets/Handshake.png
+    - assets/Logo_conver.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

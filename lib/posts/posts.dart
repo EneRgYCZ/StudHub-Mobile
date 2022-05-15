@@ -71,7 +71,7 @@ class MainAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Image.asset(
-            "assets/Logo.png",
+            "assets/Logo_conver.png",
             width: 120,
             height: 120,
           ),
