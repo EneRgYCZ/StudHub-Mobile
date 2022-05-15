@@ -21,8 +21,6 @@ class PostItem extends StatelessWidget {
             );
           },
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Row(
                 children: [
@@ -30,6 +28,7 @@ class PostItem extends StatelessWidget {
                     width: 70,
                     height: 70,
                     padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       image: DecorationImage(
@@ -40,23 +39,38 @@ class PostItem extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Text(
-                    post.userName,
-                    style: Theme.of(context).textTheme.bodyText1,
-                  )
+                  Padding(
+                    padding: const EdgeInsets.all(15.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          post.userName,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        Text(
+                          post.date,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
               Flexible(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 10, right: 10),
-                  child: Text(
-                    post.text,
-                    style: const TextStyle(
-                      height: 1.5,
-                      fontWeight: FontWeight.bold,
+                child: Container(
+                  alignment: Alignment.topCenter,
+                  child: SizedBox(
+                    width: 300,
+                    height: 250,
+                    child: Text(
+                      post.text,
+                      style: const TextStyle(
+                        height: 1.5,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      maxLines: 10,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                    overflow: TextOverflow.fade,
-                    softWrap: false,
                   ),
                 ),
               ),
