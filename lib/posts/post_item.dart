@@ -96,13 +96,23 @@ class PostsScreen extends StatelessWidget {
       body: ListView(children: [
         Hero(
           tag: post.text,
-          child: Image.asset('assets/Logo.png',
-              width: MediaQuery.of(context).size.width),
+          child: Image.asset(
+            'assets/Logo.png',
+            width: MediaQuery.of(context).size.width,
+          ),
         ),
-        Text(
-          post.text,
-          style: const TextStyle(
-              height: 2, fontSize: 20, fontWeight: FontWeight.bold),
+        SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            child: Text(
+              post.text,
+              style: const TextStyle(
+                height: 2,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
         ),
       ]),
     );
