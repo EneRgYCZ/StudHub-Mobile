@@ -30,7 +30,7 @@ class BottomNavBar extends StatelessWidget {
               padding: const EdgeInsets.only(right: 28.0),
               icon: const Icon(FontAwesomeIcons.search, color: Colors.orange),
               onPressed: () {
-                Navigator.pushNamed(context, '/profile');
+                Navigator.pushNamed(context, '/search');
               },
             ),
             IconButton(
@@ -38,7 +38,7 @@ class BottomNavBar extends StatelessWidget {
               padding: const EdgeInsets.only(left: 28.0),
               icon: const Icon(FontAwesomeIcons.bell, color: Colors.orange),
               onPressed: () {
-                Navigator.pushNamed(context, '/profile');
+                Navigator.pushNamed(context, '/notifications');
               },
             ),
             IconButton(

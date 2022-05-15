@@ -20,7 +20,7 @@ class FirestoreService {
     var ref = _db.collection('posts');
 
     var newData = {
-      'date': DateTime.now(),
+      'date': 'Now',
       'title': title,
       'skills': ["laser", "cacat"],
       'text': text,

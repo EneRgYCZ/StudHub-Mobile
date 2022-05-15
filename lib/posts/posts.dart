@@ -69,16 +69,15 @@ class MainAppBar extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text(
-            "StudHub",
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.orange,
-              fontWeight: FontWeight.bold,
-            ),
+          Image.asset(
+            "assets/Logo.png",
+            width: 120,
+            height: 120,
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushNamed(context, '/chat');
+            },
             icon: const Icon(
               FontAwesomeIcons.comment,
               color: Colors.orange,

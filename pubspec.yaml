@@ -45,6 +45,7 @@ dependencies:
   json_annotation: ^4.3.0
   rxdart: ^0.27.2
   provider: ^6.0.1
+  anim_search_bar: ^2.0.2
 
 dev_dependencies:
   flutter_test:
