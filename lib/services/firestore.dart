@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:studhub/services/auth.dart';
 import 'package:studhub/services/models.dart';
@@ -15,14 +16,13 @@ class FirestoreService {
     return posts.toList();
   }
 
-  Future<void> createPost(title, text) async {
+  Future<void> createPost(text) async {
     var user = AuthService().user!;
     var ref = _db.collection('posts');
 
     var newData = {
-      'date': 'Now',
-      'title': title,
-      'skills': ["laser", "cacat"],
+      'date': DateFormat.yMMMMd('en_US').format(DateTime.now()),
+      'skills': ["CSS", "JSX"],
       'text': text,
       'uid': user.uid,
       'userName': user.displayName,

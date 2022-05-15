@@ -46,23 +46,6 @@ class PostFrom extends State<MyCustomForm> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              child: TextFormField(
-                // The validator receives the text that the user has entered.
-                controller: title,
-                decoration: const InputDecoration(
-                  border: OutlineInputBorder(),
-                  hintText: 'Enter a title for your idea',
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-              ),
-            ),
             TextFormField(
               controller: text,
               maxLines: 10,
@@ -83,7 +66,7 @@ class PostFrom extends State<MyCustomForm> {
                 onPressed: () {
                   // Validate returns true if the form is valid, or false otherwise.
                   if (_formKey.currentState!.validate()) {
-                    FirestoreService().createPost(title.text, text.text);
+                    FirestoreService().createPost(text.text);
                     Navigator.of(context)
                         .pushNamedAndRemoveUntil('/', (route) => false);
                   }
