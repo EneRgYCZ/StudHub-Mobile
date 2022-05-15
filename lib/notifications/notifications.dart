@@ -36,7 +36,7 @@ class NotificationsScreen extends StatelessWidget {
             backgroundColor: Colors.black12,
             children: [
               BulletinItem(
-                text: "2. You have a friend request from @Monster Energy Ultra",
+                text: "2. You have a friend request from @Andrei Voicu",
                 onTap: () {
                   Navigator.pushNamed(context, '/profile');
                 },

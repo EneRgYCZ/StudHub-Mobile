@@ -76,7 +76,7 @@ class MainAppBar extends StatelessWidget {
             height: 120,
           ),
           Badge(
-            badgeContent: const Text('3'),
+            badgeContent: const Text('2'),
             child: IconButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/chat');

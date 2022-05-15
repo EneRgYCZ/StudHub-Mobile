@@ -16,7 +16,6 @@ class BottomNavBar extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Badge(
-              toAnimate: false,
               badgeContent: const Text('1'),
               child: IconButton(
                 iconSize: 30.0,
