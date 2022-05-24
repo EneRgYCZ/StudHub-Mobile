@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:studhub/services/firestore.dart';
 
 class AuthService {
   final userStream = FirebaseAuth.instance.authStateChanges();
@@ -20,9 +21,13 @@ class AuthService {
         accessToken: googleAuth.accessToken,
         idToken: googleAuth.idToken,
       );
-      await FirebaseAuth.instance.signInWithCredential(authCredential);
+      final authResult =
+          await FirebaseAuth.instance.signInWithCredential(authCredential);
+      if (authResult.additionalUserInfo!.isNewUser) {
+        FirestoreService().createUserData(authResult.user!.uid);
+      }
     } on FirebaseAuthException catch (e) {
-      // return e
+      return;
     }
   }
 

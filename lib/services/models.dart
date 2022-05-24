@@ -24,11 +24,11 @@ class Post {
 }
 
 @JsonSerializable()
-class UserExtraInfo {
+class UserInfo {
   String bio;
 
-  UserExtraInfo({this.bio = ''});
-  factory UserExtraInfo.fromJson(Map<String, dynamic> json) =>
-      _$UserExtraInfoFromJson(json);
-  Map<String, dynamic> toJson() => _$UserExtraInfoToJson(this);
+  UserInfo({this.bio = ''});
+  factory UserInfo.fromJson(Map<String, dynamic> json) =>
+      _$UserInfoFromJson(json);
+  Map<String, dynamic> toJson() => _$UserInfoToJson(this);
 }

@@ -36,25 +36,26 @@ class FirestoreService {
     }
   }
 
-  Stream<UserExtraInfo> streamUserExtraData() {
+  Stream<UserInfo> streamUserData() {
     return AuthService().userStream.switchMap((user) {
       if (user != null) {
-        var ref = _db.collection('userExtraData').doc(user.uid);
-        return ref
-            .snapshots()
-            .map((doc) => UserExtraInfo.fromJson(doc.data()!));
+        var ref = _db.collection('users').doc(user.uid);
+        return ref.snapshots().map((doc) => UserInfo.fromJson(doc.data()!));
       } else {
-        return Stream.fromIterable([UserExtraInfo()]);
+        return Stream.fromIterable([UserInfo()]);
       }
     });
   }
 
-  Future<void> updateUserData(UserExtraInfo userData) {
+  Future<void> createUserData(String uid) {
     var user = AuthService().user!;
-    var ref = _db.collection('userExtraData').doc(user.uid);
+    var ref = _db.collection('users').doc(user.uid);
 
     var data = {
-      'bio': userData.bio,
+      'bio': "You might want to change this",
+      'userPhoto': user.photoURL,
+      'userName': user.displayName,
+      'isVerified': user.emailVerified,
     };
 
     return ref.set(data, SetOptions(merge: true));

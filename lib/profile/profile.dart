@@ -10,7 +10,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userExtraData = Provider.of<UserExtraInfo>(context);
+    var userExtraData = Provider.of<UserInfo>(context);
     var bio = userExtraData.bio;
 
     return Scaffold(

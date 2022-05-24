@@ -49,6 +49,8 @@ dependencies:
   badges: ^2.0.2
   expandable: ^5.0.1
   bulletin: ^0.0.1
+  flutter_firebase_chat_core: ^1.5.0
+  flutter_chat_ui: ^1.5.8
 
 dev_dependencies:
   flutter_test:

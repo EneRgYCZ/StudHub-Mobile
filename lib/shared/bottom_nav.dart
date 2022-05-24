@@ -25,7 +25,7 @@ class BottomNavBar extends StatelessWidget {
                   color: Colors.orange,
                 ),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/tips');
+                  Navigator.pushNamed(context, '/blog');
                 },
               ),
             ),

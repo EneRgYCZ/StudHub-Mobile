@@ -26,9 +26,7 @@ class _SearchScreenState extends State<SearchScreen> {
             FontAwesomeIcons.search,
             color: Colors.orange,
           ),
-          onSuffixTap: () {
-            print(searchTerm);
-          },
+          onSuffixTap: () {},
           closeSearchOnSuffixTap: true,
         ),
       ),

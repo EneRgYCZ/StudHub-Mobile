@@ -53,7 +53,7 @@ class NotificationsScreen extends StatelessWidget {
               BulletinItem(
                 text: "3. There is a new blog live, go check it out.",
                 onTap: () {
-                  Navigator.pushNamed(context, '/tips');
+                  Navigator.pushNamed(context, '/blog');
                 },
               ),
             ],
