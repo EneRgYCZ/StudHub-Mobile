@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
+import 'package:provider/provider.dart';
 
-class BlogScreen extends StatelessWidget {
-  const BlogScreen({Key? key}) : super(key: key);
+import '../services/models.dart';
+
+class BlogCard extends StatelessWidget {
+  const BlogCard({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final blog = Provider.of<Blog>(context);
+    print(blog.title);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Blog"),
@@ -17,9 +24,8 @@ class BlogScreen extends StatelessWidget {
         ),
         child: ListView(
           physics: const BouncingScrollPhysics(),
-          // ignore: prefer_const_literals_to_create_immutables
-          children: <Widget>[
-            const Card1(),
+          children: const <Widget>[
+            Card1(),
           ],
         ),
       ),
