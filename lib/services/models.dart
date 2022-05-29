@@ -26,9 +26,24 @@ class Post {
 @JsonSerializable()
 class UserInfo {
   String bio;
+  int isVerified;
 
-  UserInfo({this.bio = ''});
+  UserInfo({
+    this.bio = '',
+    this.isVerified = 0,
+  });
   factory UserInfo.fromJson(Map<String, dynamic> json) =>
       _$UserInfoFromJson(json);
   Map<String, dynamic> toJson() => _$UserInfoToJson(this);
+}
+
+@JsonSerializable()
+class Blog {
+  String title;
+  String text;
+  String photo;
+
+  Blog({this.title = '', this.photo = '', this.text = ''});
+  factory Blog.fromJson(Map<String, dynamic> json) => _$BlogFromJson(json);
+  Map<String, dynamic> toJson() => _$BlogToJson(this);
 }
