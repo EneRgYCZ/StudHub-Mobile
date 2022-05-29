@@ -37,9 +37,18 @@ class _AppState extends State<App> {
 
         // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
-          return StreamProvider(
-            create: (_) => FirestoreService().streamUserData(),
-            initialData: UserInfo(),
+          List<Blog> blogs = [];
+          return MultiProvider(
+            providers: [
+              StreamProvider<UserInfo>(
+                create: (_) => FirestoreService().streamUserData(),
+                initialData: UserInfo(),
+              ),
+              StreamProvider<List<Blog>>(
+                create: (_) => FirestoreService().streamBlogData(),
+                initialData: blogs,
+              ),
+            ],
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               routes: appRoutes,

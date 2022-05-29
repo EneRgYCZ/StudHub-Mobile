@@ -61,14 +61,9 @@ class FirestoreService {
     return ref.set(data, SetOptions(merge: true));
   }
 
-  Stream<Blog> streamBlogData() {
-    return AuthService().userStream.switchMap((user) {
-      if (user != null) {
-        var ref = _db.collection('blogs').doc();
-        return ref.snapshots().map((doc) => Blog.fromJson(doc.data()!));
-      } else {
-        return Stream.fromIterable([Blog()]);
-      }
-    });
+  Stream<List<Blog>> streamBlogData() {
+    return _db.collection('blogs').snapshots().map((snapShot) => snapShot.docs
+        .map((document) => Blog.fromJson(document.data()))
+        .toList());
   }
 }

@@ -36,8 +36,12 @@ Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
 
 Blog _$BlogFromJson(Map<String, dynamic> json) => Blog(
       title: json['title'] as String? ?? '',
+      photo: json['photo'] as String? ?? '',
+      text: json['text'] as String? ?? '',
     );
 
 Map<String, dynamic> _$BlogToJson(Blog instance) => <String, dynamic>{
       'title': instance.title,
+      'text': instance.text,
+      'photo': instance.photo,
     };

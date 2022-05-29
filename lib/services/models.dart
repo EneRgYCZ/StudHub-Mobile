@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:json_annotation/json_annotation.dart';
 part 'models.g.dart';
 
@@ -42,8 +40,10 @@ class UserInfo {
 @JsonSerializable()
 class Blog {
   String title;
+  String text;
+  String photo;
 
-  Blog({this.title = ''});
+  Blog({this.title = '', this.photo = '', this.text = ''});
   factory Blog.fromJson(Map<String, dynamic> json) => _$BlogFromJson(json);
   Map<String, dynamic> toJson() => _$BlogToJson(this);
 }
