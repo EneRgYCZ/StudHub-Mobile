@@ -3,6 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
+import 'package:provider/provider.dart';
+
+import '../services/models.dart';
 
 String randomString() {
   final random = Random.secure();
@@ -16,7 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: ChatScreen(),
+      home: Scaffold(),
     );
   }
 }
@@ -51,6 +54,8 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var userExtraData = Provider.of<UserInfo>(context);
+    print(userExtraData.userContacts[0]);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Chat"),

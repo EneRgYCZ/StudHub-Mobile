@@ -26,8 +26,17 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
 
 UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
       bio: json['bio'] as String? ?? '',
-    );
+      isVerified: json['isVerified'] as bool? ?? false,
+      userName: json['userName'] as String? ?? '',
+      userPhoto: json['userPhoto'] as String? ?? '',
+    )..userContacts = (json['userContacts'] as List<dynamic>)
+        .map((e) => e as String)
+        .toList();
 
 Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
       'bio': instance.bio,
+      'isVerified': instance.isVerified,
+      'userName': instance.userName,
+      'userPhoto': instance.userPhoto,
+      'userContacts': instance.userContacts,
     };

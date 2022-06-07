@@ -12,11 +12,16 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var userExtraData = Provider.of<UserInfo>(context);
     var bio = userExtraData.bio;
+    var userName = userExtraData.userName;
+    var userPhoto = userExtraData.userPhoto;
 
     return Scaffold(
-      appBar: const PreferredSize(
-        child: ProfileAppBar(),
-        preferredSize: Size.fromHeight(180),
+      appBar: PreferredSize(
+        child: ProfileAppBar(
+          userName: userName,
+          userPhoto: userPhoto,
+        ),
+        preferredSize: const Size.fromHeight(180),
       ),
       body: ProfileBody(bio: bio),
     );
@@ -59,9 +64,12 @@ class ProfileBody extends StatelessWidget {
 }
 
 class ProfileAppBar extends StatelessWidget {
-  const ProfileAppBar({
-    Key? key,
-  }) : super(key: key);
+  final String userName;
+  final String userPhoto;
+
+  const ProfileAppBar(
+      {Key? key, required this.userName, required this.userPhoto})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +94,7 @@ class ProfileAppBar extends StatelessWidget {
                     borderRadius: BorderRadius.circular(30),
                     image: DecorationImage(
                       image: NetworkImage(
-                        "${user.photoURL}",
+                        userPhoto,
                       ),
                       fit: BoxFit.cover,
                     ),
@@ -98,7 +106,7 @@ class ProfileAppBar extends StatelessWidget {
               height: 10,
             ),
             Text(
-              "${user.displayName}",
+              userName,
               style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
             const SizedBox(
