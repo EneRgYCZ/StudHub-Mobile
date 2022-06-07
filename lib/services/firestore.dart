@@ -60,4 +60,10 @@ class FirestoreService {
 
     return ref.set(data, SetOptions(merge: true));
   }
+
+  Stream<List<Blog>> streamBlogData() {
+    return _db.collection('blogs').snapshots().map((snapShot) => snapShot.docs
+        .map((document) => Blog.fromJson(document.data()))
+        .toList());
+  }
 }

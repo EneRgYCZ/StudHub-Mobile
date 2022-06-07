@@ -10,10 +10,10 @@ import 'package:studhub/notifications/notifications.dart';
 
 var appRoutes = {
   '/': (context) => const HomeScreen(),
+  '/blog': (context) => const BlogScreen(),
   '/chat': (context) => const ChatScreen(),
   '/login': (context) => const LoginScreen(),
   '/posts': (context) => const PostsScreen(),
-  '/blog': (context) => const BlogScreen(),
   '/search': (context) => const SearchScreen(),
   '/profile': (context) => const ProfileScreen(),
   '/post_create': (context) => const PostCreateScreen(),

@@ -26,6 +26,7 @@ class Post {
 @JsonSerializable()
 class UserInfo {
   String bio;
+<<<<<<< HEAD
   bool isVerified;
   String userName;
   String userPhoto;
@@ -36,8 +37,26 @@ class UserInfo {
     this.isVerified = false,
     this.userName = '',
     this.userPhoto = '',
+=======
+  int isVerified;
+
+  UserInfo({
+    this.bio = '',
+    this.isVerified = 0,
+>>>>>>> 9606d0b42f8c2ede03c117006edd22eaba0b1661
   });
   factory UserInfo.fromJson(Map<String, dynamic> json) =>
       _$UserInfoFromJson(json);
   Map<String, dynamic> toJson() => _$UserInfoToJson(this);
+}
+
+@JsonSerializable()
+class Blog {
+  String title;
+  String text;
+  String photo;
+
+  Blog({this.title = '', this.photo = '', this.text = ''});
+  factory Blog.fromJson(Map<String, dynamic> json) => _$BlogFromJson(json);
+  Map<String, dynamic> toJson() => _$BlogToJson(this);
 }
