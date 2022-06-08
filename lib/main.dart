@@ -41,7 +41,7 @@ class _AppState extends State<App> {
           return MultiProvider(
             providers: [
               StreamProvider<UserInfo>(
-                create: (_) => FirestoreService().streamUserData(),
+                create: (_) => FirestoreService().streamCurrentUserData(),
                 initialData: UserInfo(),
               ),
               StreamProvider<List<Blog>>(

@@ -36,7 +36,15 @@ class FirestoreService {
     }
   }
 
-  Stream<UserInfo> streamUserData() {
+  Future<List<UserInfo>> getUserData(List uids) async {
+    var ref = _db.collection('users');
+    var snapshot = await ref.where(FieldPath.documentId, whereIn: uids).get();
+    var data = snapshot.docs.map((s) => s.data());
+    var users = data.map((d) => UserInfo.fromJson(d));
+    return users.toList();
+  }
+
+  Stream<UserInfo> streamCurrentUserData() {
     return AuthService().userStream.switchMap((user) {
       if (user != null) {
         var ref = _db.collection('users').doc(user.uid);

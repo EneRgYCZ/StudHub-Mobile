@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:studhub/services/auth.dart';
 import 'package:studhub/services/models.dart';
 
-var user = AuthService().user!;
-
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
