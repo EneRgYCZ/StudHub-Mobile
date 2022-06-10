@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studhub/services/firestore.dart';
@@ -22,18 +24,22 @@ class ChatBodyWidget extends StatelessWidget {
             scrollDirection: Axis.vertical,
             itemBuilder: (BuildContext context, int index) {
               final user = snapshot.data[index];
-              return Padding(
-                padding: const EdgeInsets.only(top: 8.0),
-                child: SizedBox(
-                  height: 55,
-                  child: ListTile(
-                    leading: CircleAvatar(
-                      radius: 25,
-                      backgroundImage: NetworkImage(user.userPhoto),
-                    ),
-                    title: Text(user.userName),
-                    subtitle: const Text("Lsere ba muie idioata"),
+              return SizedBox(
+                height: 70,
+                child: ListTile(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/message_screen',
+                      arguments: user,
+                    );
+                  },
+                  leading: CircleAvatar(
+                    radius: 25,
+                    backgroundImage: NetworkImage(user.userPhoto),
                   ),
+                  title: Text(user.userName),
+                  subtitle: const Text("Lsere ba muie idioata"),
                 ),
               );
             },

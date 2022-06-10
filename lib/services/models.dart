@@ -1,4 +1,6 @@
+import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
+
 part 'models.g.dart';
 
 @JsonSerializable()
@@ -25,6 +27,7 @@ class Post {
 
 @JsonSerializable()
 class UserInfo {
+  String uid;
   String bio;
   bool isVerified;
   String userName;
@@ -32,10 +35,11 @@ class UserInfo {
   List<String> userContacts = <String>[];
 
   UserInfo({
+    this.uid = '',
     this.bio = '',
-    this.isVerified = false,
     this.userName = '',
     this.userPhoto = '',
+    this.isVerified = false,
   });
   factory UserInfo.fromJson(Map<String, dynamic> json) =>
       _$UserInfoFromJson(json);
@@ -51,4 +55,24 @@ class Blog {
   Blog({this.title = '', this.photo = '', this.text = ''});
   factory Blog.fromJson(Map<String, dynamic> json) => _$BlogFromJson(json);
   Map<String, dynamic> toJson() => _$BlogToJson(this);
+}
+
+@JsonSerializable()
+class Message {
+  String uid;
+  String message;
+  String userName;
+  String userPhoto;
+  DateTime createdAt =
+      DateFormat.yMMMMd('en_US').format(DateTime.now()) as DateTime;
+
+  Message({
+    this.uid = '',
+    this.message = '',
+    this.userName = '',
+    this.userPhoto = '',
+  });
+  factory Message.fromJson(Map<String, dynamic> json) =>
+      _$MessageFromJson(json);
+  Map<String, dynamic> toJson() => _$MessageToJson(this);
 }

@@ -25,15 +25,17 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
     };
 
 UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
+      uid: json['uid'] as String? ?? '',
       bio: json['bio'] as String? ?? '',
-      isVerified: json['isVerified'] as bool? ?? false,
       userName: json['userName'] as String? ?? '',
       userPhoto: json['userPhoto'] as String? ?? '',
+      isVerified: json['isVerified'] as bool? ?? false,
     )..userContacts = (json['userContacts'] as List<dynamic>)
         .map((e) => e as String)
         .toList();
 
 Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
+      'uid': instance.uid,
       'bio': instance.bio,
       'isVerified': instance.isVerified,
       'userName': instance.userName,
@@ -51,4 +53,19 @@ Map<String, dynamic> _$BlogToJson(Blog instance) => <String, dynamic>{
       'title': instance.title,
       'text': instance.text,
       'photo': instance.photo,
+    };
+
+Message _$MessageFromJson(Map<String, dynamic> json) => Message(
+      uid: json['uid'] as String? ?? '',
+      message: json['message'] as String? ?? '',
+      userName: json['userName'] as String? ?? '',
+      userPhoto: json['userPhoto'] as String? ?? '',
+    )..createdAt = DateTime.parse(json['createdAt'] as String);
+
+Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
+      'uid': instance.uid,
+      'message': instance.message,
+      'userName': instance.userName,
+      'userPhoto': instance.userPhoto,
+      'createdAt': instance.createdAt.toIso8601String(),
     };
