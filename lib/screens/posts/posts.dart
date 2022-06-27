@@ -1,13 +1,13 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:studhub/posts/post_item.dart';
-import 'package:studhub/services/firestore.dart';
 import 'package:studhub/services/models.dart';
 import 'package:studhub/shared/bottom_nav.dart';
+import 'package:studhub/services/firestore.dart';
+import 'package:studhub/screens/posts/post_item.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import '../shared/error.dart';
-import '../shared/loading.dart';
+import '../../shared/error.dart';
+import '../../shared/loading.dart';
 
 class PostsScreen extends StatelessWidget {
   const PostsScreen({Key? key}) : super(key: key);

@@ -20,12 +20,36 @@ class FirestoreService {
     return posts.toList();
   }
 
-  Future<List<UserInfo>> getUserData(List uids) async {
+  Future<List<UserInfo>> getUsersData(List uids) async {
     var ref = _db.collection('users');
     var snapshot = await ref.where(FieldPath.documentId, whereIn: uids).get();
     var data = snapshot.docs.map((s) => s.data());
     var users = data.map((d) => UserInfo.fromJson(d));
     return users.toList();
+  }
+
+  Future<UserInfo> getUserData(String uid) async {
+    var ref = _db.collection('users').doc(uid);
+    var snapshot = await ref.get();
+    var data = snapshot.data();
+    var user = UserInfo.fromJson(data!);
+    print("User:");
+    print(user);
+    return user;
+  }
+
+  Future<List> getChatRooms(uid) async {
+    List array = [];
+    var ref = _db.collection('rooms');
+    var snapshot =
+        await ref.where("participants", arrayContains: uid).get().then(
+      (QuerySnapshot querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          array.add(doc["participants"]);
+        }
+      },
+    );
+    return array[0];
   }
 
 // **************************************************************************
@@ -34,7 +58,6 @@ class FirestoreService {
 
   Future<void> uploadMessage(String reciverUid, String message) async {
     var user = AuthService().user!;
-    print(reciverUid);
     final ref = _db.collection("rooms/$reciverUid/messages");
     final newMessage = {
       'uid': user.uid,
@@ -44,13 +67,7 @@ class FirestoreService {
       'createdAt': DateTime.now()
     };
 
-    try {
-      await ref.add(newMessage);
-      print("Done");
-    } catch (e) {
-      print("DA");
-      print(e);
-    }
+    await ref.add(newMessage);
   }
 
   Future<void> createPost(text) async {

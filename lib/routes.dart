@@ -1,13 +1,13 @@
-import 'package:studhub/blog/blog.dart';
-import 'package:studhub/chat/chat.dart';
-import 'package:studhub/home/home.dart';
-import 'package:studhub/posts/posts.dart';
-import 'package:studhub/login/login.dart';
-import 'package:studhub/search/search.dart';
-import 'package:studhub/profile/profile.dart';
-import 'package:studhub/posts/post_create.dart';
-import 'package:studhub/chat/messageScreen.dart';
-import 'package:studhub/notifications/notifications.dart';
+import 'package:studhub/screens/chat/chat.dart';
+import 'package:studhub/screens/blog/blog.dart';
+import 'package:studhub/screens/home/home.dart';
+import 'package:studhub/screens/posts/posts.dart';
+import 'package:studhub/screens/login/login.dart';
+import 'package:studhub/screens/search/search.dart';
+import 'package:studhub/screens/profile/profile.dart';
+import 'package:studhub/screens/posts/post_create.dart';
+import 'package:studhub/screens/chat/messageScreen.dart';
+import 'package:studhub/screens/notifications/notifications.dart';
 
 var appRoutes = {
   '/': (context) => const HomeScreen(),
