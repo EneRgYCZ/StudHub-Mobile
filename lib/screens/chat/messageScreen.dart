@@ -7,6 +7,8 @@ class MessageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final userData = ModalRoute.of(context)!.settings.arguments as dynamic;
-    return Scaffold(body: Text(userData));
+    return Scaffold(
+      body: Text(userData.bio),
+    );
   }
 }

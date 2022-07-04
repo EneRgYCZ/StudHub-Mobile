@@ -33,8 +33,6 @@ class FirestoreService {
     var snapshot = await ref.get();
     var data = snapshot.data();
     var user = UserInfo.fromJson(data!);
-    print("User:");
-    print(user);
     return user;
   }
 
