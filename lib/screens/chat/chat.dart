@@ -27,7 +27,9 @@ class ChatScreen extends StatelessWidget {
               itemCount: snapshot.data.length,
               scrollDirection: Axis.vertical,
               itemBuilder: (BuildContext context, int index) {
-                return ChatRoomBox(uid: snapshot.data[index]);
+                (snapshot.data[index] != userExtraData.uid
+                    ? ChatRoomBox(uid: snapshot.data[index])
+                    : Container());
               },
             );
           }
