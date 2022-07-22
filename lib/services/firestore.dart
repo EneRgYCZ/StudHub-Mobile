@@ -39,8 +39,7 @@ class FirestoreService {
   Future<List> getChatRooms(uid) async {
     List array = [];
     var ref = _db.collection('rooms');
-    var snapshot =
-        await ref.where("participants", arrayContains: uid).get().then(
+    await ref.where("participants", arrayContains: uid).get().then(
       (QuerySnapshot querySnapshot) {
         for (var doc in querySnapshot.docs) {
           array.add(doc["participants"]);
@@ -124,9 +123,14 @@ class FirestoreService {
         .toList());
   }
 
-  /*
-  Stream<List<Message>> streamMessages(String uid) {
-    return _db.collection("users/$uid/messages").get();
-
-  }*/
+  Stream<List<Message>> streamMessages(String roomId) {
+    return _db
+        .collection('rooms')
+        .doc(roomId)
+        .collection("messages")
+        .snapshots()
+        .map((snapShot) => snapShot.docs
+            .map((document) => Message.fromJson(document.data()))
+            .toList());
+  }
 }

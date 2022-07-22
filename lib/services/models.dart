@@ -59,18 +59,10 @@ class Blog {
 
 @JsonSerializable()
 class Message {
-  String uid;
-  String message;
-  String userName;
-  String userPhoto;
-  DateTime createdAt =
-      DateFormat.yMMMMd('en_US').format(DateTime.now()) as DateTime;
+  String text;
 
   Message({
-    this.uid = '',
-    this.message = '',
-    this.userName = '',
-    this.userPhoto = '',
+    this.text = '',
   });
   factory Message.fromJson(Map<String, dynamic> json) =>
       _$MessageFromJson(json);
