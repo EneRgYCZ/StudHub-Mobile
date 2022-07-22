@@ -12,7 +12,20 @@ class MessageScreen extends StatelessWidget {
     final userData = ModalRoute.of(context)!.settings.arguments as dynamic;
     List<Message> data = [];
     return Scaffold(
-      appBar: AppBar(title: Text(userData.userName)),
+      appBar: AppBar(
+        title: Row(
+          children: [
+            CircleAvatar(
+              radius: 20,
+              backgroundImage: NetworkImage(userData.userPhoto),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10),
+              child: Text(userData.userName),
+            ),
+          ],
+        ),
+      ),
       body: StreamBuilder<List<Message>>(
         stream: FirestoreService().streamMessages("zVaCiLINlqNrWLCVT3aP"),
         initialData: data,
