@@ -37,16 +37,16 @@ class FirestoreService {
   }
 
   Future<List> getChatRooms(uid) async {
-    List array = [];
+    List room = [];
     var ref = _db.collection('rooms');
     await ref.where("participants", arrayContains: uid).get().then(
       (QuerySnapshot querySnapshot) {
         for (var doc in querySnapshot.docs) {
-          array.add(doc["participants"]);
+          room.add(doc["participants"]);
         }
       },
     );
-    return array[0];
+    return room[0];
   }
 
 // **************************************************************************

@@ -20,6 +20,7 @@ class ChatRoomBox extends StatelessWidget {
           return const Center(child: LoadingScreen());
         } else {
           final user = snapshot.data;
+          print(snapshot.data);
           return SizedBox(
             height: 70,
             child: ListTile(
