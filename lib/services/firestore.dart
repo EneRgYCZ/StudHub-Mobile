@@ -20,7 +20,7 @@ class FirestoreService {
     return posts.toList();
   }
 
-  Future<List<UserInfo>> getUserData(List uids) async {
+  Future<List<UserInfo>> getUsersData(List uids) async {
     var ref = _db.collection('users');
     var snapshot = await ref.where(FieldPath.documentId, whereIn: uids).get();
     var data = snapshot.docs.map((s) => s.data());
@@ -28,29 +28,45 @@ class FirestoreService {
     return users.toList();
   }
 
+  Future<UserInfo> getUserData(String uid) async {
+    var ref = _db.collection('users').doc(uid);
+    var snapshot = await ref.get();
+    var data = snapshot.data();
+    var user = UserInfo.fromJson(data!);
+    return user;
+  }
+
+  Future<Map> getChatRooms(uid) async {
+    Map<String, dynamic> room = {};
+    List arrayOfIds = [];
+    var ref = _db.collection('rooms');
+    await ref.where("participants", arrayContains: uid).get().then(
+      (QuerySnapshot querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          room["roomId"] = doc.id;
+          arrayOfIds.add(doc["participants"]);
+        }
+        room["ids"] = arrayOfIds[0];
+        arrayOfIds = [];
+      },
+    );
+    return room;
+  }
+
 // **************************************************************************
 // Future Void
 // **************************************************************************
 
-  Future<void> uploadMessage(String reciverUid, String message) async {
+  Future<void> uploadMessage(String roomId, String message) async {
     var user = AuthService().user!;
-    print(reciverUid);
-    final ref = _db.collection("rooms/$reciverUid/messages");
+    final ref = _db.collection("rooms/$roomId/messages");
     final newMessage = {
       'uid': user.uid,
-      'message': message,
-      'userPhoto': user.photoURL,
-      'userName': user.displayName,
-      'createdAt': DateTime.now()
+      'text': message,
+      'sentAt': Timestamp.now(),
     };
 
-    try {
-      await ref.add(newMessage);
-      print("Done");
-    } catch (e) {
-      print("DA");
-      print(e);
-    }
+    await ref.add(newMessage);
   }
 
   Future<void> createPost(text) async {
@@ -109,9 +125,15 @@ class FirestoreService {
         .toList());
   }
 
-  /*
-  Stream<List<Message>> streamMessages(String uid) {
-    return _db.collection("users/$uid/messages").get();
-
-  }*/
+  Stream<List<Message>> streamMessages(String roomId) {
+    return _db
+        .collection('rooms')
+        .doc(roomId)
+        .collection("messages")
+        .orderBy("sentAt", descending: true)
+        .snapshots()
+        .map((snapShot) => snapShot.docs
+            .map((document) => Message.fromJson(document.data()))
+            .toList());
+  }
 }
