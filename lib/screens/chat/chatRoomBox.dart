@@ -3,12 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:studhub/services/firestore.dart';
 import 'package:studhub/shared/loading.dart';
+import 'package:studhub/shared/screenArguments.dart';
 
 import '../../services/models.dart';
 
 class ChatRoomBox extends StatelessWidget {
   final String uid;
-  const ChatRoomBox({Key? key, required this.uid}) : super(key: key);
+  final String roomId;
+  const ChatRoomBox({Key? key, required this.uid, required this.roomId})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +22,7 @@ class ChatRoomBox extends StatelessWidget {
         if (!snapshot.hasData) {
           return const Center(child: LoadingScreen());
         } else {
-          final user = snapshot.data;
-          print(snapshot.data);
+          var user = snapshot.data;
           return SizedBox(
             height: 70,
             child: ListTile(
@@ -28,7 +30,7 @@ class ChatRoomBox extends StatelessWidget {
                 Navigator.pushNamed(
                   context,
                   '/message_screen',
-                  arguments: user,
+                  arguments: ScreenArguments(roomId, user),
                 );
               },
               leading: CircleAvatar(

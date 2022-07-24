@@ -16,7 +16,7 @@ class ChatScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Chat"),
       ),
-      body: FutureBuilder<List>(
+      body: FutureBuilder<Map>(
         future: FirestoreService().getChatRooms(userExtraData.uid),
         builder: (context, AsyncSnapshot snapshot) {
           if (!snapshot.hasData) {
@@ -27,8 +27,11 @@ class ChatScreen extends StatelessWidget {
               itemCount: snapshot.data.length,
               scrollDirection: Axis.vertical,
               itemBuilder: (BuildContext context, int index) {
-                if (snapshot.data[index] != userExtraData.uid) {
-                  return ChatRoomBox(uid: snapshot.data[index]);
+                if (snapshot.data["ids"][index] != userExtraData.uid) {
+                  return ChatRoomBox(
+                    uid: snapshot.data["ids"][index],
+                    roomId: snapshot.data["roomId"],
+                  );
                 } else {
                   return const SizedBox.shrink();
                 }

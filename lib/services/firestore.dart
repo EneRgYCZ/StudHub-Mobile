@@ -36,32 +36,34 @@ class FirestoreService {
     return user;
   }
 
-  Future<List> getChatRooms(uid) async {
-    List room = [];
+  Future<Map> getChatRooms(uid) async {
+    Map<String, dynamic> room = {};
+    List arrayOfIds = [];
     var ref = _db.collection('rooms');
     await ref.where("participants", arrayContains: uid).get().then(
       (QuerySnapshot querySnapshot) {
         for (var doc in querySnapshot.docs) {
-          room.add(doc["participants"]);
+          room["roomId"] = doc.id;
+          arrayOfIds.add(doc["participants"]);
         }
+        room["ids"] = arrayOfIds[0];
+        arrayOfIds = [];
       },
     );
-    return room[0];
+    return room;
   }
 
 // **************************************************************************
 // Future Void
 // **************************************************************************
 
-  Future<void> uploadMessage(String reciverUid, String message) async {
+  Future<void> uploadMessage(String roomId, String message) async {
     var user = AuthService().user!;
-    final ref = _db.collection("rooms/$reciverUid/messages");
+    final ref = _db.collection("rooms/$roomId/messages");
     final newMessage = {
       'uid': user.uid,
-      'message': message,
-      'userPhoto': user.photoURL,
-      'userName': user.displayName,
-      'createdAt': DateTime.now()
+      'text': message,
+      'sentAt': Timestamp.now(),
     };
 
     await ref.add(newMessage);
@@ -128,6 +130,7 @@ class FirestoreService {
         .collection('rooms')
         .doc(roomId)
         .collection("messages")
+        .orderBy("sentAt", descending: true)
         .snapshots()
         .map((snapShot) => snapShot.docs
             .map((document) => Message.fromJson(document.data()))
