@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import 'package:provider/provider.dart';
 import 'package:studhub/screens/chat/message_bubble_widget.dart';
 
 import '../../services/firestore.dart';
@@ -11,21 +12,23 @@ class Messages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<UserInfo>(context);
     List<Message> data = [];
     return StreamBuilder<List<Message>>(
       stream: FirestoreService().streamMessages(roomId),
       initialData: data,
-      builder: (ctx, chatSnapsot) {
-        if (chatSnapsot.connectionState == ConnectionState.waiting) {
+      builder: (ctx, chatSnapshot) {
+        if (chatSnapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: LoadingScreen());
-        } else if (chatSnapsot.hasData) {
+        } else if (chatSnapshot.hasData) {
           return ListView.builder(
             reverse: true,
-            itemCount: chatSnapsot.data?.length,
+            itemCount: chatSnapshot.data?.length,
             itemBuilder: (ctx, index) {
               return MessageBubbleWidget(
-                  message: chatSnapsot.data![index]
-                      .text); //Text(chatSnapsot.data![index].text);
+                  message: chatSnapshot.data![index].text,
+                  isMe:
+                      chatSnapshot.data![index].uid == user.uid ? true : false);
             },
           );
         } else {

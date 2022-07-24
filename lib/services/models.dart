@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'models.g.dart';
@@ -56,13 +57,26 @@ class Blog {
   Map<String, dynamic> toJson() => _$BlogToJson(this);
 }
 
+class TimestampConverter implements JsonConverter<DateTime, Timestamp> {
+  const TimestampConverter();
+
+  @override
+  DateTime fromJson(Timestamp timestamp) {
+    return timestamp.toDate();
+  }
+
+  @override
+  Timestamp toJson(DateTime date) => Timestamp.fromDate(date);
+}
+
 @JsonSerializable()
 class Message {
+  String uid;
   String text;
+  @TimestampConverter()
+  final DateTime sentAt;
 
-  Message({
-    this.text = '',
-  });
+  Message({this.uid = '', this.text = '', required this.sentAt});
   factory Message.fromJson(Map<String, dynamic> json) =>
       _$MessageFromJson(json);
   Map<String, dynamic> toJson() => _$MessageToJson(this);

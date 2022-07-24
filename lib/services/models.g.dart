@@ -56,9 +56,13 @@ Map<String, dynamic> _$BlogToJson(Blog instance) => <String, dynamic>{
     };
 
 Message _$MessageFromJson(Map<String, dynamic> json) => Message(
+      uid: json['uid'] as String? ?? '',
       text: json['text'] as String? ?? '',
+      sentAt: const TimestampConverter().fromJson(json['sentAt'] as Timestamp),
     );
 
 Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
+      'uid': instance.uid,
       'text': instance.text,
+      'sentAt': const TimestampConverter().toJson(instance.sentAt),
     };

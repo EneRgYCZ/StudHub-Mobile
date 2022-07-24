@@ -3,7 +3,7 @@ import 'package:studhub/services/firestore.dart';
 
 class NewMessage extends StatefulWidget {
   final String roomId;
-  NewMessage({Key? key, required this.roomId}) : super(key: key);
+  const NewMessage({Key? key, required this.roomId}) : super(key: key);
 
   @override
   State<NewMessage> createState() => _NewMessageState();
