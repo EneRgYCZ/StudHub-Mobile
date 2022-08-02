@@ -34,7 +34,7 @@ class BottomNavBar extends StatelessWidget {
               padding: const EdgeInsets.only(right: 28.0),
               icon: const Icon(FontAwesomeIcons.search, color: Colors.orange),
               onPressed: () {
-                Navigator.pushNamed(context, '/search');
+                Navigator.pushNamed(context, '/search', arguments: "");
               },
             ),
             Badge(

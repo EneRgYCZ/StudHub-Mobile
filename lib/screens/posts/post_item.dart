@@ -68,6 +68,18 @@ class PostItem extends StatelessWidget {
                         return Tooltip(
                           message: tags[index],
                           child: ItemTags(
+                            onPressed: (i) {
+                              Navigator.pushNamed(
+                                context,
+                                '/search',
+                                arguments: tags[index],
+                              );
+                            },
+                            textActiveColor: Colors.white,
+                            activeColor: Colors.blueGrey,
+                            color: Colors.blueGrey,
+                            textColor: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
                             index: index,
                             title: tags[index],
                           ),
@@ -112,6 +124,7 @@ class PostsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List tags = ["Da", "Nu", "De ce nu?"];
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -151,6 +164,37 @@ class PostsScreen extends StatelessWidget {
                   ],
                 ),
               ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 15, bottom: 10),
+          child: Row(
+            children: [
+              Tags(
+                itemCount: tags.length,
+                itemBuilder: (int index) {
+                  return Tooltip(
+                    message: tags[index],
+                    child: ItemTags(
+                      onPressed: (i) {
+                        Navigator.pushNamed(
+                          context,
+                          '/search',
+                          arguments: tags[index],
+                        );
+                      },
+                      textActiveColor: Colors.white,
+                      activeColor: Colors.blueGrey,
+                      color: Colors.blueGrey,
+                      textColor: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      index: index,
+                      title: tags[index],
+                    ),
+                  );
+                },
+              )
             ],
           ),
         ),

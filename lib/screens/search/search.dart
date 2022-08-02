@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:anim_search_bar/anim_search_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -14,6 +15,9 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final recivedSearchTerm =
+        ModalRoute.of(context)!.settings.arguments as dynamic;
+    searchTerm.text = recivedSearchTerm;
     return Scaffold(
       appBar: AppBar(
         title: AnimSearchBar(
@@ -24,7 +28,11 @@ class _SearchScreenState extends State<SearchScreen> {
           textController: searchTerm,
           prefixIcon: const Icon(
             FontAwesomeIcons.search,
-            color: Colors.orange,
+            color: Colors.black,
+          ),
+          suffixIcon: const Icon(
+            FontAwesomeIcons.search,
+            color: Colors.black,
           ),
           onSuffixTap: () {},
           closeSearchOnSuffixTap: true,
