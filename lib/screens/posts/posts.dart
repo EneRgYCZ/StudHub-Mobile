@@ -14,6 +14,9 @@ class PostsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 7;
+    final double itemWidth = size.width / 2;
     return FutureBuilder<List<Post>>(
       future: FirestoreService().getPosts(),
       builder: (context, snapshot) {
@@ -32,7 +35,8 @@ class PostsScreen extends StatelessWidget {
               preferredSize: Size.fromHeight(60),
             ),
             body: GridView.count(
-              primary: false,
+              primary: true,
+              childAspectRatio: (itemWidth / itemHeight),
               padding: const EdgeInsets.all(20.0),
               crossAxisCount: 1,
               crossAxisSpacing: 10.0,
@@ -50,7 +54,7 @@ class PostsScreen extends StatelessWidget {
             bottomNavigationBar: const BottomNavBar(),
           );
         } else {
-          return const Text('No topics found in database. Check it');
+          return const Text('No posts found in database.');
         }
       },
     );

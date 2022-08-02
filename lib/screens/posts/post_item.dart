@@ -57,18 +57,20 @@ class PostItem extends StatelessWidget {
                 ],
               ),
               Flexible(
+                fit: FlexFit.tight,
                 child: Container(
+                  height: 10,
                   alignment: Alignment.topCenter,
                   child: SizedBox(
                     width: 300,
-                    height: 250,
+                    height: 100,
                     child: Text(
                       post.text,
                       style: const TextStyle(
                         height: 1.5,
                         fontWeight: FontWeight.bold,
                       ),
-                      maxLines: 10,
+                      maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
