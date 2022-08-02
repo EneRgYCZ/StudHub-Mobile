@@ -52,6 +52,7 @@ dependencies:
   flutter_firebase_chat_core: ^1.5.0
   flutter_chat_ui: ^1.5.8
   flutter_chat_types: ^3.3.4
+  flutter_tags_x: ^1.1.0
 
 dev_dependencies:
   flutter_test:

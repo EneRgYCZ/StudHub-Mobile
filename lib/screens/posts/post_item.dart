@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tags_x/flutter_tags_x.dart';
 
 import '../../services/models.dart';
 
@@ -8,6 +9,7 @@ class PostItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List tags = ["Da", "Nu", "De ce nu?"];
     return Hero(
       tag: post.text,
       child: Card(
@@ -55,6 +57,25 @@ class PostItem extends StatelessWidget {
                     ),
                   ),
                 ],
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15, bottom: 10),
+                child: Row(
+                  children: [
+                    Tags(
+                      itemCount: tags.length,
+                      itemBuilder: (int index) {
+                        return Tooltip(
+                          message: tags[index],
+                          child: ItemTags(
+                            index: index,
+                            title: tags[index],
+                          ),
+                        );
+                      },
+                    )
+                  ],
+                ),
               ),
               Flexible(
                 fit: FlexFit.tight,
