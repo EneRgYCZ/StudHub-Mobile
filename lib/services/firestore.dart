@@ -9,64 +9,15 @@ class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
 
 // **************************************************************************
-// Future Non-Void
+// POSTS RELATED FUNCTIONS
 // **************************************************************************
 
   Future<List<Post>> getPosts() async {
     var ref = _db.collection('posts');
-    var snapshot = await ref.get();
+    var snapshot = await ref.orderBy("date", descending: false).get();
     var data = snapshot.docs.map((s) => s.data());
     var posts = data.map((d) => Post.fromJson(d));
     return posts.toList();
-  }
-
-  Future<List<UserInfo>> getUsersData(List uids) async {
-    var ref = _db.collection('users');
-    var snapshot = await ref.where(FieldPath.documentId, whereIn: uids).get();
-    var data = snapshot.docs.map((s) => s.data());
-    var users = data.map((d) => UserInfo.fromJson(d));
-    return users.toList();
-  }
-
-  Future<UserInfo> getUserData(String uid) async {
-    var ref = _db.collection('users').doc(uid);
-    var snapshot = await ref.get();
-    var data = snapshot.data();
-    var user = UserInfo.fromJson(data!);
-    return user;
-  }
-
-  Future<Map> getChatRooms(uid) async {
-    Map<String, dynamic> room = {};
-    List arrayOfIds = [];
-    var ref = _db.collection('rooms');
-    await ref.where("participants", arrayContains: uid).get().then(
-      (QuerySnapshot querySnapshot) {
-        for (var doc in querySnapshot.docs) {
-          room["roomId"] = doc.id;
-          arrayOfIds.add(doc["participants"]);
-        }
-        room["ids"] = arrayOfIds[0];
-        arrayOfIds = [];
-      },
-    );
-    return room;
-  }
-
-// **************************************************************************
-// Future Void
-// **************************************************************************
-
-  Future<void> uploadMessage(String roomId, String message) async {
-    var user = AuthService().user!;
-    final ref = _db.collection("rooms/$roomId/messages");
-    final newMessage = {
-      'uid': user.uid,
-      'text': message,
-      'sentAt': Timestamp.now(),
-    };
-
-    await ref.add(newMessage);
   }
 
   Future<void> createPost(String text, List skills) async {
@@ -89,6 +40,38 @@ class FirestoreService {
     }
   }
 
+  Future<List<Post>> findRelatedPosts(skill) async {
+    var ref = _db.collection('posts');
+    var snapshot = await ref.where("skills", arrayContains: skill).get();
+    var data = snapshot.docs.map((s) => s.data());
+    var posts = data.map((d) => Post.fromJson(d));
+    return posts.toList();
+  }
+
+// **************************************************************************
+// POSTS RELATED FUNCTIONS (END)
+// **************************************************************************
+
+// **************************************************************************
+// USER RELATED FUNCTIONS
+// **************************************************************************
+
+  Future<List<UserInfo>> getUsersData(List uids) async {
+    var ref = _db.collection('users');
+    var snapshot = await ref.where(FieldPath.documentId, whereIn: uids).get();
+    var data = snapshot.docs.map((s) => s.data());
+    var users = data.map((d) => UserInfo.fromJson(d));
+    return users.toList();
+  }
+
+  Future<UserInfo> getUserData(String uid) async {
+    var ref = _db.collection('users').doc(uid);
+    var snapshot = await ref.get();
+    var data = snapshot.data();
+    var user = UserInfo.fromJson(data!);
+    return user;
+  }
+
   Future<void> createUserData(String uid) {
     var user = AuthService().user!;
     var ref = _db.collection('users').doc(user.uid);
@@ -104,10 +87,6 @@ class FirestoreService {
     return ref.set(data, SetOptions(merge: true));
   }
 
-// **************************************************************************
-// Streams
-// **************************************************************************
-
   Stream<UserInfo> streamCurrentUserData() {
     return AuthService().userStream.switchMap((user) {
       if (user != null) {
@@ -119,10 +98,41 @@ class FirestoreService {
     });
   }
 
-  Stream<List<Blog>> streamBlogData() {
-    return _db.collection('blogs').snapshots().map((snapShot) => snapShot.docs
-        .map((document) => Blog.fromJson(document.data()))
-        .toList());
+// **************************************************************************
+// USER RELATED FUNCTIONS (END)
+// **************************************************************************
+
+// **************************************************************************
+// CHAT RELATED FUNCTIONS
+// **************************************************************************
+
+  Future<Map> getChatRooms(uid) async {
+    Map<String, dynamic> room = {};
+    List arrayOfIds = [];
+    var ref = _db.collection('rooms');
+    await ref.where("participants", arrayContains: uid).get().then(
+      (QuerySnapshot querySnapshot) {
+        for (var doc in querySnapshot.docs) {
+          room["roomId"] = doc.id;
+          arrayOfIds.add(doc["participants"]);
+        }
+        room["ids"] = arrayOfIds[0];
+        arrayOfIds = [];
+      },
+    );
+    return room;
+  }
+
+  Future<void> uploadMessage(String roomId, String message) async {
+    var user = AuthService().user!;
+    final ref = _db.collection("rooms/$roomId/messages");
+    final newMessage = {
+      'uid': user.uid,
+      'text': message,
+      'sentAt': Timestamp.now(),
+    };
+
+    await ref.add(newMessage);
   }
 
   Stream<List<Message>> streamMessages(String roomId) {
@@ -136,4 +146,22 @@ class FirestoreService {
             .map((document) => Message.fromJson(document.data()))
             .toList());
   }
+
+// **************************************************************************
+// CHAT RELATED FUNCTIONS (END)
+// **************************************************************************
+
+// **************************************************************************
+// BLOG RELATED FUNCTIONS
+// **************************************************************************
+
+  Stream<List<Blog>> streamBlogData() {
+    return _db.collection('blogs').snapshots().map((snapShot) => snapShot.docs
+        .map((document) => Blog.fromJson(document.data()))
+        .toList());
+  }
 }
+
+// **************************************************************************
+// BLOG RELATED FUNCTIONS (END)
+// **************************************************************************

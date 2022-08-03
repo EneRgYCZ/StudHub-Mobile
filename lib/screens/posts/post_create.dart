@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tags_x/flutter_tags_x.dart';
 import 'package:studhub/services/firestore.dart';
+import 'package:flutter_tags_x/flutter_tags_x.dart';
 
 class PostCreateScreen extends StatelessWidget {
   const PostCreateScreen({Key? key}) : super(key: key);
