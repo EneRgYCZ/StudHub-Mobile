@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tags_x/flutter_tags_x.dart';
 import 'package:studhub/services/firestore.dart';
 
 class PostCreateScreen extends StatelessWidget {
@@ -34,8 +35,11 @@ class MyCustomForm extends StatefulWidget {
 class PostFrom extends State<MyCustomForm> {
   final _formKey = GlobalKey<FormState>();
 
-  TextEditingController title = TextEditingController();
-  TextEditingController text = TextEditingController();
+  String tags = '';
+  List arrayOfTags = [];
+
+  final TextEditingController _tagsController = TextEditingController();
+  final TextEditingController _text = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,11 +48,11 @@ class PostFrom extends State<MyCustomForm> {
       child: Form(
         key: _formKey,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
             TextFormField(
-              controller: text,
-              maxLines: 10,
+              controller: _text,
+              maxLines: 5,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
                 hintText: 'Share your idea',
@@ -60,18 +64,65 @@ class PostFrom extends State<MyCustomForm> {
                 return null;
               },
             ),
+            arrayOfTags.isEmpty
+                ? const SizedBox.shrink()
+                : Padding(
+                    padding: const EdgeInsets.only(top: 8.0),
+                    child: Row(
+                      children: [
+                        Tags(
+                          itemCount: arrayOfTags.length,
+                          itemBuilder: (int index) {
+                            return Tooltip(
+                              message: arrayOfTags[index],
+                              child: ItemTags(
+                                textActiveColor: Colors.white,
+                                activeColor: Colors.blueGrey,
+                                color: Colors.blueGrey,
+                                textColor: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                                index: index,
+                                title: arrayOfTags[index],
+                              ),
+                            );
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+            Container(
+              padding: const EdgeInsets.all(4),
+              child: Expanded(
+                child: TextField(
+                  controller: _tagsController,
+                  decoration: const InputDecoration(labelText: "Add a tag..."),
+                  onChanged: (value) {
+                    setState(() {
+                      tags = value;
+                    });
+                  },
+                  onSubmitted: (value) {
+                    String hastagString = "#" + value;
+                    arrayOfTags.add(hastagString);
+                    setState(() {
+                      _tagsController.clear();
+                    });
+                  },
+                ),
+              ),
+            ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
+              padding: const EdgeInsets.symmetric(vertical: 10.0),
               child: ElevatedButton(
                 onPressed: () {
                   // Validate returns true if the form is valid, or false otherwise.
                   if (_formKey.currentState!.validate()) {
-                    FirestoreService().createPost(text.text);
+                    FirestoreService().createPost(_text.text, arrayOfTags);
                     Navigator.of(context)
                         .pushNamedAndRemoveUntil('/', (route) => false);
                   }
                 },
-                child: const Text('Submit'),
+                child: const Text('Post'),
               ),
             ),
           ],

@@ -15,7 +15,7 @@ class PostsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 6;
+    final double itemHeight = (size.height - kToolbarHeight - 24) / 5;
     final double itemWidth = size.width / 2;
     return FutureBuilder<List<Post>>(
       future: FirestoreService().getPosts(),

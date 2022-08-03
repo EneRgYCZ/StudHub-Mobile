@@ -69,13 +69,13 @@ class FirestoreService {
     await ref.add(newMessage);
   }
 
-  Future<void> createPost(text) async {
+  Future<void> createPost(String text, List skills) async {
     var user = AuthService().user!;
     var ref = _db.collection('posts');
 
     var newData = {
       'date': DateFormat.yMMMMd('en_US').format(DateTime.now()),
-      'skills': ["CSS", "JSX"],
+      'skills': skills,
       'text': text,
       'uid': user.uid,
       'userName': user.displayName,
