@@ -38,7 +38,7 @@ class ChatRoomBox extends StatelessWidget {
                 backgroundImage: NetworkImage(user.userPhoto!),
               ),
               title: Text(user.userName),
-              subtitle: const Text("Lsere ba muie idioata"),
+              subtitle: const Text(" "),
             ),
           );
         }

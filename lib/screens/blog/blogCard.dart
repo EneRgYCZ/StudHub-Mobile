@@ -5,10 +5,11 @@ import 'package:expandable/expandable.dart';
 
 class BlogCard extends StatelessWidget {
   final String title;
-  final String text;
+  final List text;
   final String photo;
 
-  const BlogCard({Key? key, this.photo = '', this.text = '', this.title = ''})
+  const BlogCard(
+      {Key? key, this.photo = '', this.text = const [], this.title = ''})
       : super(key: key);
 
   @override
@@ -41,7 +42,7 @@ class BlogCard extends StatelessWidget {
                     ),
                   ),
                   collapsed: Text(
-                    text,
+                    text[0],
                     softWrap: true,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
@@ -49,15 +50,16 @@ class BlogCard extends StatelessWidget {
                   expanded: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      for (var _ in Iterable.generate(1))
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 10),
-                          child: Text(
-                            text,
-                            softWrap: true,
-                            overflow: TextOverflow.fade,
+                      for (var index in Iterable.generate(text.length))
+                        for (var _ in Iterable.generate(1))
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 10),
+                            child: Text(
+                              text[index],
+                              softWrap: true,
+                              overflow: TextOverflow.fade,
+                            ),
                           ),
-                        ),
                     ],
                   ),
                   builder: (_, collapsed, expanded) {

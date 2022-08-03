@@ -49,10 +49,10 @@ class UserInfo {
 @JsonSerializable()
 class Blog {
   String title;
-  String text;
+  List text;
   String photo;
 
-  Blog({this.title = '', this.photo = '', this.text = ''});
+  Blog({this.title = '', this.photo = '', this.text = const []});
   factory Blog.fromJson(Map<String, dynamic> json) => _$BlogFromJson(json);
   Map<String, dynamic> toJson() => _$BlogToJson(this);
 }
