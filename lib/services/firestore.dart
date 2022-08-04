@@ -48,6 +48,30 @@ class FirestoreService {
     return posts.toList();
   }
 
+  void deletePost(Post post) async {
+    var user = AuthService().user!;
+    List docId = [];
+    var ref = await _db
+        .collection('posts')
+        .where("text", isEqualTo: post.text)
+        .where("uid", isEqualTo: user.uid)
+        .where("skills", isEqualTo: post.skills)
+        .get()
+        .then((QuerySnapshot querySnapshot) {
+      for (var doc in querySnapshot.docs) {
+        docId.add(doc.id);
+      }
+    });
+
+    var delete = _db.collection('posts').doc(docId[0]);
+
+    try {
+      await delete.delete();
+    } catch (e) {
+      // return e;
+    }
+  }
+
 // **************************************************************************
 // POSTS RELATED FUNCTIONS (END)
 // **************************************************************************
