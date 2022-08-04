@@ -8,6 +8,7 @@ part of 'models.dart';
 
 Post _$PostFromJson(Map<String, dynamic> json) => Post(
       uid: json['uid'] as String? ?? '',
+      likes: json['likes'] as int? ?? 0,
       date: json['date'] as String? ?? '',
       text: json['text'] as String? ?? '',
       userName: json['userName'] as String? ?? '',
@@ -16,6 +17,7 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
     );
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
+      'likes': instance.likes,
       'uid': instance.uid,
       'date': instance.date,
       'skills': instance.skills,

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tags_x/flutter_tags_x.dart';
 import 'package:provider/provider.dart';
+import 'package:like_button/like_button.dart';
 import 'package:studhub/services/firestore.dart';
+import 'package:flutter_tags_x/flutter_tags_x.dart';
 
 import '../../services/models.dart';
 
@@ -16,6 +17,9 @@ class PostItem extends StatefulWidget {
 class _PostItemState extends State<PostItem> {
   @override
   Widget build(BuildContext context) {
+    var userExtraData = Provider.of<UserInfo>(context);
+    bool isLiked = false;
+
     return Hero(
       tag: widget.post.text,
       child: Card(
@@ -116,6 +120,68 @@ class _PostItemState extends State<PostItem> {
                   ),
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  LikeButton(
+                    size: 30.0,
+                    isLiked: isLiked,
+                    likeCount: widget.post.likes,
+                    onTap: (isLiked) async {
+                      return !isLiked;
+                    },
+                  ),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.comment),
+                  ),
+                  (userExtraData.uid == widget.post.uid)
+                      ? PopupMenuButton(
+                          icon: const Icon(Icons.more_horiz),
+                          itemBuilder: (BuildContext context) =>
+                              <PopupMenuEntry>[
+                            const PopupMenuItem(
+                              child: ListTile(
+                                leading: Icon(Icons.add),
+                                title: Text('Add to favorites'),
+                              ),
+                            ),
+                            PopupMenuItem(
+                              child: ListTile(
+                                onTap: (() =>
+                                    FirestoreService().deletePost(widget.post)),
+                                leading: const Icon(Icons.delete),
+                                title: const Text('Delete Post'),
+                              ),
+                            ),
+                            const PopupMenuItem(
+                              child: ListTile(
+                                leading: Icon(Icons.article),
+                                title: Text('Item 3'),
+                              ),
+                            ),
+                          ],
+                        )
+                      : PopupMenuButton(
+                          icon: const Icon(Icons.more_horiz),
+                          itemBuilder: (BuildContext context) =>
+                              <PopupMenuEntry>[
+                            const PopupMenuItem(
+                              child: ListTile(
+                                leading: Icon(Icons.add),
+                                title: Text('Add to favorites'),
+                              ),
+                            ),
+                            const PopupMenuItem(
+                              child: ListTile(
+                                leading: Icon(Icons.article),
+                                title: Text('Option 3'),
+                              ),
+                            ),
+                          ],
+                        ),
+                ],
+              )
             ],
           ),
         ),

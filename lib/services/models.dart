@@ -5,6 +5,7 @@ part 'models.g.dart';
 
 @JsonSerializable()
 class Post {
+  int likes;
   String uid;
   String date;
   List skills;
@@ -14,6 +15,7 @@ class Post {
 
   Post({
     this.uid = '',
+    this.likes = 0,
     this.date = '',
     this.text = '',
     this.userName = '',

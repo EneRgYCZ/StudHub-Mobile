@@ -12,12 +12,10 @@ class FirestoreService {
 // POSTS RELATED FUNCTIONS
 // **************************************************************************
 
-  Future<List<Post>> getPosts() async {
-    var ref = _db.collection('posts');
-    var snapshot = await ref.orderBy("date", descending: false).get();
-    var data = snapshot.docs.map((s) => s.data());
-    var posts = data.map((d) => Post.fromJson(d));
-    return posts.toList();
+  Stream<List<Post>> streamPosts() {
+    return _db.collection('posts').snapshots().map((snapShot) => snapShot.docs
+        .map((document) => Post.fromJson(document.data()))
+        .toList());
   }
 
   Future<void> createPost(String text, List skills) async {
@@ -26,6 +24,7 @@ class FirestoreService {
 
     var newData = {
       'date': DateFormat.yMMMMd('en_US').format(DateTime.now()),
+      'likes': 0,
       'skills': skills,
       'text': text,
       'uid': user.uid,

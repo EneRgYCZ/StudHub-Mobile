@@ -14,11 +14,8 @@ class PostsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var size = MediaQuery.of(context).size;
-    final double itemHeight = (size.height - kToolbarHeight - 24) / 5.5;
-    final double itemWidth = size.width / 2;
-    return FutureBuilder<List<Post>>(
-      future: FirestoreService().getPosts(),
+    return StreamBuilder<List<Post>>(
+      stream: FirestoreService().streamPosts(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const LoadingScreen();
@@ -36,7 +33,6 @@ class PostsScreen extends StatelessWidget {
             ),
             body: GridView.count(
               primary: true,
-              childAspectRatio: (itemWidth / itemHeight),
               padding: const EdgeInsets.all(20.0),
               crossAxisCount: 1,
               crossAxisSpacing: 10.0,
