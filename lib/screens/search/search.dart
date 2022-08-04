@@ -1,7 +1,4 @@
-import 'package:expandable_search_bar/expandable_search_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:studhub/services/firestore.dart';
-import 'package:studhub/services/models.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -11,7 +8,8 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  List<Post> searchResults = [];
+  List<dynamic> lastSearches = [];
+  List<dynamic> searchResults = [];
   final TextEditingController _searchTerm = TextEditingController();
 
   @override
@@ -22,12 +20,95 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: ExpandableSearchBar(
-          editTextController: _searchTerm,
-          hintText: "Search a tag",
-          onTap: () {},
-        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showSearch(
+                context: context,
+                delegate: CustomSearchDelegate(),
+              );
+            },
+            icon: const Icon(Icons.search),
+          )
+        ],
       ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          if (lastSearches.isEmpty)
+            const Center(
+              child: Text(
+                "No history...",
+                style: TextStyle(fontSize: 21),
+                textAlign: TextAlign.center,
+              ),
+            )
+          else
+            Text(searchResults[0])
+        ],
+      ),
+    );
+  }
+}
+
+class CustomSearchDelegate extends SearchDelegate {
+  List<dynamic> searchTerms = ["Mama", "Tata", "Tunete", "Fulgere"];
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+          onPressed: () {
+            query = '';
+          },
+          icon: const Icon(Icons.clear))
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          close(context, null);
+        },
+        icon: const Icon(Icons.arrow_back));
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    List<dynamic> matchQuerry = [];
+    for (var results in searchTerms) {
+      if (results.contains(query.toLowerCase())) {
+        matchQuerry.add(results);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuerry.length,
+      itemBuilder: ((context, index) {
+        var result = matchQuerry[index];
+        return ListTile(
+          title: Text(result),
+        );
+      }),
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<dynamic> matchQuerry = [];
+    for (var result in searchTerms) {
+      if (result.contains(query.toLowerCase())) {
+        matchQuerry.add(result);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuerry.length,
+      itemBuilder: ((context, index) {
+        var result = matchQuerry[index];
+        return ListTile(
+          title: Text(result),
+        );
+      }),
     );
   }
 }

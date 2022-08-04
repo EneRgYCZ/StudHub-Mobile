@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tags_x/flutter_tags_x.dart';
+import 'package:provider/provider.dart';
 
 import '../../services/models.dart';
 
@@ -123,6 +124,8 @@ class PostsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var userExtraData = Provider.of<UserInfo>(context);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -209,6 +212,22 @@ class PostsScreen extends StatelessWidget {
             ),
           ),
         ),
+        userExtraData.uid == post.uid
+            ? Align(
+                alignment: Alignment.bottomCenter,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton.icon(
+                    onPressed: () {},
+                    icon: const Icon(Icons.delete),
+                    label: const Text("Delete"),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red,
+                    ),
+                  ),
+                ),
+              )
+            : const SizedBox.shrink()
       ]),
     );
   }

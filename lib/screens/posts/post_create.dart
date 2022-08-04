@@ -102,8 +102,7 @@ class PostFrom extends State<MyCustomForm> {
                     });
                   },
                   onSubmitted: (value) {
-                    String hastagString = "#" + value;
-                    arrayOfTags.add(hastagString);
+                    arrayOfTags.add(value);
                     setState(() {
                       _tagsController.clear();
                     });
