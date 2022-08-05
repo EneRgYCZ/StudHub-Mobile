@@ -104,11 +104,11 @@ class _EmailAuthFormState extends State<EmailAuthForm> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      _trySubmit;
+                      _trySubmit();
                     },
                     child: Text(_isLogedIn ? "Login" : "Sign up"),
                   ),
-                  ElevatedButton(
+                  TextButton(
                     onPressed: () {
                       setState(() {
                         _isLogedIn = !_isLogedIn;

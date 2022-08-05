@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:studhub/services/auth.dart';
@@ -19,13 +18,13 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
     bool isLogin,
     BuildContext ctx,
   ) async {
-    UserCredential authResult;
-
     try {
       if (isLogin) {
-        authResult = await AuthService().emailLogin(email, password);
+        AuthService().emailLogin(email, password);
+        Navigator.of(ctx).pushNamedAndRemoveUntil('/', (route) => false);
       } else {
-        authResult = await AuthService().emailSignUp(email, password, name);
+        AuthService().emailSignUp(email, password, name);
+        Navigator.of(ctx).pushNamedAndRemoveUntil('/', (route) => false);
       }
     } on PlatformException catch (e) {
       String? message = "Error occured please check your credentials";
