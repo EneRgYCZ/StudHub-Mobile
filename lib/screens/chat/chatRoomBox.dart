@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:studhub/services/firestore.dart';
 import 'package:studhub/shared/loading.dart';
-import 'package:studhub/shared/screenArguments.dart';
+import 'package:studhub/shared/screen_arguments.dart';
 
 import '../../services/models.dart';
 

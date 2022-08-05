@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:studhub/screens/chat/messages.dart';
-import 'package:studhub/shared/screenArguments.dart';
+import 'package:studhub/shared/screen_arguments.dart';
 import 'package:studhub/screens/chat/new_message.dart';
 
 class MessageScreen extends StatelessWidget {

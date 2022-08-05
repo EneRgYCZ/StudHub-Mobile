@@ -50,7 +50,7 @@ class FirestoreService {
   void deletePost(Post post) async {
     var user = AuthService().user!;
     List docId = [];
-    var ref = await _db
+    await _db
         .collection('posts')
         .where("text", isEqualTo: post.text)
         .where("uid", isEqualTo: user.uid)
@@ -103,6 +103,22 @@ class FirestoreService {
       'uid': user.uid,
       'userPhoto': user.photoURL,
       'userName': user.displayName,
+      'isVerified': user.emailVerified,
+      'bio': "You might want to change this",
+    };
+
+    return ref.set(data, SetOptions(merge: true));
+  }
+
+  Future<void> createUserDataForEmail(String uid, String name) {
+    var user = AuthService().user!;
+    var ref = _db.collection('users').doc(user.uid);
+
+    var data = {
+      'uid': user.uid,
+      'userPhoto':
+          "https://imgs.search.brave.com/KbRNVWFimWUnThr3tB08-RFa0i7K1uc-zlK6KQedwUU/rs:fit:860:752:1/g:ce/aHR0cHM6Ly93d3cu/a2luZHBuZy5jb20v/cGljYy9tLzI0LTI0/ODI1M191c2VyLXBy/b2ZpbGUtZGVmYXVs/dC1pbWFnZS1wbmct/Y2xpcGFydC1wbmct/ZG93bmxvYWQucG5n",
+      'userName': name,
       'isVerified': user.emailVerified,
       'bio': "You might want to change this",
     };

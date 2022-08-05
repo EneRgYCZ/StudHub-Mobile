@@ -16,6 +16,17 @@ class LoginScreen extends StatelessWidget {
           children: [
             Image.asset('assets/Logo.png'),
             LoginButton(
+              icon: FontAwesomeIcons.at,
+              text: 'Sign in with Email',
+              loginMethond: () {
+                Navigator.pushNamed(
+                  context,
+                  '/login_with_email',
+                );
+              },
+              color: Colors.orange,
+            ),
+            LoginButton(
               icon: FontAwesomeIcons.google,
               text: 'Sign in with Google',
               loginMethond: AuthService().googleLogin,
