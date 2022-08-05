@@ -7,7 +7,7 @@ import 'package:studhub/screens/login/login.dart';
 import 'package:studhub/screens/search/search.dart';
 import 'package:studhub/screens/profile/profile.dart';
 import 'package:studhub/screens/posts/post_create.dart';
-import 'package:studhub/screens/chat/messageScreen.dart';
+import 'package:studhub/widgets/messageScreen.dart';
 import 'package:studhub/screens/notifications/notifications.dart';
 
 var appRoutes = {

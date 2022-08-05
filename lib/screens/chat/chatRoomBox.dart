@@ -19,8 +19,10 @@ class ChatRoomBox extends StatelessWidget {
       future: FirestoreService().getUserData(uid),
       initialData: UserInfo(),
       builder: (context, AsyncSnapshot snapshot) {
-        if (!snapshot.hasData) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: LoadingScreen());
+        } else if (!snapshot.hasData) {
+          return const Center(child: Text("You have no contacts"));
         } else {
           var user = snapshot.data;
           return SizedBox(

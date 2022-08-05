@@ -39,9 +39,14 @@ class ProfileBody extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
-            child: Text(
-              bio,
-              style: Theme.of(context).textTheme.bodyText1,
+            child: Column(
+              children: [
+                const Text("Bio: "),
+                Text(
+                  bio,
+                  style: Theme.of(context).textTheme.bodyText1,
+                ),
+              ],
             ),
           ),
           Padding(

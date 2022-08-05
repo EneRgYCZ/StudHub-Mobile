@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
-import 'package:studhub/screens/chat/message_bubble_widget.dart';
+import 'package:studhub/widgets/message_bubble_widget.dart';
 
 import '../../services/firestore.dart';
 import '../../services/models.dart';
@@ -26,9 +26,9 @@ class Messages extends StatelessWidget {
             itemCount: chatSnapshot.data?.length,
             itemBuilder: (ctx, index) {
               return MessageBubbleWidget(
-                  message: chatSnapshot.data![index].text,
-                  isMe:
-                      chatSnapshot.data![index].uid == user.uid ? true : false);
+                message: chatSnapshot.data![index].text,
+                isMe: chatSnapshot.data![index].uid == user.uid ? true : false,
+              );
             },
           );
         } else {
