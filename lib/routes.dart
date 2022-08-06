@@ -1,14 +1,14 @@
-import 'package:studhub/screens/chat/chat.dart';
-import 'package:studhub/screens/blog/blog.dart';
-import 'package:studhub/screens/home/home.dart';
+import 'package:studhub/screens/chat/chat_screen.dart';
+import 'package:studhub/screens/blog/blog_screen.dart';
+import 'package:studhub/screens/home/home_screen.dart';
+import 'package:studhub/screens/posts/posts_screen.dart';
+import 'package:studhub/screens/login/login_screen.dart';
+import 'package:studhub/screens/chat/message_screen.dart';
+import 'package:studhub/screens/search/search_screen.dart';
+import 'package:studhub/screens/profile/profile_screen.dart';
+import 'package:studhub/screens/posts/post_create_screen.dart';
 import 'package:studhub/screens/login/email_login_screen.dart';
-import 'package:studhub/screens/posts/posts.dart';
-import 'package:studhub/screens/login/login.dart';
-import 'package:studhub/screens/search/search.dart';
-import 'package:studhub/screens/profile/profile.dart';
-import 'package:studhub/screens/posts/post_create.dart';
-import 'package:studhub/widgets/messageScreen.dart';
-import 'package:studhub/screens/notifications/notifications.dart';
+import 'package:studhub/screens/notifications/notifications_screen.dart';
 
 var appRoutes = {
   '/': (context) => const HomeScreen(),

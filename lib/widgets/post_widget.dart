@@ -4,17 +4,17 @@ import 'package:like_button/like_button.dart';
 import 'package:studhub/services/firestore.dart';
 import 'package:flutter_tags_x/flutter_tags_x.dart';
 
-import '../../services/models.dart';
+import '../services/models.dart';
 
-class PostItem extends StatefulWidget {
+class PostWidget extends StatefulWidget {
   final Post post;
-  const PostItem({Key? key, required this.post}) : super(key: key);
+  const PostWidget({Key? key, required this.post}) : super(key: key);
 
   @override
-  State<PostItem> createState() => _PostItemState();
+  State<PostWidget> createState() => _PostWidgetState();
 }
 
-class _PostItemState extends State<PostItem> {
+class _PostWidgetState extends State<PostWidget> {
   @override
   Widget build(BuildContext context) {
     var userExtraData = Provider.of<UserInfo>(context);
@@ -29,7 +29,7 @@ class _PostItemState extends State<PostItem> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (BuildContext context) =>
-                    PostsScreen(post: widget.post),
+                    PostsHeroWidget(post: widget.post),
               ),
             );
           },
@@ -190,16 +190,16 @@ class _PostItemState extends State<PostItem> {
   }
 }
 
-class PostsScreen extends StatefulWidget {
+class PostsHeroWidget extends StatefulWidget {
   final Post post;
 
-  const PostsScreen({Key? key, required this.post}) : super(key: key);
+  const PostsHeroWidget({Key? key, required this.post}) : super(key: key);
 
   @override
-  State<PostsScreen> createState() => _PostsScreenState();
+  State<PostsHeroWidget> createState() => _PostsHeroWidgetState();
 }
 
-class _PostsScreenState extends State<PostsScreen> {
+class _PostsHeroWidgetState extends State<PostsHeroWidget> {
   @override
   Widget build(BuildContext context) {
     var userExtraData = Provider.of<UserInfo>(context);

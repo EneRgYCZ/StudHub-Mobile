@@ -39,8 +39,6 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
           backgroundColor: Colors.red,
         ),
       );
-    } catch (e) {
-      print(e);
     }
   }
 

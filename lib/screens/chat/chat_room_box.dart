@@ -1,9 +1,7 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
-import 'package:studhub/services/firestore.dart';
 import 'package:studhub/shared/loading.dart';
-import 'package:studhub/shared/screen_arguments.dart';
+import 'package:studhub/services/firestore.dart';
+import 'package:studhub/widgets/chat_room_box_widget.dart';
 
 import '../../services/models.dart';
 
@@ -25,24 +23,7 @@ class ChatRoomBox extends StatelessWidget {
           return const Center(child: Text("You have no contacts"));
         } else {
           var user = snapshot.data;
-          return SizedBox(
-            height: 70,
-            child: ListTile(
-              onTap: () {
-                Navigator.pushNamed(
-                  context,
-                  '/message_screen',
-                  arguments: ScreenArguments(roomId, user),
-                );
-              },
-              leading: CircleAvatar(
-                radius: 25,
-                backgroundImage: NetworkImage(user.userPhoto!),
-              ),
-              title: Text(user.userName),
-              subtitle: const Text(" "),
-            ),
-          );
+          return ChatRoomBoxWidget(user: user, roomId: roomId);
         }
       },
     );

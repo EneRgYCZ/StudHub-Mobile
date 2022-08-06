@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:expandable/expandable.dart';
 
-import 'blogCard.dart';
+import '../../widgets/blog_card_widget.dart';
 
 class BlogScreen extends StatelessWidget {
   const BlogScreen({
@@ -26,7 +26,7 @@ class BlogScreen extends StatelessWidget {
           itemCount: blog.length,
           physics: const BouncingScrollPhysics(),
           itemBuilder: (context, index) {
-            return BlogCard(
+            return BlogCardWidget(
               title: blog[index].title,
               text: blog[index].text,
               photo: blog[index].photo,

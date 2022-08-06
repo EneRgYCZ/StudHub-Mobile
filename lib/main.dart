@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-// Import the firebase_core plugin
 import 'package:studhub/theme.dart';
 import 'package:studhub/routes.dart';
 import 'package:studhub/services/models.dart';

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studhub/screens/chat/chatRoomBox.dart';
+import 'package:studhub/screens/chat/chat_room_box.dart';
 
 import '../../services/firestore.dart';
 import '../../services/models.dart';

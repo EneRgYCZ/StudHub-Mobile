@@ -1,14 +1,12 @@
-// ignore_for_file: file_names
-
 import 'package:flutter/material.dart';
 import 'package:expandable/expandable.dart';
 
-class BlogCard extends StatelessWidget {
+class BlogCardWidget extends StatelessWidget {
   final String title;
   final List text;
   final String photo;
 
-  const BlogCard(
+  const BlogCardWidget(
       {Key? key, this.photo = '', this.text = const [], this.title = ''})
       : super(key: key);
 

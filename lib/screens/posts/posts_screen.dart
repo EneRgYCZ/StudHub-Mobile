@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:studhub/services/models.dart';
 import 'package:studhub/shared/bottom_nav.dart';
 import 'package:studhub/services/firestore.dart';
-import 'package:studhub/screens/posts/post_item.dart';
+import 'package:studhub/widgets/post_widget.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../shared/error.dart';
@@ -36,7 +36,7 @@ class PostsScreen extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               crossAxisCount: 1,
               crossAxisSpacing: 10.0,
-              children: posts.map((posts) => PostItem(post: posts)).toList(),
+              children: posts.map((posts) => PostWidget(post: posts)).toList(),
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,

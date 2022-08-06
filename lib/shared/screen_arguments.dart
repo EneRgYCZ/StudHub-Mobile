@@ -1,4 +1,3 @@
-// ignore: file_names
 import 'package:studhub/services/models.dart';
 
 class ScreenArguments {
