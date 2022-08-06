@@ -30,13 +30,12 @@ class FirestoreService {
       'uid': user.uid,
       'userName': user.displayName,
       'userPhoto': user.photoURL,
+      "postId": "",
     };
 
-    try {
-      ref.add(newData);
-    } catch (e) {
-      //return e;
-    }
+    var result = await ref.add(newData);
+
+    await _db.collection("posts").doc(result.id).update({"postId": result.id});
   }
 
   Future<List<Post>> findRelatedPosts(skill) async {
@@ -69,6 +68,30 @@ class FirestoreService {
     } catch (e) {
       // return e;
     }
+  }
+
+  Future<void> updateLikeCounter(
+    String postId,
+    bool isLike,
+    int currentLikes,
+  ) async {
+    var user = AuthService().user!;
+    int likeVal;
+    if (isLike) {
+      likeVal = 1;
+      var doc = _db.collection("users").doc(user.uid);
+      await doc.update({
+        "likedPosts": FieldValue.arrayUnion([postId])
+      });
+    } else {
+      likeVal = -1;
+      var doc = _db.collection("users").doc(user.uid);
+      await doc.update({
+        "likedPosts": FieldValue.arrayRemove([postId])
+      });
+    }
+    var likeFinal = currentLikes + likeVal;
+    await _db.collection("posts").doc(postId).update({"likes": likeFinal});
   }
 
 // **************************************************************************

@@ -19,6 +19,10 @@ class _PostWidgetState extends State<PostWidget> {
   Widget build(BuildContext context) {
     var userExtraData = Provider.of<UserInfo>(context);
     bool isLiked = false;
+    bool contains;
+    userExtraData.likedPosts.contains(widget.post.postId)
+        ? contains = true
+        : contains = false;
 
     return Hero(
       tag: widget.post.text,
@@ -127,7 +131,26 @@ class _PostWidgetState extends State<PostWidget> {
                     size: 30.0,
                     isLiked: isLiked,
                     likeCount: widget.post.likes,
+                    likeBuilder: (isTaped) {
+                      return Icon(
+                        Icons.favorite,
+                        color: contains ? Colors.red : Colors.grey,
+                      );
+                    },
                     onTap: (isLiked) async {
+                      if (contains) {
+                        FirestoreService().updateLikeCounter(
+                          widget.post.postId,
+                          isLiked,
+                          widget.post.likes,
+                        );
+                      } else {
+                        FirestoreService().updateLikeCounter(
+                          widget.post.postId,
+                          !isLiked,
+                          widget.post.likes,
+                        );
+                      }
                       return !isLiked;
                     },
                   ),

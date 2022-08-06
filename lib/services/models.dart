@@ -12,12 +12,14 @@ class Post {
   String text;
   String userName;
   String userPhoto;
+  String postId;
 
   Post({
     this.uid = '',
     this.likes = 0,
     this.date = '',
     this.text = '',
+    this.postId = '',
     this.userName = '',
     this.userPhoto = '',
     this.skills = const [],
@@ -34,6 +36,7 @@ class UserInfo {
   bool isVerified;
   String userName;
   String userPhoto;
+  List<String> likedPosts = <String>[];
   List<String> userContacts = <String>[];
 
   UserInfo({

@@ -321,13 +321,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.8"
-  flutter_firebase_chat_core:
-    dependency: "direct main"
-    description:
-      name: flutter_firebase_chat_core
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.5.0"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:

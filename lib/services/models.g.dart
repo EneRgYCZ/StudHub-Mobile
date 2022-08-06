@@ -11,6 +11,7 @@ Post _$PostFromJson(Map<String, dynamic> json) => Post(
       likes: json['likes'] as int? ?? 0,
       date: json['date'] as String? ?? '',
       text: json['text'] as String? ?? '',
+      postId: json['postId'] as String? ?? '',
       userName: json['userName'] as String? ?? '',
       userPhoto: json['userPhoto'] as String? ?? '',
       skills: json['skills'] as List<dynamic>? ?? const [],
@@ -24,6 +25,7 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'text': instance.text,
       'userName': instance.userName,
       'userPhoto': instance.userPhoto,
+      'postId': instance.postId,
     };
 
 UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
@@ -32,9 +34,12 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
       userName: json['userName'] as String? ?? '',
       userPhoto: json['userPhoto'] as String? ?? '',
       isVerified: json['isVerified'] as bool? ?? false,
-    )..userContacts = (json['userContacts'] as List<dynamic>)
-        .map((e) => e as String)
-        .toList();
+    )
+      ..likedPosts =
+          (json['likedPosts'] as List<dynamic>).map((e) => e as String).toList()
+      ..userContacts = (json['userContacts'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList();
 
 Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
       'uid': instance.uid,
@@ -42,6 +47,7 @@ Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
       'isVerified': instance.isVerified,
       'userName': instance.userName,
       'userPhoto': instance.userPhoto,
+      'likedPosts': instance.likedPosts,
       'userContacts': instance.userContacts,
     };
 
