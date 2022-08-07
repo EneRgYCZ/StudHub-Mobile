@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:studhub/services/auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -32,6 +34,13 @@ class LoginScreen extends StatelessWidget {
               loginMethond: AuthService().googleLogin,
               color: Colors.blue,
             ),
+            if (Platform.isIOS)
+              LoginButton(
+                icon: FontAwesomeIcons.apple,
+                text: 'Sign in with Apple',
+                loginMethond: AuthService().signInWithApple,
+                color: Colors.grey,
+              ),
           ],
         ),
       ),

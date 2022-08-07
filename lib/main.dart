@@ -17,7 +17,6 @@ void main() {
 class App extends StatefulWidget {
   const App({Key? key}) : super(key: key);
 
-  // Create the initialization Future outside of `build`:
   @override
   _AppState createState() => _AppState();
 }
@@ -28,15 +27,12 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      // Initialize FlutterFire:
       future: _initialization,
       builder: (context, snapshot) {
-        // Check for errors
         if (snapshot.hasError) {
           return const Text('error');
         }
 
-        // Once complete, show your application
         if (snapshot.connectionState == ConnectionState.done) {
           List<Blog> blogs = [];
           return MultiProvider(
