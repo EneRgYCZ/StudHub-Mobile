@@ -128,6 +128,8 @@ class FirestoreService {
       'userName': user.displayName,
       'isVerified': user.emailVerified,
       'bio': "You might want to change this",
+      'likedPosts': [""],
+      "userContacts": []
     };
 
     return ref.set(data, SetOptions(merge: true));
@@ -144,6 +146,8 @@ class FirestoreService {
       'userName': name,
       'isVerified': user.emailVerified,
       'bio': "You might want to change this",
+      'likedPosts': [""],
+      "userContacts": []
     };
 
     return ref.set(data, SetOptions(merge: true));

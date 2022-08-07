@@ -134,7 +134,7 @@ class _PostWidgetState extends State<PostWidget> {
                     likeBuilder: (isTaped) {
                       return Icon(
                         Icons.favorite,
-                        color: contains ? Colors.red : Colors.grey,
+                        color: contains ? Colors.red : Colors.white,
                       );
                     },
                     onTap: (isLiked) async {
