@@ -127,7 +127,7 @@ class _PostWidgetState extends State<PostWidget> {
                     likeBuilder: (isTaped) {
                       return Icon(
                         Icons.favorite,
-                        color: contains ? Colors.red : Colors.grey,
+                        color: contains ? Colors.red : Colors.white,
                       );
                     },
                     onTap: (isLiked) async {
@@ -323,8 +323,8 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
                       icon: const Icon(Icons.delete),
                       label: const Text("Delete"),
                       style: ElevatedButton.styleFrom(
-                          //backgroundColor: Colors.red,
-                          ),
+                        primary: Colors.red,
+                      ),
                     ),
                   ),
                 )

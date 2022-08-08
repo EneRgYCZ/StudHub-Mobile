@@ -1,3 +1,4 @@
+import 'package:bubble/bubble.dart';
 import 'package:flutter/material.dart';
 
 class MessageBubbleWidget extends StatelessWidget {
@@ -9,31 +10,16 @@ class MessageBubbleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: isMe ? MainAxisAlignment.end : MainAxisAlignment.start,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: isMe
-                ? Theme.of(context).cardColor
-                : Theme.of(context).backgroundColor,
-            borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(12),
-              topRight: const Radius.circular(12),
-              bottomLeft:
-                  !isMe ? const Radius.circular(0) : const Radius.circular(12),
-              bottomRight:
-                  isMe ? const Radius.circular(0) : const Radius.circular(12),
-            ),
-          ),
-          width: 140,
-          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-          margin: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
-          child: Text(
-            message,
-          ),
-        ),
-      ],
+    return Bubble(
+      margin: isMe
+          ? const BubbleEdges.only(top: 10, left: 70)
+          : const BubbleEdges.only(top: 10, right: 70),
+      alignment: isMe ? Alignment.topRight : Alignment.topLeft,
+      nip: isMe ? BubbleNip.rightTop : BubbleNip.leftTop,
+      color: isMe
+          ? Theme.of(context).cardColor
+          : Theme.of(context).backgroundColor,
+      child: Text(message, textAlign: isMe ? TextAlign.right : TextAlign.left),
     );
   }
 }
