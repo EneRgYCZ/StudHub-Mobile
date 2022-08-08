@@ -31,11 +31,9 @@ class PostsScreen extends StatelessWidget {
               child: MainAppBar(),
               preferredSize: Size.fromHeight(60),
             ),
-            body: GridView.count(
+            body: ListView(
               primary: true,
               padding: const EdgeInsets.all(20.0),
-              crossAxisCount: 1,
-              crossAxisSpacing: 10.0,
               children: posts.map((posts) => PostWidget(post: posts)).toList(),
             ),
             floatingActionButtonLocation:
