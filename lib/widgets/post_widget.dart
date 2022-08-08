@@ -106,7 +106,7 @@ class _PostWidgetState extends State<PostWidget> {
               ),
               Container(
                 alignment: Alignment.topLeft,
-                padding: EdgeInsets.only(left: 15, bottom: 10),
+                padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
                 child: Text(
                   widget.post.text,
                   style: const TextStyle(
@@ -264,7 +264,7 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 15, bottom: 10),
+            padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
             child: Row(
               children: [
                 Tags(
