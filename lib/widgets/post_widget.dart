@@ -104,24 +104,17 @@ class _PostWidgetState extends State<PostWidget> {
                   ],
                 ),
               ),
-              Flexible(
-                fit: FlexFit.tight,
-                child: Container(
-                  height: 10,
-                  alignment: Alignment.topCenter,
-                  child: SizedBox(
-                    width: 300,
-                    height: 100,
-                    child: Text(
-                      widget.post.text,
-                      style: const TextStyle(
-                        height: 1.5,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                    ),
+              Container(
+                alignment: Alignment.topLeft,
+                padding: EdgeInsets.only(left: 15, bottom: 10),
+                child: Text(
+                  widget.post.text,
+                  style: const TextStyle(
+                    height: 1.5,
+                    fontWeight: FontWeight.bold,
                   ),
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 3,
                 ),
               ),
               Row(
