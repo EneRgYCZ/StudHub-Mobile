@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:studhub/services/auth.dart';
@@ -226,8 +227,21 @@ class FirestoreService {
         .map((document) => Blog.fromJson(document.data()))
         .toList());
   }
-}
+  // **************************************************************************
+  // BLOG RELATED FUNCTIONS (END)
+  // **************************************************************************
 
-// **************************************************************************
-// BLOG RELATED FUNCTIONS (END)
-// **************************************************************************
+  void getPermisions() async {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+  }
+}

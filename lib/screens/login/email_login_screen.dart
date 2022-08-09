@@ -20,11 +20,12 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
   ) async {
     try {
       if (isLogin) {
-        AuthService().emailLogin(email, password);
-        Navigator.of(ctx).pushNamedAndRemoveUntil('/', (route) => false);
+        await AuthService().emailLogin(email, password);
+        await Navigator.of(ctx)
+            .pushNamedAndRemoveUntil('/posts', (route) => false);
       } else {
-        AuthService().emailSignUp(email, password, name);
-        Navigator.of(ctx).pushNamedAndRemoveUntil('/', (route) => false);
+        await AuthService().emailSignUp(email, password, name);
+        await Navigator.of(ctx).pushNamedAndRemoveUntil('/', (route) => false);
       }
     } on PlatformException catch (e) {
       String? message = "Error occured please check your credentials";

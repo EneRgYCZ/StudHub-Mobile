@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:studhub/services/models.dart';
@@ -14,6 +16,7 @@ class PostsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (Platform.isIOS) FirestoreService().getPermisions();
     return StreamBuilder<List<Post>>(
       stream: FirestoreService().streamPosts(),
       builder: (context, snapshot) {
