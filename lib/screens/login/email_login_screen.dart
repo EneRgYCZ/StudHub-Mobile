@@ -21,8 +21,7 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
     try {
       if (isLogin) {
         await AuthService().emailLogin(email, password);
-        await Navigator.of(ctx)
-            .pushNamedAndRemoveUntil('/posts', (route) => false);
+        await Navigator.of(ctx).pushNamedAndRemoveUntil('/', (route) => false);
       } else {
         await AuthService().emailSignUp(email, password, name);
         await Navigator.of(ctx).pushNamedAndRemoveUntil('/', (route) => false);

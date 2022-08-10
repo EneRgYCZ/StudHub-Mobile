@@ -148,7 +148,14 @@ class _PostWidgetState extends State<PostWidget> {
                     },
                   ),
                   IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              PostsHeroWidget(post: widget.post),
+                        ),
+                      );
+                    },
                     icon: const Icon(Icons.comment),
                   ),
                   (userExtraData.uid == widget.post.uid)
@@ -328,7 +335,29 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
                     ),
                   ),
                 )
-              : const SizedBox.shrink()
+              : const SizedBox.shrink(),
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: Text("Comments:"),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: ListTile(
+              leading: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Image.network(
+                    "https://imgs.search.brave.com/RD1h6dLTs2GwGi5q_1-LBSd0Yc5578OyxfK_JX7hkPo/rs:fit:860:752:1/g:ce/aHR0cHM6Ly9ub3Jy/aXNtZ210LmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyMC8w/NS8yNC0yNDgyNTNf/dXNlci1wcm9maWxl/LWRlZmF1bHQtaW1h/Z2UtcG5nLWNsaXBh/cnQtcG5nLWRvd25s/b2FkLnBuZw"),
+              ),
+              title: const Text("Name of the user"),
+              subtitle: const Text(
+                "Here comes the comment of the user...",
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              ),
+            ),
+          )
         ],
       ),
     );
