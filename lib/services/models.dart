@@ -38,10 +38,12 @@ class UserInfo {
   String userPhoto;
   List<String> likedPosts = <String>[];
   List<String> userContacts = <String>[];
+  String fcmToken;
 
   UserInfo({
     this.uid = '',
     this.bio = '',
+    this.fcmToken = '',
     this.userName = '',
     this.userPhoto = '',
     this.isVerified = false,

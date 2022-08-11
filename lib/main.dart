@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +29,7 @@ class _AppState extends State<App> {
 
   @override
   Widget build(BuildContext context) {
+    if (Platform.isIOS) FirestoreService().getPermisions();
     return FutureBuilder(
       future: _initialization,
       builder: (context, snapshot) {

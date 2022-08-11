@@ -119,7 +119,7 @@ class FirestoreService {
     return user;
   }
 
-  Future<void> createUserData(String uid) {
+  Future<void> createUserData(String uid, String fcmToken) {
     var user = AuthService().user!;
     var ref = _db.collection('users').doc(user.uid);
 
@@ -130,13 +130,15 @@ class FirestoreService {
       'isVerified': user.emailVerified,
       'bio': "You might want to change this",
       'likedPosts': [],
-      "userContacts": []
+      "userContacts": [],
+      "fcmToken": fcmToken,
     };
 
     return ref.set(data, SetOptions(merge: true));
   }
 
-  Future<void> createUserDataForEmail(String uid, String name) {
+  Future<void> createUserDataForEmail(
+      String uid, String name, String fcmToken) {
     var user = AuthService().user!;
     var ref = _db.collection('users').doc(user.uid);
 
@@ -148,7 +150,8 @@ class FirestoreService {
       'isVerified': user.emailVerified,
       'bio': "You might want to change this",
       'likedPosts': [],
-      "userContacts": []
+      "userContacts": [],
+      "fcmToken": fcmToken,
     };
 
     return ref.set(data, SetOptions(merge: true));
