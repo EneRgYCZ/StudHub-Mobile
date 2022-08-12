@@ -49,6 +49,7 @@ class ProfileScreen extends StatelessWidget {
             body: ProfileBodyWidget(
               bio: _user.bio,
               isUser: false,
+              uid: passedUid,
             ),
           );
         },

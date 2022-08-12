@@ -199,6 +199,21 @@ class FirestoreService {
     return room;
   }
 
+  Future<void> createChatRoom(String uid_1, String uid_2) async {
+    List participants = [uid_1, uid_2];
+    var room = _db.collection("rooms");
+    var data = {"participants": participants};
+    var newRoom = await room.add(data);
+    var messages =
+        _db.collection("rooms").doc(newRoom.id).collection("messages");
+    final newMessage = {
+      'uid': "",
+      'text': "",
+      'sentAt': Timestamp.now(),
+    };
+    await messages.add(newMessage);
+  }
+
   Future<void> uploadMessage(String roomId, String message) async {
     var user = AuthService().user!;
     final ref = _db.collection("rooms/$roomId/messages");
