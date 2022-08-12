@@ -1,123 +1,58 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studhub/services/auth.dart';
+import 'package:studhub/services/firestore.dart';
 import 'package:studhub/services/models.dart';
+import 'package:studhub/widgets/profile_body_widget.dart';
+import 'package:studhub/widgets/profile_appbar_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var userExtraData = Provider.of<UserInfo>(context);
-    var bio = userExtraData.bio;
-    var userName = userExtraData.userName;
-    var userPhoto = userExtraData.userPhoto;
+    final passedUid = ModalRoute.of(context)!.settings.arguments as dynamic;
+    var _userExtraData = Provider.of<UserInfo>(context);
+    var _bio = _userExtraData.bio;
+    var _userName = _userExtraData.userName;
+    var _userPhoto = _userExtraData.userPhoto;
 
-    return Scaffold(
-      appBar: PreferredSize(
-        child: ProfileAppBar(
-          userName: userName,
-          userPhoto: userPhoto,
+    if (passedUid == _userExtraData.uid || passedUid == null) {
+      return Scaffold(
+        appBar: PreferredSize(
+          child: ProfileAppBarWidget(
+            userName: _userName,
+            userPhoto: _userPhoto,
+            isUser: true,
+          ),
+          preferredSize: const Size.fromHeight(300),
         ),
-        preferredSize: const Size.fromHeight(180),
-      ),
-      body: ProfileBody(bio: bio),
-    );
-  }
-}
-
-class ProfileBody extends StatelessWidget {
-  final String bio;
-
-  const ProfileBody({Key? key, required this.bio}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
-            child: Column(
-              children: [
-                const Text("Bio: "),
-                Text(
-                  bio,
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 20),
-            child: ElevatedButton(
-              child: const Text('Logout'),
-              onPressed: () async {
-                await AuthService().signOut();
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil('/', (route) => false);
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ProfileAppBar extends StatelessWidget {
-  final String userName;
-  final String userPhoto;
-
-  const ProfileAppBar(
-      {Key? key, required this.userName, required this.userPhoto})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      elevation: 0,
-      backgroundColor: Colors.greenAccent,
-      flexibleSpace: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 75,
-              height: 75,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(28),
-                  border: Border.all(color: Colors.black)),
-              child: Center(
-                child: Container(
-                  width: 70,
-                  height: 70,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        userPhoto,
-                      ),
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
+        body: ProfileBodyWidget(
+          bio: _bio,
+          isUser: true,
+        ),
+      );
+    } else {
+      return FutureBuilder(
+        future: FirestoreService().getUserData(passedUid),
+        initialData: UserInfo,
+        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          UserInfo _user = snapshot.data;
+          return Scaffold(
+            appBar: PreferredSize(
+              child: ProfileAppBarWidget(
+                userName: _user.userName,
+                userPhoto: _user.userPhoto,
+                isUser: false,
               ),
+              preferredSize: const Size.fromHeight(300),
             ),
-            const SizedBox(
-              height: 10,
+            body: ProfileBodyWidget(
+              bio: _user.bio,
+              isUser: false,
             ),
-            Text(
-              userName,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-          ],
-        ),
-      ),
-    );
+          );
+        },
+      );
+    }
   }
 }
