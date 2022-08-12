@@ -119,7 +119,16 @@ class FirestoreService {
     return user;
   }
 
-  Future<void> createUserData(String uid, String fcmToken) {
+  Future<void> updateNotificationCounter(String uid, bool increment) async {
+    var doc = _db.collection("users").doc(uid);
+    if (increment) {
+      await doc.update({"notifications": FieldValue.increment(1)});
+    } else {
+      await doc.update({"notifications": 0});
+    }
+  }
+
+  Future<void> createUserData(String uid) {
     var user = AuthService().user!;
     var ref = _db.collection('users').doc(user.uid);
 
@@ -130,15 +139,13 @@ class FirestoreService {
       'isVerified': user.emailVerified,
       'bio': "You might want to change this",
       'likedPosts': [],
-      "userContacts": [],
-      "fcmToken": fcmToken,
+      'notifications': 0
     };
 
     return ref.set(data, SetOptions(merge: true));
   }
 
-  Future<void> createUserDataForEmail(
-      String uid, String name, String fcmToken) {
+  Future<void> createUserDataForEmail(String uid, String name) {
     var user = AuthService().user!;
     var ref = _db.collection('users').doc(user.uid);
 
@@ -150,8 +157,7 @@ class FirestoreService {
       'isVerified': user.emailVerified,
       'bio': "You might want to change this",
       'likedPosts': [],
-      "userContacts": [],
-      "fcmToken": fcmToken,
+      'notifications': 0
     };
 
     return ref.set(data, SetOptions(merge: true));

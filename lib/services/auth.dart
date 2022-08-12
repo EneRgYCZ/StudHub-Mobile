@@ -1,4 +1,3 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:studhub/services/firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -29,8 +28,7 @@ class AuthService {
       final authResult =
           await FirebaseAuth.instance.signInWithCredential(authCredential);
       if (authResult.additionalUserInfo!.isNewUser) {
-        final fcmToken = await FirebaseMessaging.instance.getToken();
-        FirestoreService().createUserData(authResult.user!.uid, fcmToken!);
+        FirestoreService().createUserData(authResult.user!.uid);
       }
     } on FirebaseAuthException catch (e) {
       //return e;
@@ -50,9 +48,7 @@ class AuthService {
       email: email,
       password: password,
     );
-    final fcmToken = await FirebaseMessaging.instance.getToken();
-    FirestoreService()
-        .createUserDataForEmail(authResult.user!.uid, name, fcmToken!);
+    FirestoreService().createUserDataForEmail(authResult.user!.uid, name);
   }
 
   String generateNonce([int length = 32]) {

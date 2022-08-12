@@ -36,16 +36,15 @@ class UserInfo {
   bool isVerified;
   String userName;
   String userPhoto;
+  int notifications;
   List<String> likedPosts = <String>[];
-  List<String> userContacts = <String>[];
-  String fcmToken;
 
   UserInfo({
     this.uid = '',
     this.bio = '',
-    this.fcmToken = '',
     this.userName = '',
     this.userPhoto = '',
+    this.notifications = 0,
     this.isVerified = false,
   });
   factory UserInfo.fromJson(Map<String, dynamic> json) =>

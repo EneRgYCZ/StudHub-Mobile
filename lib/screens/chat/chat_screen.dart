@@ -17,6 +17,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     final userExtraData = Provider.of<UserInfo>(context);
+    FirestoreService().updateNotificationCounter(userExtraData.uid, false);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Chat"),
