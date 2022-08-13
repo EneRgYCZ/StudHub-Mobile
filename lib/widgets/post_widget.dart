@@ -244,39 +244,48 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
         children: [
           Hero(
             tag: widget.post.text,
-            child: Row(
-              children: [
-                Container(
-                  width: 70,
-                  height: 70,
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    image: DecorationImage(
-                      image: NetworkImage(
-                        widget.post.userPhoto,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(
+                  context,
+                  '/profile',
+                  arguments: widget.post.uid,
+                );
+              },
+              child: Row(
+                children: [
+                  Container(
+                    width: 70,
+                    height: 70,
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(30),
+                      image: DecorationImage(
+                        image: NetworkImage(
+                          widget.post.userPhoto,
+                        ),
+                        fit: BoxFit.cover,
                       ),
-                      fit: BoxFit.cover,
                     ),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(2.0),
-                  child: Column(
-                    children: [
-                      Text(
-                        widget.post.userName,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                      Text(
-                        widget.post.date,
-                        style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(2.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          widget.post.userName,
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        Text(
+                          widget.post.date,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           Padding(

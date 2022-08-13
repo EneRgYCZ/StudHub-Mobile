@@ -25,10 +25,15 @@ class Messages extends StatelessWidget {
             reverse: true,
             itemCount: chatSnapshot.data?.length,
             itemBuilder: (ctx, index) {
-              return MessageBubbleWidget(
-                message: chatSnapshot.data![index].text,
-                isMe: chatSnapshot.data![index].uid == user.uid ? true : false,
-              );
+              if (chatSnapshot.data![index].text.isNotEmpty) {
+                return MessageBubbleWidget(
+                  message: chatSnapshot.data![index].text,
+                  isMe:
+                      chatSnapshot.data![index].uid == user.uid ? true : false,
+                );
+              } else {
+                return const SizedBox.shrink();
+              }
             },
           );
         } else {

@@ -87,3 +87,14 @@ class Message {
       _$MessageFromJson(json);
   Map<String, dynamic> toJson() => _$MessageToJson(this);
 }
+
+@JsonSerializable()
+class ChatRoom {
+  String roomId;
+  List participants;
+
+  ChatRoom({this.participants = const [], this.roomId = ''});
+  factory ChatRoom.fromJson(Map<String, dynamic> json) =>
+      _$ChatRoomFromJson(json);
+  Map<String, dynamic> toJson() => _$ChatRoomToJson(this);
+}

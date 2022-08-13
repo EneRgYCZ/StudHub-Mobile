@@ -71,3 +71,13 @@ Map<String, dynamic> _$MessageToJson(Message instance) => <String, dynamic>{
       'text': instance.text,
       'sentAt': const TimestampConverter().toJson(instance.sentAt),
     };
+
+ChatRoom _$ChatRoomFromJson(Map<String, dynamic> json) => ChatRoom(
+      participants: json['participants'] as List<dynamic>? ?? const [],
+      roomId: json['roomId'] as String? ?? '',
+    );
+
+Map<String, dynamic> _$ChatRoomToJson(ChatRoom instance) => <String, dynamic>{
+      'roomId': instance.roomId,
+      'participants': instance.participants,
+    };
