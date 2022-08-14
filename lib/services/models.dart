@@ -92,8 +92,16 @@ class Message {
 class ChatRoom {
   String roomId;
   List participants;
+  String text;
+  @TimestampConverter()
+  final DateTime sentAt;
 
-  ChatRoom({this.participants = const [], this.roomId = ''});
+  ChatRoom({
+    this.participants = const [],
+    this.roomId = '',
+    this.text = '',
+    required this.sentAt,
+  });
   factory ChatRoom.fromJson(Map<String, dynamic> json) =>
       _$ChatRoomFromJson(json);
   Map<String, dynamic> toJson() => _$ChatRoomToJson(this);

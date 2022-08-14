@@ -46,7 +46,6 @@ class _PostsScreenState extends State<PostsScreen> {
           );
         } else if (snapshot.hasData) {
           var posts = snapshot.data!;
-
           return Scaffold(
             appBar: const PreferredSize(
               child: MainAppBar(),

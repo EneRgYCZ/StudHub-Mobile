@@ -184,8 +184,11 @@ class FirestoreService {
 
   Stream<List<ChatRoom>> streamChatRooms(String uid) {
     var ref = _db.collection("rooms");
-    return ref.where("participants", arrayContains: uid).snapshots().map(
-        (snapShot) => snapShot.docs
+    return ref
+        .where("participants", arrayContains: uid)
+        .orderBy("sentAt", descending: true)
+        .snapshots()
+        .map((snapShot) => snapShot.docs
             .map((document) => ChatRoom.fromJson(document.data()))
             .toList());
   }
@@ -225,6 +228,7 @@ class FirestoreService {
   Future<void> uploadMessage(String roomId, String message) async {
     var user = AuthService().user!;
     final ref = _db.collection("rooms/$roomId/messages");
+    final doc = _db.collection("rooms").doc(roomId);
     final newMessage = {
       'uid': user.uid,
       'text': message,
@@ -232,6 +236,8 @@ class FirestoreService {
     };
 
     await ref.add(newMessage);
+    await doc.set(
+        {"text": message, "sentAt": Timestamp.now()}, SetOptions(merge: true));
   }
 
   Stream<List<Message>> streamMessages(String roomId) {

@@ -29,7 +29,11 @@ class ChatRoomBox extends StatelessWidget {
           return const Center(child: Text("You have no contacts"));
         } else {
           var user = snapshot.data;
-          return ChatRoomBoxWidget(user: user, roomId: chatRoom.roomId);
+          return ChatRoomBoxWidget(
+            user: user,
+            roomId: chatRoom.roomId,
+            lastMessage: chatRoom.text,
+          );
         }
       },
     );
