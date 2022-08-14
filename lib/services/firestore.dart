@@ -182,6 +182,14 @@ class FirestoreService {
 // CHAT RELATED FUNCTIONS
 // **************************************************************************
 
+  Stream<List<ChatRoom>> streamChatRooms(String uid) {
+    var ref = _db.collection("rooms");
+    return ref.where("participants", arrayContains: uid).snapshots().map(
+        (snapShot) => snapShot.docs
+            .map((document) => ChatRoom.fromJson(document.data()))
+            .toList());
+  }
+
   Future<Map> getChatRooms(uid) async {
     Map<String, dynamic> room = {};
     List arrayOfIds = [];

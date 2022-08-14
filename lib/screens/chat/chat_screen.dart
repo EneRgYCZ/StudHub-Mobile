@@ -22,26 +22,20 @@ class _ChatScreenState extends State<ChatScreen> {
       appBar: AppBar(
         title: const Text("Chat"),
       ),
-      body: FutureBuilder<Map>(
-        future: FirestoreService().getChatRooms(userExtraData.uid),
-        builder: (context, AsyncSnapshot snapshot) {
+      body: StreamBuilder<List<ChatRoom>>(
+        stream: FirestoreService().streamChatRooms(userExtraData.uid),
+        initialData: const [],
+        builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return const Center(child: LoadingScreen());
           } else {
-            return ListView.builder(
-              physics: const BouncingScrollPhysics(),
-              itemCount: snapshot.data.length,
-              scrollDirection: Axis.vertical,
-              itemBuilder: (BuildContext context, int index) {
-                if (snapshot.data["ids"][index] != userExtraData.uid) {
-                  return ChatRoomBox(
-                    uid: snapshot.data["ids"][index],
-                    roomId: snapshot.data["roomId"],
-                  );
-                } else {
-                  return const SizedBox.shrink();
-                }
-              },
+            var chatRoom = snapshot.data!;
+            return ListView(
+              primary: true,
+              padding: const EdgeInsets.all(5.0),
+              children: chatRoom
+                  .map((chatRoom) => ChatRoomBox(chatRoom: chatRoom))
+                  .toList(),
             );
           }
         },
