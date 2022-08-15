@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:studhub/services/auth.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:studhub/services/firestore.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -67,7 +69,14 @@ class LoginButton extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
       child: ElevatedButton.icon(
-        onPressed: () => loginMethond(),
+        onPressed: () {
+          UserCredential authResult = loginMethond();
+          if (authResult.additionalUserInfo!.isNewUser) {
+            FirestoreService().createUserData(authResult.user!.uid);
+            Navigator.of(context)
+                .pushNamedAndRemoveUntil('/profile_setup', (route) => false);
+          }
+        },
         icon: Icon(
           icon,
           color: Colors.white,

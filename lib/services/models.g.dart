@@ -35,8 +35,12 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
       userPhoto: json['userPhoto'] as String? ?? '',
       notifications: json['notifications'] as int? ?? 0,
       isVerified: json['isVerified'] as bool? ?? false,
-    )..likedPosts =
-        (json['likedPosts'] as List<dynamic>).map((e) => e as String).toList();
+    )
+      ..skills =
+          (json['skills'] as List<dynamic>).map((e) => e as String).toList()
+      ..likedPosts = (json['likedPosts'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList();
 
 Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
       'uid': instance.uid,
@@ -45,6 +49,7 @@ Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
       'userName': instance.userName,
       'userPhoto': instance.userPhoto,
       'notifications': instance.notifications,
+      'skills': instance.skills,
       'likedPosts': instance.likedPosts,
     };
 

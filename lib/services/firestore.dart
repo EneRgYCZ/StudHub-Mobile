@@ -163,6 +163,17 @@ class FirestoreService {
     return ref.set(data, SetOptions(merge: true));
   }
 
+  Future<void> updateSkills(List skills) async {
+    var user = AuthService().user!;
+    var ref = _db.collection('users').doc(user.uid);
+
+    var data = {
+      "skills": skills,
+    };
+
+    return ref.set(data, SetOptions(merge: true));
+  }
+
   Stream<UserInfo> streamCurrentUserData() {
     return AuthService().userStream.switchMap((user) {
       if (user != null) {

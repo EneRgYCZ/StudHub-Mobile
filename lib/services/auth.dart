@@ -1,9 +1,9 @@
+import 'dart:math';
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 import 'package:studhub/services/firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'dart:convert';
-import 'dart:math';
-import 'package:crypto/crypto.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthService {
@@ -14,25 +14,19 @@ class AuthService {
     await FirebaseAuth.instance.signOut();
   }
 
-  Future<void> googleLogin() async {
-    try {
-      final googleUser = await GoogleSignIn().signIn();
-      if (googleUser == null) {
+  Future<UserCredential> googleLogin() async {
+    final googleUser = await GoogleSignIn().signIn();
+    /* if (googleUser == null) {
         return;
-      }
-      final googleAuth = await googleUser.authentication;
-      final authCredential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-      final authResult =
-          await FirebaseAuth.instance.signInWithCredential(authCredential);
-      if (authResult.additionalUserInfo!.isNewUser) {
-        FirestoreService().createUserData(authResult.user!.uid);
-      }
-    } on FirebaseAuthException catch (e) {
-      //return e;
-    }
+      } */
+    final googleAuth = await googleUser?.authentication;
+    final authCredential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+    final authResult =
+        await FirebaseAuth.instance.signInWithCredential(authCredential);
+    return authResult;
   }
 
   Future emailLogin(String email, String password) async {
@@ -82,6 +76,11 @@ class AuthService {
       rawNonce: rawNonce,
     );
 
-    return await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+    final authResult =
+        await FirebaseAuth.instance.signInWithCredential(oauthCredential);
+    if (authResult.additionalUserInfo!.isNewUser) {
+      FirestoreService().createUserData(authResult.user!.uid);
+    }
+    return authResult;
   }
 }

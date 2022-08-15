@@ -37,6 +37,7 @@ class UserInfo {
   String userName;
   String userPhoto;
   int notifications;
+  List<String> skills = <String>[];
   List<String> likedPosts = <String>[];
 
   UserInfo({

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
-class EmailAuthForm extends StatefulWidget {
-  const EmailAuthForm({Key? key, required this.submitFn}) : super(key: key);
+class EmailAuthFormWidget extends StatefulWidget {
+  const EmailAuthFormWidget({Key? key, required this.submitFn})
+      : super(key: key);
 
   final void Function(
     String email,
@@ -12,10 +13,10 @@ class EmailAuthForm extends StatefulWidget {
   ) submitFn;
 
   @override
-  State<EmailAuthForm> createState() => _EmailAuthFormState();
+  State<EmailAuthFormWidget> createState() => _EmailAuthFormWidgetState();
 }
 
-class _EmailAuthFormState extends State<EmailAuthForm> {
+class _EmailAuthFormWidgetState extends State<EmailAuthFormWidget> {
   final _fromKey = GlobalKey<FormState>();
   var _isLogedIn = true;
   String _userPassword = '';

@@ -37,7 +37,6 @@ class PostFrom extends State<MyCustomForm> {
 
   @override
   Widget build(BuildContext context) {
-    // Build a Form widget using the _formKey created above.
     return const SingleChildScrollView(
       child: PostFromWidget(),
     );

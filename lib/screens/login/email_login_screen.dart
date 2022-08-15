@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:studhub/services/auth.dart';
@@ -24,7 +25,8 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
         await Navigator.of(ctx).pushNamedAndRemoveUntil('/', (route) => false);
       } else {
         await AuthService().emailSignUp(email, password, name);
-        await Navigator.of(ctx).pushNamedAndRemoveUntil('/', (route) => false);
+        await Navigator.of(ctx)
+            .pushNamedAndRemoveUntil('/profile_setup', (route) => false);
       }
     } on PlatformException catch (e) {
       String? message = "Error occured please check your credentials";
@@ -39,6 +41,19 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
           backgroundColor: Colors.red,
         ),
       );
+    } on FirebaseAuthException catch (e) {
+      String? message = "Error occured please check your credentials";
+
+      if (e.message != null && e.code == "wrong-password") {
+        message = "Your email or password are incorrect";
+      }
+
+      ScaffoldMessenger.of(ctx).showSnackBar(
+        SnackBar(
+          content: Text(message),
+          backgroundColor: Colors.red,
+        ),
+      );
     }
   }
 
@@ -46,7 +61,7 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: EmailAuthForm(
+      body: EmailAuthFormWidget(
         submitFn: _submitAuthForm,
       ),
     );
