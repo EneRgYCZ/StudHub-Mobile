@@ -27,9 +27,7 @@ class ProfileScreen extends StatelessWidget {
           preferredSize: const Size.fromHeight(300),
         ),
         body: ProfileBodyWidget(
-          bio: _bio,
-          isUser: true,
-        ),
+            bio: _bio, isUser: true, skills: _userExtraData.skills),
       );
     } else {
       return FutureBuilder(
@@ -50,6 +48,7 @@ class ProfileScreen extends StatelessWidget {
               bio: _user.bio,
               isUser: false,
               uid: passedUid,
+              skills: _user.skills,
             ),
           );
         },

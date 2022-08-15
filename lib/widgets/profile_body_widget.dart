@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_tags_x/flutter_tags_x.dart';
 import 'package:provider/provider.dart';
 import 'package:studhub/services/auth.dart';
 import 'package:studhub/services/firestore.dart';
@@ -8,10 +9,12 @@ class ProfileBodyWidget extends StatelessWidget {
   final String bio;
   final bool? isUser;
   final String? uid;
+  final List skills;
 
   const ProfileBodyWidget({
     Key? key,
     required this.bio,
+    required this.skills,
     this.isUser,
     this.uid,
   }) : super(key: key);
@@ -27,6 +30,30 @@ class ProfileBodyWidget extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Row(
+                children: [
+                  Tags(
+                    itemCount: skills.length,
+                    itemBuilder: (int index) {
+                      return Tooltip(
+                        message: skills[index],
+                        child: ItemTags(
+                          textActiveColor: Colors.white,
+                          activeColor: Colors.blueGrey,
+                          color: Colors.blueGrey,
+                          textColor: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          index: index,
+                          title: skills[index],
+                        ),
+                      );
+                    },
+                  )
+                ],
+              ),
+            ),
             if (isUser != true)
               Padding(
                 padding: const EdgeInsets.all(10),

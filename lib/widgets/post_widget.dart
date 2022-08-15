@@ -100,8 +100,18 @@ class _PostWidgetState extends State<PostWidget> {
                               );
                             },
                             textActiveColor: Colors.white,
-                            activeColor: Colors.blueGrey,
-                            color: Colors.blueGrey,
+                            activeColor: userExtraData.skills.contains(widget
+                                    .post.skills[index]
+                                    .toString()
+                                    .toLowerCase())
+                                ? Colors.orange
+                                : Colors.blueGrey,
+                            color: userExtraData.skills.contains(widget
+                                    .post.skills[index]
+                                    .toString()
+                                    .toLowerCase())
+                                ? Colors.orange
+                                : Colors.blueGrey,
                             textColor: Colors.white,
                             borderRadius: BorderRadius.circular(10),
                             index: index,
