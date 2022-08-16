@@ -1,11 +1,11 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import 'package:studhub/services/models.dart';
 import 'package:studhub/shared/bottom_nav.dart';
 import 'package:studhub/services/firestore.dart';
 import 'package:studhub/widgets/post_widget.dart';
+import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -50,30 +50,39 @@ class _PostsScreenState extends State<PostsScreen> {
         } else if (snapshot.hasData) {
           var posts = snapshot.data!;
           return SideMenu(
+            background: Colors.orange,
             key: _sideMenuKey,
-            type: SideMenuType.shrinkNSlide,
+            type: SideMenuType.slideNRotate,
             menu: buildMenu(),
-            child: Scaffold(
-              appBar: const PreferredSize(
-                child: MainAppBar(),
-                preferredSize: Size.fromHeight(60),
+            child: GestureDetector(
+              onTap: () {
+                final _state = _sideMenuKey.currentState;
+                if (_state!.isOpened) {
+                  _state.closeSideMenu();
+                }
+              },
+              child: Scaffold(
+                appBar: const PreferredSize(
+                  child: MainAppBar(),
+                  preferredSize: Size.fromHeight(60),
+                ),
+                body: ListView(
+                  primary: true,
+                  padding: const EdgeInsets.all(20.0),
+                  children:
+                      posts.map((posts) => PostWidget(post: posts)).toList(),
+                ),
+                floatingActionButtonLocation:
+                    FloatingActionButtonLocation.centerDocked,
+                floatingActionButton: FloatingActionButton(
+                  backgroundColor: Colors.orange,
+                  child: const Icon(FontAwesomeIcons.plus),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/post_create');
+                  },
+                ),
+                bottomNavigationBar: const BottomNavBar(),
               ),
-              body: ListView(
-                primary: true,
-                padding: const EdgeInsets.all(20.0),
-                children:
-                    posts.map((posts) => PostWidget(post: posts)).toList(),
-              ),
-              floatingActionButtonLocation:
-                  FloatingActionButtonLocation.centerDocked,
-              floatingActionButton: FloatingActionButton(
-                backgroundColor: Colors.orange,
-                child: const Icon(FontAwesomeIcons.plus),
-                onPressed: () {
-                  Navigator.pushNamed(context, '/post_create');
-                },
-              ),
-              bottomNavigationBar: const BottomNavBar(),
             ),
           );
         } else {
