@@ -1,6 +1,7 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import 'package:studhub/services/models.dart';
 import 'package:studhub/shared/bottom_nav.dart';
 import 'package:studhub/services/firestore.dart';
@@ -17,6 +18,8 @@ class PostsScreen extends StatefulWidget {
   @override
   State<PostsScreen> createState() => _PostsScreenState();
 }
+
+final GlobalKey<SideMenuState> _sideMenuKey = GlobalKey<SideMenuState>();
 
 class _PostsScreenState extends State<PostsScreen> {
   @override
@@ -46,26 +49,32 @@ class _PostsScreenState extends State<PostsScreen> {
           );
         } else if (snapshot.hasData) {
           var posts = snapshot.data!;
-          return Scaffold(
-            appBar: const PreferredSize(
-              child: MainAppBar(),
-              preferredSize: Size.fromHeight(60),
+          return SideMenu(
+            key: _sideMenuKey,
+            type: SideMenuType.shrinkNSlide,
+            menu: buildMenu(),
+            child: Scaffold(
+              appBar: const PreferredSize(
+                child: MainAppBar(),
+                preferredSize: Size.fromHeight(60),
+              ),
+              body: ListView(
+                primary: true,
+                padding: const EdgeInsets.all(20.0),
+                children:
+                    posts.map((posts) => PostWidget(post: posts)).toList(),
+              ),
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.centerDocked,
+              floatingActionButton: FloatingActionButton(
+                backgroundColor: Colors.orange,
+                child: const Icon(FontAwesomeIcons.plus),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/post_create');
+                },
+              ),
+              bottomNavigationBar: const BottomNavBar(),
             ),
-            body: ListView(
-              primary: true,
-              padding: const EdgeInsets.all(20.0),
-              children: posts.map((posts) => PostWidget(post: posts)).toList(),
-            ),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerDocked,
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: Colors.orange,
-              child: const Icon(FontAwesomeIcons.plus),
-              onPressed: () {
-                Navigator.pushNamed(context, '/post_create');
-              },
-            ),
-            bottomNavigationBar: const BottomNavBar(),
           );
         } else {
           return const Text('No posts found in database.');
@@ -89,6 +98,17 @@ class MainAppBar extends StatelessWidget {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
+          IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              final _state = _sideMenuKey.currentState;
+              if (_state!.isOpened) {
+                _state.closeSideMenu();
+              } else {
+                _state.openSideMenu();
+              } // open side menu
+            },
+          ),
           Image.asset(
             "assets/Logo_conver.png",
             width: 120,
@@ -123,4 +143,27 @@ class MainAppBar extends StatelessWidget {
       ),
     );
   }
+}
+
+Widget buildMenu() {
+  return SingleChildScrollView(
+    padding: const EdgeInsets.all(50),
+    child: Column(children: [
+      ListTile(
+        onTap: () {},
+        leading: const Icon(Icons.home, size: 20.0, color: Colors.white),
+        title: const Text("1"),
+        textColor: Colors.white,
+        dense: true,
+      ),
+      ListTile(
+        onTap: () {},
+        leading:
+            const Icon(Icons.verified_user, size: 20.0, color: Colors.white),
+        title: const Text("2"),
+        textColor: Colors.white,
+        dense: true,
+      ),
+    ]),
+  );
 }
