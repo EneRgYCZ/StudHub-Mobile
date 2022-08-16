@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:like_button/like_button.dart';
 import 'package:studhub/services/firestore.dart';
 import 'package:flutter_tags_x/flutter_tags_x.dart';
+import 'package:studhub/widgets/comment_box_widget.dart';
 
 import '../services/models.dart';
 
@@ -368,24 +369,7 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
             padding: EdgeInsets.all(8.0),
             child: Text("Comments:"),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ListTile(
-              leading: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Image.network(
-                    "https://imgs.search.brave.com/RD1h6dLTs2GwGi5q_1-LBSd0Yc5578OyxfK_JX7hkPo/rs:fit:860:752:1/g:ce/aHR0cHM6Ly9ub3Jy/aXNtZ210LmNvbS93/cC1jb250ZW50L3Vw/bG9hZHMvMjAyMC8w/NS8yNC0yNDgyNTNf/dXNlci1wcm9maWxl/LWRlZmF1bHQtaW1h/Z2UtcG5nLWNsaXBh/cnQtcG5nLWRvd25s/b2FkLnBuZw"),
-              ),
-              title: const Text("Name of the user"),
-              subtitle: const Text(
-                "Here comes the comment of the user...",
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-              ),
-            ),
-          )
+          CommentBoxWidget(postId: widget.post.postId)
         ],
       ),
     );

@@ -107,3 +107,24 @@ class ChatRoom {
       _$ChatRoomFromJson(json);
   Map<String, dynamic> toJson() => _$ChatRoomToJson(this);
 }
+
+@JsonSerializable()
+class PostComment {
+  String uid;
+  String text;
+  String userName;
+  String userPhoto;
+  @TimestampConverter()
+  final DateTime postedAt;
+
+  PostComment({
+    this.uid = '',
+    this.text = '',
+    this.userName = '',
+    this.userPhoto = '',
+    required this.postedAt,
+  });
+  factory PostComment.fromJson(Map<String, dynamic> json) =>
+      _$PostCommentFromJson(json);
+  Map<String, dynamic> toJson() => _$PostCommentToJson(this);
+}

@@ -90,3 +90,21 @@ Map<String, dynamic> _$ChatRoomToJson(ChatRoom instance) => <String, dynamic>{
       'text': instance.text,
       'sentAt': const TimestampConverter().toJson(instance.sentAt),
     };
+
+PostComment _$PostCommentFromJson(Map<String, dynamic> json) => PostComment(
+      uid: json['uid'] as String? ?? '',
+      text: json['text'] as String? ?? '',
+      userName: json['userName'] as String? ?? '',
+      userPhoto: json['userPhoto'] as String? ?? '',
+      postedAt:
+          const TimestampConverter().fromJson(json['postedAt'] as Timestamp),
+    );
+
+Map<String, dynamic> _$PostCommentToJson(PostComment instance) =>
+    <String, dynamic>{
+      'uid': instance.uid,
+      'text': instance.text,
+      'userName': instance.userName,
+      'userPhoto': instance.userPhoto,
+      'postedAt': const TimestampConverter().toJson(instance.postedAt),
+    };

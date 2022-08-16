@@ -95,6 +95,14 @@ class FirestoreService {
     await _db.collection("posts").doc(postId).update({"likes": likeFinal});
   }
 
+  Future<List<PostComment>> getPostComments(String postId) async {
+    var ref = _db.collection('posts').doc(postId).collection("comments");
+    var snapshot = await ref.get();
+    var data = snapshot.docs.map((s) => s.data());
+    var comments = data.map((d) => PostComment.fromJson(d));
+    return comments.toList();
+  }
+
 // **************************************************************************
 // POSTS RELATED FUNCTIONS (END)
 // **************************************************************************
