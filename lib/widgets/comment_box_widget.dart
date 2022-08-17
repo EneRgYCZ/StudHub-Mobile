@@ -20,7 +20,7 @@ class CommentBoxWidget extends StatelessWidget {
         } else {
           final List<PostComment> comments = snapshot.data;
           return SizedBox(
-            height: 120,
+            height: 210,
             child: ListView.builder(
               itemCount: comments.length,
               itemBuilder: (context, index) {

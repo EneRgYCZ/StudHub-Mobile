@@ -95,6 +95,20 @@ class FirestoreService {
     await _db.collection("posts").doc(postId).update({"likes": likeFinal});
   }
 
+  Future<void> postComment(String text, String postId) async {
+    var user = AuthService().user!;
+    var ref = _db.collection("posts").doc(postId).collection("comments");
+    var comment = {
+      'uid': user.uid,
+      'postedAt': Timestamp.now(),
+      'text': text,
+      'userName': user.displayName,
+      'userPhoto': user.photoURL
+    };
+
+    await ref.add(comment);
+  }
+
   Future<List<PostComment>> getPostComments(String postId) async {
     var ref = _db.collection('posts').doc(postId).collection("comments");
     var snapshot = await ref.get();

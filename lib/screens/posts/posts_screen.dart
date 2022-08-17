@@ -49,39 +49,47 @@ class _PostsScreenState extends State<PostsScreen> {
           );
         } else if (snapshot.hasData) {
           var posts = snapshot.data!;
-          return SideMenu(
-            background: Colors.orange,
-            key: _sideMenuKey,
-            type: SideMenuType.slideNRotate,
-            menu: buildMenu(),
-            child: GestureDetector(
-              onTap: () {
-                final _state = _sideMenuKey.currentState;
-                if (_state!.isOpened) {
-                  _state.closeSideMenu();
-                }
-              },
-              child: Scaffold(
-                appBar: const PreferredSize(
-                  child: MainAppBar(),
-                  preferredSize: Size.fromHeight(60),
+          return GestureDetector(
+            onTap: () {
+              final _state = _sideMenuKey.currentState;
+              if (_state!.isOpened) {
+                _state.closeSideMenu();
+              }
+            },
+            child: SideMenu(
+              background: Colors.orange,
+              key: _sideMenuKey,
+              type: SideMenuType.slideNRotate,
+              menu: buildSideMenu(),
+              child: GestureDetector(
+                onTap: () {
+                  final _state = _sideMenuKey.currentState;
+                  if (_state!.isOpened) {
+                    _state.closeSideMenu();
+                  }
+                },
+                child: Scaffold(
+                  appBar: const PreferredSize(
+                    child: MainAppBar(),
+                    preferredSize: Size.fromHeight(60),
+                  ),
+                  body: ListView(
+                    primary: true,
+                    padding: const EdgeInsets.all(20.0),
+                    children:
+                        posts.map((posts) => PostWidget(post: posts)).toList(),
+                  ),
+                  floatingActionButtonLocation:
+                      FloatingActionButtonLocation.centerDocked,
+                  floatingActionButton: FloatingActionButton(
+                    backgroundColor: Colors.orange,
+                    child: const Icon(FontAwesomeIcons.plus),
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/post_create');
+                    },
+                  ),
+                  bottomNavigationBar: const BottomNavBar(),
                 ),
-                body: ListView(
-                  primary: true,
-                  padding: const EdgeInsets.all(20.0),
-                  children:
-                      posts.map((posts) => PostWidget(post: posts)).toList(),
-                ),
-                floatingActionButtonLocation:
-                    FloatingActionButtonLocation.centerDocked,
-                floatingActionButton: FloatingActionButton(
-                  backgroundColor: Colors.orange,
-                  child: const Icon(FontAwesomeIcons.plus),
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/post_create');
-                  },
-                ),
-                bottomNavigationBar: const BottomNavBar(),
               ),
             ),
           );
@@ -154,23 +162,23 @@ class MainAppBar extends StatelessWidget {
   }
 }
 
-Widget buildMenu() {
+Widget buildSideMenu() {
   return SingleChildScrollView(
     padding: const EdgeInsets.all(50),
     child: Column(children: [
       ListTile(
         onTap: () {},
-        leading: const Icon(Icons.home, size: 20.0, color: Colors.white),
+        leading: const Icon(Icons.home, size: 20.0, color: Colors.black),
         title: const Text("1"),
-        textColor: Colors.white,
+        textColor: Colors.black,
         dense: true,
       ),
       ListTile(
         onTap: () {},
         leading:
-            const Icon(Icons.verified_user, size: 20.0, color: Colors.white),
+            const Icon(Icons.verified_user, size: 20.0, color: Colors.black),
         title: const Text("2"),
-        textColor: Colors.white,
+        textColor: Colors.black,
         dense: true,
       ),
     ]),

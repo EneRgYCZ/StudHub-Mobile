@@ -247,6 +247,16 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
   Widget build(BuildContext context) {
     var userExtraData = Provider.of<UserInfo>(context);
 
+    final _controller = TextEditingController();
+    var _enteredComment = "";
+
+    void _postComment() {
+      FocusScope.of(context).unfocus();
+      FirestoreService().postComment(_enteredComment, widget.post.postId);
+      _enteredComment = "";
+      _controller.clear();
+    }
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -353,35 +363,60 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
               ),
             ),
           ),
-          userExtraData.uid == widget.post.uid
-              ? Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ElevatedButton.icon(
-                      onPressed: () {
-                        setState(() {
-                          FirestoreService().deletePost(widget.post);
-                          Navigator.of(context)
-                              .pushNamedAndRemoveUntil('/', (route) => false);
-                        });
-                      },
-                      icon: const Icon(Icons.delete),
-                      label: const Text("Delete"),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.red,
-                      ),
-                    ),
-                  ),
-                )
-              : const SizedBox.shrink(),
           const Padding(
             padding: EdgeInsets.all(8.0),
             child: Text("Comments:"),
           ),
-          CommentBoxWidget(postId: widget.post.postId)
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    textCapitalization: TextCapitalization.sentences,
+                    controller: _controller,
+                    decoration:
+                        const InputDecoration(labelText: "Post a comment..."),
+                    onChanged: (value) {
+                      _enteredComment = value;
+                    },
+                  ),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.send),
+                  color: Theme.of(context).hintColor,
+                  onPressed: () {
+                    _enteredComment.trim().isEmpty ? null : _postComment();
+                  },
+                )
+              ],
+            ),
+          ),
+          CommentBoxWidget(postId: widget.post.postId),
         ],
       ),
+      floatingActionButton: userExtraData.uid == widget.post.uid
+          ? Align(
+              alignment: Alignment.bottomCenter,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      FirestoreService().deletePost(widget.post);
+                      Navigator.of(context)
+                          .pushNamedAndRemoveUntil('/', (route) => false);
+                    });
+                  },
+                  icon: const Icon(Icons.delete),
+                  label: const Text("Delete"),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.red,
+                  ),
+                ),
+              ),
+            )
+          : const SizedBox.shrink(),
     );
   }
 }
