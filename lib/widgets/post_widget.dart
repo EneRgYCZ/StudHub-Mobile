@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:like_button/like_button.dart';
 import 'package:studhub/services/firestore.dart';
 import 'package:flutter_tags_x/flutter_tags_x.dart';
@@ -26,7 +27,7 @@ class _PostWidgetState extends State<PostWidget> {
         : contains = false;
 
     return Hero(
-      tag: widget.post.text,
+      tag: widget.post.postId,
       child: Card(
         clipBehavior: Clip.antiAlias,
         child: InkWell(
@@ -191,8 +192,23 @@ class _PostWidgetState extends State<PostWidget> {
                             ),
                             PopupMenuItem(
                               child: ListTile(
-                                onTap: (() =>
-                                    FirestoreService().deletePost(widget.post)),
+                                onTap: () {
+                                  CoolAlert.show(
+                                    type: CoolAlertType.confirm,
+                                    context: context,
+                                    text:
+                                        "Are you sure you want to delete the post?",
+                                    onConfirmBtnTap: () {
+                                      setState(() {
+                                        FirestoreService()
+                                            .deletePost(widget.post);
+                                        Navigator.of(context)
+                                            .pushNamedAndRemoveUntil(
+                                                '/', (route) => false);
+                                      });
+                                    },
+                                  );
+                                },
                                 leading: const Icon(Icons.delete),
                                 title: const Text('Delete Post'),
                               ),
@@ -264,7 +280,7 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
       body: ListView(
         children: [
           Hero(
-            tag: widget.post.text,
+            tag: widget.post.postId,
             child: GestureDetector(
               onTap: () {
                 Navigator.pushNamed(
@@ -402,11 +418,18 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
                 padding: const EdgeInsets.all(8.0),
                 child: ElevatedButton.icon(
                   onPressed: () {
-                    setState(() {
-                      FirestoreService().deletePost(widget.post);
-                      Navigator.of(context)
-                          .pushNamedAndRemoveUntil('/', (route) => false);
-                    });
+                    CoolAlert.show(
+                      type: CoolAlertType.confirm,
+                      context: context,
+                      onConfirmBtnTap: () {
+                        setState(() {
+                          Navigator.of(context)
+                              .pushNamedAndRemoveUntil('/', (route) => false);
+                          FirestoreService().deletePost(widget.post);
+                        });
+                      },
+                      text: "Are you sure you want to delete the post?",
+                    );
                   },
                   icon: const Icon(Icons.delete),
                   label: const Text("Delete"),

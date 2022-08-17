@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_tags_x/flutter_tags_x.dart';
 import 'package:provider/provider.dart';
 import 'package:studhub/services/auth.dart';
-import 'package:studhub/services/firestore.dart';
 import 'package:studhub/services/models.dart';
+import 'package:studhub/services/firestore.dart';
+import 'package:flutter_tags_x/flutter_tags_x.dart';
 
 class ProfileBodyWidget extends StatelessWidget {
   final String bio;

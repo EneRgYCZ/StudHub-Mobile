@@ -52,9 +52,7 @@ class FirestoreService {
     List docId = [];
     await _db
         .collection('posts')
-        .where("text", isEqualTo: post.text)
-        .where("uid", isEqualTo: user.uid)
-        .where("skills", isEqualTo: post.skills)
+        .where("postId", isEqualTo: post.postId)
         .get()
         .then((QuerySnapshot querySnapshot) {
       for (var doc in querySnapshot.docs) {

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:studhub/services/firestore.dart';
 import 'package:studhub/services/models.dart';
 
-import '../shared/loading.dart';
-
 class CommentBoxWidget extends StatelessWidget {
   final String postId;
   const CommentBoxWidget({Key? key, required this.postId}) : super(key: key);

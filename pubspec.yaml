@@ -40,6 +40,7 @@ dependencies:
   bulletin: ^0.0.1
   provider: ^6.0.1
   expandable: ^5.0.1
+  cool_alert: ^1.1.0
   like_button: ^2.0.4
   liquid_ui: ^1.0.0+9
   google_fonts: ^2.1.0

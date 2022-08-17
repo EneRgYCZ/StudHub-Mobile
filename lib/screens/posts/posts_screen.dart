@@ -19,8 +19,6 @@ class PostsScreen extends StatefulWidget {
   State<PostsScreen> createState() => _PostsScreenState();
 }
 
-final GlobalKey<SideMenuState> _sideMenuKey = GlobalKey<SideMenuState>();
-
 class _PostsScreenState extends State<PostsScreen> {
   @override
   void initState() {
@@ -32,6 +30,8 @@ class _PostsScreenState extends State<PostsScreen> {
   @override
   Widget build(BuildContext context) {
     var userExtraData = Provider.of<UserInfo>(context);
+    final GlobalKey<SideMenuState> _sideMenuKey = GlobalKey<SideMenuState>();
+
     FirebaseMessaging.onMessage.listen((event) {
       FirestoreService().updateNotificationCounter(userExtraData.uid, true);
     });
@@ -69,9 +69,60 @@ class _PostsScreenState extends State<PostsScreen> {
                   }
                 },
                 child: Scaffold(
-                  appBar: const PreferredSize(
-                    child: MainAppBar(),
-                    preferredSize: Size.fromHeight(60),
+                  appBar: PreferredSize(
+                    // To be refactored (AppBar)
+                    child: AppBar(
+                      elevation: 0,
+                      backgroundColor: Colors.black38,
+                      title: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            icon: const Icon(Icons.menu),
+                            onPressed: () {
+                              final _state = _sideMenuKey.currentState;
+                              if (_state!.isOpened) {
+                                _state.closeSideMenu();
+                              } else {
+                                _state.openSideMenu();
+                              }
+                            },
+                          ),
+                          Image.asset(
+                            "assets/Logo_conver.png",
+                            width: 120,
+                            height: 120,
+                          ),
+                          if (userExtraData.notifications > 0)
+                            Badge(
+                              badgeContent:
+                                  Text(userExtraData.notifications.toString()),
+                              child: IconButton(
+                                onPressed: () {
+                                  Navigator.pushNamed(context, '/chat');
+                                },
+                                icon: const Icon(
+                                  FontAwesomeIcons.comment,
+                                  color: Colors.orange,
+                                  size: 25,
+                                ),
+                              ),
+                            ),
+                          if (userExtraData.notifications == 0)
+                            IconButton(
+                              icon: const Icon(
+                                FontAwesomeIcons.comment,
+                                color: Colors.orange,
+                                size: 25,
+                              ),
+                              onPressed: () {
+                                Navigator.pushNamed(context, '/chat');
+                              },
+                            )
+                        ],
+                      ),
+                    ),
+                    preferredSize: const Size.fromHeight(60),
                   ),
                   body: ListView(
                     primary: true,
@@ -101,7 +152,7 @@ class _PostsScreenState extends State<PostsScreen> {
   }
 }
 
-class MainAppBar extends StatelessWidget {
+/* class MainAppBar extends StatelessWidget {
   const MainAppBar({
     Key? key,
   }) : super(key: key);
@@ -123,7 +174,7 @@ class MainAppBar extends StatelessWidget {
                 _state.closeSideMenu();
               } else {
                 _state.openSideMenu();
-              } // open side menu
+              }
             },
           ),
           Image.asset(
@@ -161,7 +212,7 @@ class MainAppBar extends StatelessWidget {
     );
   }
 }
-
+ */
 Widget buildSideMenu() {
   return SingleChildScrollView(
     padding: const EdgeInsets.all(50),
