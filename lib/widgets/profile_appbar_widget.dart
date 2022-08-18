@@ -45,7 +45,11 @@ class ProfileAppBarWidget extends StatelessWidget {
             ),
             Text(
               userName,
-              style: const TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
+              style: const TextStyle(
+                fontSize: 35,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
             ),
             const SizedBox(
               height: 10,

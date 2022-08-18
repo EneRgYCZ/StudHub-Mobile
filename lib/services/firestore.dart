@@ -48,7 +48,6 @@ class FirestoreService {
   }
 
   void deletePost(Post post) async {
-    var user = AuthService().user!;
     List docId = [];
     await _db
         .collection('posts')
