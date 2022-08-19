@@ -70,22 +70,20 @@ class _PostFromWidgetState extends State<PostFromWidget> {
                 ),
           Container(
             padding: const EdgeInsets.all(4),
-            child: Expanded(
-              child: TextField(
-                controller: _tagsController,
-                decoration: const InputDecoration(labelText: "Add a tag..."),
-                onChanged: (value) {
-                  setState(() {
-                    tags = value;
-                  });
-                },
-                onSubmitted: (value) {
-                  arrayOfTags.add(value);
-                  setState(() {
-                    _tagsController.clear();
-                  });
-                },
-              ),
+            child: TextField(
+              controller: _tagsController,
+              decoration: const InputDecoration(labelText: "Add a tag..."),
+              onChanged: (value) {
+                setState(() {
+                  tags = value;
+                });
+              },
+              onSubmitted: (value) {
+                arrayOfTags.add(value);
+                setState(() {
+                  _tagsController.clear();
+                });
+              },
             ),
           ),
           Padding(
