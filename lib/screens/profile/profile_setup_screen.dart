@@ -1,7 +1,13 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:studhub/services/auth.dart';
 import 'package:studhub/services/firestore.dart';
 import 'package:flutter_tags_x/flutter_tags_x.dart';
 import 'package:introduction_screen/introduction_screen.dart';
+
+import '../../services/models.dart';
 
 class ProfileSetupScreen extends StatefulWidget {
   const ProfileSetupScreen({Key? key}) : super(key: key);
@@ -15,9 +21,40 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
 
   final TextEditingController _tagsController = TextEditingController();
 
+  bool isVerified = false;
+
+  void update() {
+    AuthService().user!.reload();
+    if (AuthService().user!.emailVerified) {
+      setState(() {
+        isVerified = true;
+      });
+    } else {
+      setState(() {
+        isVerified = false;
+      });
+    }
+  }
+
+  Timer? timer;
+
+  @override
+  void initState() {
+    super.initState();
+    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => update());
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
+  }
+
   List arrayOfTags = [];
   @override
   Widget build(BuildContext context) {
+    var user = Provider.of<UserInfo>(context);
+
     return Scaffold(
       body: IntroductionScreen(
         pages: [
@@ -83,12 +120,22 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
           ),
           PageViewModel(
             title: "Verification",
-            body: "Head to your email and verify your account",
+            bodyWidget: Column(
+              children: <Widget>[
+                const Text("You now have to verify your account"),
+                TextButton(
+                    onPressed: () {
+                      AuthService().user!.sendEmailVerification();
+                      AuthService().user!.reload();
+                    },
+                    child: const Text("Send verification email"))
+              ],
+            ),
           ),
         ],
         showBackButton: true,
         back: const Text("Back"),
-        done: const Text("Done"),
+        done: isVerified ? const Text("Done") : const SizedBox.shrink(),
         next: const Text("Next"),
         onDone: () {
           FirestoreService().updateSkills(arrayOfTags);

@@ -43,6 +43,7 @@ class AuthService {
       password: password,
     );
     FirestoreService().createUserDataForEmail(authResult.user!.uid, name);
+    authResult.user!.updateDisplayName(name);
   }
 
   String generateNonce([int length = 32]) {

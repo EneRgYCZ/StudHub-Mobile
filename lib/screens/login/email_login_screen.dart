@@ -21,11 +21,11 @@ class _EmailLoginScreenState extends State<EmailLoginScreen> {
   ) async {
     try {
       if (isLogin) {
-        await AuthService().emailLogin(email, password);
-        await Navigator.of(ctx).pushNamedAndRemoveUntil('/', (route) => false);
+        AuthService().emailLogin(email, password);
+        Navigator.of(ctx).pushNamedAndRemoveUntil('/', (route) => false);
       } else {
-        await AuthService().emailSignUp(email, password, name);
-        await Navigator.of(ctx)
+        AuthService().emailSignUp(email, password, name);
+        Navigator.of(ctx)
             .pushNamedAndRemoveUntil('/profile_setup', (route) => false);
       }
     } on PlatformException catch (e) {
