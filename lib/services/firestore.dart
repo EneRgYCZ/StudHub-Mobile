@@ -193,6 +193,17 @@ class FirestoreService {
     return ref.set(data, SetOptions(merge: true));
   }
 
+  Future<void> updatIsVerified(bool isVerified) async {
+    var user = AuthService().user!;
+    var ref = _db.collection('users').doc(user.uid);
+
+    var data = {
+      "isVerified": isVerified,
+    };
+
+    return ref.set(data, SetOptions(merge: true));
+  }
+
   Stream<UserInfo> streamCurrentUserData() {
     return AuthService().userStream.switchMap((user) {
       if (user != null) {

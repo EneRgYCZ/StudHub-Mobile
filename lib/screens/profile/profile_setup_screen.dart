@@ -1,13 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:lottie/lottie.dart';
 import 'package:studhub/services/auth.dart';
 import 'package:studhub/services/firestore.dart';
 import 'package:flutter_tags_x/flutter_tags_x.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-
-import '../../services/models.dart';
 
 class ProfileSetupScreen extends StatefulWidget {
   const ProfileSetupScreen({Key? key}) : super(key: key);
@@ -23,7 +21,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
 
   bool isVerified = false;
 
-  void update() {
+  void updateUserState() {
     AuthService().user!.reload();
     if (AuthService().user!.emailVerified) {
       setState(() {
@@ -41,7 +39,8 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(const Duration(seconds: 1), (Timer t) => update());
+    timer = Timer.periodic(
+        const Duration(seconds: 1), (Timer t) => updateUserState());
   }
 
   @override
@@ -53,15 +52,16 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
   List arrayOfTags = [];
   @override
   Widget build(BuildContext context) {
-    var user = Provider.of<UserInfo>(context);
-
     return Scaffold(
       body: IntroductionScreen(
         pages: [
           PageViewModel(
-            titleWidget: const Text(
-              "What skills do you have?",
-              style: TextStyle(fontSize: 25),
+            titleWidget: const Padding(
+              padding: EdgeInsets.only(top: 20.0),
+              child: Text(
+                "What skills do you have?",
+                style: TextStyle(fontSize: 25),
+              ),
             ),
             bodyWidget: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -119,8 +119,16 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
             ),
           ),
           PageViewModel(
-            title: "Verification",
+            titleWidget: const Padding(
+              padding: EdgeInsets.only(top: 20.0),
+              child: Text(
+                "Verification",
+                style: TextStyle(fontSize: 25),
+              ),
+            ),
             bodyWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 const Text("You now have to verify your account"),
                 TextButton(
@@ -128,7 +136,11 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                       AuthService().user!.sendEmailVerification();
                       AuthService().user!.reload();
                     },
-                    child: const Text("Send verification email"))
+                    child: const Text("Send verification email")),
+                isVerified
+                    ? Lottie.network(
+                        "https://assets1.lottiefiles.com/packages/lf20_2mm5zqab.json")
+                    : const SizedBox.shrink(),
               ],
             ),
           ),
@@ -139,6 +151,7 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
         next: const Text("Next"),
         onDone: () {
           FirestoreService().updateSkills(arrayOfTags);
+          FirestoreService().updatIsVerified(isVerified);
           Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
         },
       ),

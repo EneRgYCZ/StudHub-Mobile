@@ -26,6 +26,10 @@ class AuthService {
     );
     final authResult =
         await FirebaseAuth.instance.signInWithCredential(authCredential);
+    if (authResult.additionalUserInfo!.isNewUser) {
+      user!.sendEmailVerification();
+      user!.reload();
+    }
     return authResult;
   }
 
