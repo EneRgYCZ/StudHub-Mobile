@@ -139,7 +139,9 @@ class _ProfileSetupScreenState extends State<ProfileSetupScreen> {
                     child: const Text("Send verification email")),
                 isVerified
                     ? Lottie.network(
-                        "https://assets1.lottiefiles.com/packages/lf20_2mm5zqab.json")
+                        "https://assets1.lottiefiles.com/packages/lf20_2mm5zqab.json",
+                        repeat: false,
+                      )
                     : const SizedBox.shrink(),
               ],
             ),

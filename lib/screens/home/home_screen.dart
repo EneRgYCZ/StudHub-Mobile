@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:studhub/services/auth.dart';
 import 'package:studhub/shared/loading.dart';
@@ -9,16 +10,19 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
+    return StreamBuilder<User?>(
       stream: AuthService().userStream,
       builder: (context, snapshot) {
+        final User? user = snapshot.data;
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const LoadingScreen();
         } else if (snapshot.hasError) {
           return const Center(
             child: Text("Error..."),
           );
-        } else if (snapshot.hasData) {
+        } else if (snapshot.hasData && user!.emailVerified) {
+          return const PostsScreen();
+        } else if (snapshot.hasData && !user!.emailVerified) {
           return const PostsScreen();
         } else {
           return const LoginScreen();
