@@ -45,5 +45,11 @@
 	<false/>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need your permission to access the galley</string>
+	<key>NSCameraUsageDescription</key>
+	<string>We need your permission to access the galley</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need your permission to access the galley</string>
 </dict>
 </plist>

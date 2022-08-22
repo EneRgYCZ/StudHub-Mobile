@@ -4,6 +4,7 @@ import 'package:studhub/screens/home/home_screen.dart';
 import 'package:studhub/screens/posts/posts_screen.dart';
 import 'package:studhub/screens/login/login_screen.dart';
 import 'package:studhub/screens/chat/message_screen.dart';
+import 'package:studhub/screens/profile/profile_edit_screen.dart';
 import 'package:studhub/screens/search/search_screen.dart';
 import 'package:studhub/screens/profile/profile_screen.dart';
 import 'package:studhub/screens/posts/post_create_screen.dart';
@@ -21,6 +22,7 @@ var appRoutes = {
   '/profile': (context) => const ProfileScreen(),
   '/message_screen': (context) => const MessageScreen(),
   '/post_create': (context) => const PostCreateScreen(),
+  '/profile_edit': (context) => const ProfileEditScreen(),
   '/profile_setup': (context) => const ProfileSetupScreen(),
   '/login_with_email': (context) => const EmailLoginScreen(),
   '/notifications': (context) => const NotificationsScreen(),

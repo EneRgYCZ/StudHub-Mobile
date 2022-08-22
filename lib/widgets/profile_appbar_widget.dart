@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:studhub/widgets/image_picker_widget.dart';
 
 class ProfileAppBarWidget extends StatelessWidget {
   final String userName;
@@ -54,6 +55,10 @@ class ProfileAppBarWidget extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
+            TextButton(
+              onPressed: () => Navigator.pushNamed(context, '/profile_edit'),
+              child: const Text("Edit"),
+            )
           ],
         ),
       ),
