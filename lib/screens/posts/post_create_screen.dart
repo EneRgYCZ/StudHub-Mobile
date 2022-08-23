@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:studhub/widgets/post_form_widget.dart';
+import 'package:studhub/widgets/post/post_form_widget.dart';
 
 class PostCreateScreen extends StatelessWidget {
   const PostCreateScreen({Key? key}) : super(key: key);

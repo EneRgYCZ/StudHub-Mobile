@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:studhub/widgets/image_picker_widget.dart';
 
 class ProfileAppBarWidget extends StatelessWidget {
   final String userName;

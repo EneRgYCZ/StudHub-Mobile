@@ -4,9 +4,9 @@ import 'package:cool_alert/cool_alert.dart';
 import 'package:like_button/like_button.dart';
 import 'package:studhub/services/firestore.dart';
 import 'package:flutter_tags_x/flutter_tags_x.dart';
-import 'package:studhub/widgets/comment_box_widget.dart';
+import 'package:studhub/widgets/post/comment_box_widget.dart';
 
-import '../services/models.dart';
+import '../../services/models.dart';
 
 class PostWidget extends StatefulWidget {
   final Post post;

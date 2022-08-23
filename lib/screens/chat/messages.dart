@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:provider/provider.dart';
-import 'package:studhub/widgets/message_bubble_widget.dart';
+import 'package:studhub/widgets/chat/message_bubble_widget.dart';
 
 import '../../shared/loading.dart';
 import '../../services/models.dart';

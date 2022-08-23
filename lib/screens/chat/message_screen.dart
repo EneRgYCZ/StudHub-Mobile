@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studhub/screens/chat/messages.dart';
 import 'package:studhub/shared/screen_arguments.dart';
-import 'package:studhub/widgets/new_message_widget.dart';
+import 'package:studhub/widgets/chat/new_message_widget.dart';
 
 class MessageScreen extends StatelessWidget {
   const MessageScreen({Key? key}) : super(key: key);

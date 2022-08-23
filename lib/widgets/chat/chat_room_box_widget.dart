@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:studhub/services/models.dart';
 
-import '../shared/screen_arguments.dart';
+import '../../shared/screen_arguments.dart';
 
 class ChatRoomBoxWidget extends StatelessWidget {
   final UserInfo user;

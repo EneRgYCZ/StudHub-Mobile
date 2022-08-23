@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:expandable/expandable.dart';
 
-import '../../widgets/blog_card_widget.dart';
+import '../../widgets/blog/blog_card_widget.dart';
 
 class BlogScreen extends StatelessWidget {
   const BlogScreen({

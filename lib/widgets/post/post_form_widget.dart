@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tags_x/flutter_tags_x.dart';
 
-import '../services/firestore.dart';
+import '../../services/firestore.dart';
 
 class PostFromWidget extends StatefulWidget {
   const PostFromWidget({Key? key}) : super(key: key);

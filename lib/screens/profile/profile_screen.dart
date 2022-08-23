@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:studhub/services/firestore.dart';
 import 'package:studhub/services/models.dart';
-import 'package:studhub/widgets/profile_body_widget.dart';
-import 'package:studhub/widgets/profile_appbar_widget.dart';
+import 'package:studhub/services/firestore.dart';
+import 'package:studhub/widgets/profile/profile_body_widget.dart';
+import 'package:studhub/widgets/profile/profile_appbar_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);

@@ -1,9 +1,11 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:studhub/services/auth.dart';
 import 'package:studhub/shared/loading.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:studhub/screens/login/login_screen.dart';
 import 'package:studhub/screens/posts/posts_screen.dart';
+
+import '../profile/profile_setup_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -23,7 +25,7 @@ class HomeScreen extends StatelessWidget {
         } else if (snapshot.hasData && user!.emailVerified) {
           return const PostsScreen();
         } else if (snapshot.hasData && !user!.emailVerified) {
-          return const PostsScreen();
+          return const ProfileSetupScreen();
         } else {
           return const LoginScreen();
         }

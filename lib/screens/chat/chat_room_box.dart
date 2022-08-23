@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studhub/shared/loading.dart';
 import 'package:studhub/services/firestore.dart';
-import 'package:studhub/widgets/chat_room_box_widget.dart';
+import 'package:studhub/widgets/chat/chat_room_box_widget.dart';
 
 import '../../services/models.dart';
 
