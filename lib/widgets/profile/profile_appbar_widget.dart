@@ -5,9 +5,12 @@ class ProfileAppBarWidget extends StatelessWidget {
   final String userPhoto;
   final bool? isUser;
 
-  const ProfileAppBarWidget(
-      {Key? key, required this.userName, required this.userPhoto, this.isUser})
-      : super(key: key);
+  const ProfileAppBarWidget({
+    Key? key,
+    required this.userName,
+    required this.userPhoto,
+    this.isUser,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -54,10 +57,11 @@ class ProfileAppBarWidget extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            TextButton(
-              onPressed: () => Navigator.pushNamed(context, '/profile_edit'),
-              child: const Text("Edit"),
-            )
+            if (isUser == true)
+              TextButton(
+                onPressed: () => Navigator.pushNamed(context, '/profile_edit'),
+                child: const Text("Edit"),
+              )
           ],
         ),
       ),
