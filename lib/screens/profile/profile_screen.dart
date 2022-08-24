@@ -11,44 +11,47 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final passedUid = ModalRoute.of(context)!.settings.arguments as dynamic;
-    var _userExtraData = Provider.of<UserInfo>(context);
-    var _bio = _userExtraData.bio;
-    var _userName = _userExtraData.userName;
-    var _userPhoto = _userExtraData.userPhoto;
+    var userExtraData = Provider.of<UserInfo>(context);
+    var bio = userExtraData.bio;
+    var userName = userExtraData.userName;
+    var userPhoto = userExtraData.userPhoto;
 
-    if (passedUid == _userExtraData.uid || passedUid == null) {
+    if (passedUid == userExtraData.uid || passedUid == null) {
       return Scaffold(
         appBar: PreferredSize(
           child: ProfileAppBarWidget(
-            userName: _userName,
-            userPhoto: _userPhoto,
+            userName: userName,
+            userPhoto: userPhoto,
             isUser: true,
           ),
           preferredSize: const Size.fromHeight(300),
         ),
         body: ProfileBodyWidget(
-            bio: _bio, isUser: true, skills: _userExtraData.skills),
+          bio: bio,
+          isUser: true,
+          skills: userExtraData.skills,
+        ),
       );
     } else {
       return FutureBuilder(
         future: FirestoreService().getUserData(passedUid),
         initialData: UserInfo,
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          UserInfo _user = snapshot.data;
+          final UserInfo user = snapshot.data;
           return Scaffold(
             appBar: PreferredSize(
               child: ProfileAppBarWidget(
-                userName: _user.userName,
-                userPhoto: _user.userPhoto,
+                userName: user.userName,
+                userPhoto: user.userPhoto,
                 isUser: false,
               ),
               preferredSize: const Size.fromHeight(300),
             ),
             body: ProfileBodyWidget(
-              bio: _user.bio,
+              bio: user.bio,
               isUser: false,
               uid: passedUid,
-              skills: _user.skills,
+              skills: user.skills,
             ),
           );
         },

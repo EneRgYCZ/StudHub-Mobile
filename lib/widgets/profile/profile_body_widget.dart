@@ -21,7 +21,7 @@ class ProfileBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _userExtraData = Provider.of<UserInfo>(context);
+    var userExtraData = Provider.of<UserInfo>(context);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -64,7 +64,7 @@ class ProfileBodyWidget extends StatelessWidget {
                   child: ElevatedButton.icon(
                     onPressed: () {
                       FirestoreService()
-                          .createChatRoom(_userExtraData.uid, uid!);
+                          .createChatRoom(userExtraData.uid, uid!);
                       Navigator.pushNamed(context, '/chat');
                     },
                     icon: const Icon(Icons.message),
