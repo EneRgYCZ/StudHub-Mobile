@@ -4,7 +4,7 @@ import 'package:studhub/services/models.dart';
 import '../../shared/screen_arguments.dart';
 
 class ChatRoomBoxWidget extends StatelessWidget {
-  final UserInfo user;
+  final UserDetails user;
   final String roomId;
   final String lastMessage;
   const ChatRoomBoxWidget({

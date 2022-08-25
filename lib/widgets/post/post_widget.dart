@@ -19,7 +19,7 @@ class PostWidget extends StatefulWidget {
 class _PostWidgetState extends State<PostWidget> {
   @override
   Widget build(BuildContext context) {
-    var userExtraData = Provider.of<UserInfo>(context);
+    var userExtraData = Provider.of<UserDetails>(context);
     bool isLiked = false;
     bool contains;
     userExtraData.likedPosts.contains(widget.post.postId)
@@ -261,7 +261,7 @@ class PostsHeroWidget extends StatefulWidget {
 class _PostsHeroWidgetState extends State<PostsHeroWidget> {
   @override
   Widget build(BuildContext context) {
-    var userExtraData = Provider.of<UserInfo>(context);
+    var userExtraData = Provider.of<UserDetails>(context);
 
     final _controller = TextEditingController();
     var _enteredComment = "";

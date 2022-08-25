@@ -30,7 +30,7 @@ class Post {
 }
 
 @JsonSerializable()
-class UserInfo {
+class UserDetails {
   String uid;
   String bio;
   bool isVerified;
@@ -40,7 +40,7 @@ class UserInfo {
   List<String> skills = <String>[];
   List<String> likedPosts = <String>[];
 
-  UserInfo({
+  UserDetails({
     this.uid = '',
     this.bio = '',
     this.userName = '',
@@ -48,9 +48,9 @@ class UserInfo {
     this.notifications = 0,
     this.isVerified = false,
   });
-  factory UserInfo.fromJson(Map<String, dynamic> json) =>
-      _$UserInfoFromJson(json);
-  Map<String, dynamic> toJson() => _$UserInfoToJson(this);
+  factory UserDetails.fromJson(Map<String, dynamic> json) =>
+      _$UserDetailsFromJson(json);
+  Map<String, dynamic> toJson() => _$UserDetailsToJson(this);
 }
 
 @JsonSerializable()

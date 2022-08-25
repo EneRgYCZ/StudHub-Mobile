@@ -12,7 +12,7 @@ class Messages extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var user = Provider.of<UserInfo>(context);
+    var user = Provider.of<UserDetails>(context);
     List<Message> data = [];
     return StreamBuilder<List<Message>>(
       stream: FirestoreService().streamMessages(roomId),

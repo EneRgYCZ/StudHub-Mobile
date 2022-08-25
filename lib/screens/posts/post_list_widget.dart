@@ -9,7 +9,7 @@ import '../../shared/bottom_nav.dart';
 import '../../widgets/sidemenu/build_sidemenu_widget.dart';
 
 class PostListWidget extends StatelessWidget {
-  final UserInfo user;
+  final UserDetails user;
   final List<Post> posts;
   const PostListWidget({
     Key? key,

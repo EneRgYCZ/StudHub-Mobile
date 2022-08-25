@@ -11,7 +11,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final passedUid = ModalRoute.of(context)!.settings.arguments as dynamic;
-    var userExtraData = Provider.of<UserInfo>(context);
+    var userExtraData = Provider.of<UserDetails>(context);
     var bio = userExtraData.bio;
     var userName = userExtraData.userName;
     var userPhoto = userExtraData.userPhoto;
@@ -35,9 +35,9 @@ class ProfileScreen extends StatelessWidget {
     } else {
       return FutureBuilder(
         future: FirestoreService().getUserData(passedUid),
-        initialData: UserInfo,
+        initialData: UserDetails,
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          final UserInfo user = snapshot.data;
+          final UserDetails user = snapshot.data;
           return Scaffold(
             appBar: PreferredSize(
               child: ProfileAppBarWidget(

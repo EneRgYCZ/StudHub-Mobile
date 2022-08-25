@@ -25,7 +25,7 @@ class _PostsScreenState extends State<PostsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var userExtraData = Provider.of<UserInfo>(context);
+    var userExtraData = Provider.of<UserDetails>(context);
 
     FirebaseMessaging.onMessage.listen((event) {
       FirestoreService().updateNotificationCounter(userExtraData.uid, true);

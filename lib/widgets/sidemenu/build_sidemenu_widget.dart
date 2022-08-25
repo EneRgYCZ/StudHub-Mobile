@@ -4,7 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import '../../services/auth.dart';
 import '../../services/models.dart';
 
-Widget buildSideMenu(UserInfo user, BuildContext context) {
+Widget buildSideMenu(UserDetails user, BuildContext context) {
   return SingleChildScrollView(
     padding: const EdgeInsets.all(50),
     child: Column(

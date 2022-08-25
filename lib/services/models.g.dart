@@ -28,7 +28,7 @@ Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'postId': instance.postId,
     };
 
-UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
+UserDetails _$UserDetailsFromJson(Map<String, dynamic> json) => UserDetails(
       uid: json['uid'] as String? ?? '',
       bio: json['bio'] as String? ?? '',
       userName: json['userName'] as String? ?? '',
@@ -42,7 +42,8 @@ UserInfo _$UserInfoFromJson(Map<String, dynamic> json) => UserInfo(
           .map((e) => e as String)
           .toList();
 
-Map<String, dynamic> _$UserInfoToJson(UserInfo instance) => <String, dynamic>{
+Map<String, dynamic> _$UserDetailsToJson(UserDetails instance) =>
+    <String, dynamic>{
       'uid': instance.uid,
       'bio': instance.bio,
       'isVerified': instance.isVerified,

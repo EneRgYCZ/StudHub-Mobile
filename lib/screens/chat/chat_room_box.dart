@@ -13,15 +13,15 @@ class ChatRoomBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String _otherUserUid;
-    final userExtraData = Provider.of<UserInfo>(context);
+    final userExtraData = Provider.of<UserDetails>(context);
     if (chatRoom.participants[0] == userExtraData.uid) {
       _otherUserUid = chatRoom.participants[1];
     } else {
       _otherUserUid = chatRoom.participants[0];
     }
-    return FutureBuilder<UserInfo>(
+    return FutureBuilder<UserDetails>(
       future: FirestoreService().getUserData(_otherUserUid),
-      initialData: UserInfo(),
+      initialData: UserDetails(),
       builder: (context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: LoadingScreen());

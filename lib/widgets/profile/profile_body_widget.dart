@@ -21,7 +21,7 @@ class ProfileBodyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var userExtraData = Provider.of<UserInfo>(context);
+    var userExtraData = Provider.of<UserDetails>(context);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),

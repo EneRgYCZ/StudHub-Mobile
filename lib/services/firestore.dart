@@ -122,19 +122,19 @@ class FirestoreService {
 // USER RELATED FUNCTIONS
 // **************************************************************************
 
-  Future<List<UserInfo>> getUsersData(List uids) async {
+  Future<List<UserDetails>> getUsersData(List uids) async {
     var ref = _db.collection('users');
     var snapshot = await ref.where(FieldPath.documentId, whereIn: uids).get();
     var data = snapshot.docs.map((s) => s.data());
-    var users = data.map((d) => UserInfo.fromJson(d));
+    var users = data.map((d) => UserDetails.fromJson(d));
     return users.toList();
   }
 
-  Future<UserInfo> getUserData(String uid) async {
+  Future<UserDetails> getUserData(String uid) async {
     var ref = _db.collection('users').doc(uid);
     var snapshot = await ref.get();
     var data = snapshot.data();
-    var user = UserInfo.fromJson(data!);
+    var user = UserDetails.fromJson(data!);
     return user;
   }
 
@@ -215,13 +215,13 @@ class FirestoreService {
     return ref.set(data, SetOptions(merge: true));
   }
 
-  Stream<UserInfo> streamCurrentUserData() {
+  Stream<UserDetails> streamCurrentUserData() {
     return AuthService().userStream.switchMap((user) {
       if (user != null) {
         var ref = _db.collection('users').doc(user.uid);
-        return ref.snapshots().map((doc) => UserInfo.fromJson(doc.data()!));
+        return ref.snapshots().map((doc) => UserDetails.fromJson(doc.data()!));
       } else {
-        return Stream.fromIterable([UserInfo()]);
+        return Stream.fromIterable([UserDetails()]);
       }
     });
   }
