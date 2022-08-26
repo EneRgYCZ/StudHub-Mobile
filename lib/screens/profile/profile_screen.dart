@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:studhub/shared/loading.dart';
 import 'package:studhub/services/models.dart';
 import 'package:studhub/services/firestore.dart';
 import 'package:studhub/widgets/profile/profile_body_widget.dart';
@@ -37,6 +38,9 @@ class ProfileScreen extends StatelessWidget {
         future: FirestoreService().getUserData(passedUid),
         initialData: UserDetails,
         builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const LoadingScreen();
+          }
           final UserDetails user = snapshot.data;
           return Scaffold(
             appBar: PreferredSize(

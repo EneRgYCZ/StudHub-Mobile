@@ -274,7 +274,13 @@ class FirestoreService {
       'text': "",
       'sentAt': Timestamp.now(),
     };
+    final roomDetails = {
+      'roomId': newRoom.id,
+      'sentAt': Timestamp.now(),
+      'text': ""
+    };
     await messages.add(newMessage);
+    await room.doc(newRoom.id).set(roomDetails, SetOptions(merge: true));
   }
 
   Future<void> uploadMessage(String roomId, String message) async {
