@@ -18,16 +18,19 @@ class HomeScreen extends StatelessWidget {
     return StreamBuilder<User?>(
       stream: AuthService().userStream,
       builder: (context, snapshot) {
+        final bool verified = userDetails.isVerified;
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const LoadingScreen();
         } else if (snapshot.hasError) {
           return const Center(
             child: Text("Error..."),
           );
-        } else if (snapshot.hasData && userDetails.isVerified) {
-          return const PostsScreen();
-        } else if (snapshot.hasData && !userDetails.isVerified) {
-          return const ProfileSetupScreen();
+        } else if (snapshot.hasData) {
+          if (verified) {
+            return const PostsScreen();
+          } else {
+            return const ProfileSetupScreen();
+          }
         } else {
           return const LoginScreen();
         }

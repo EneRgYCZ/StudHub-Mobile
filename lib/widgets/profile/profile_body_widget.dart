@@ -58,13 +58,15 @@ class ProfileBodyWidget extends StatelessWidget {
                   ],
                 ),
               ),
-              if (isUser != true)
+              if (isUser != true &&
+                  userExtraData.contacts.contains(uid) == false)
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: ElevatedButton.icon(
                     onPressed: () {
                       FirestoreService()
                           .createChatRoom(userExtraData.uid, uid!);
+                      FirestoreService().updateUserContacts(uid!);
                       Navigator.pushNamed(context, '/chat');
                     },
                     icon: const Icon(Icons.message),

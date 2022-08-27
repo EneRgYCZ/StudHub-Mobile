@@ -38,6 +38,7 @@ class UserDetails {
   String userPhoto;
   int notifications;
   List<String> skills = <String>[];
+  List<String> contacts = <String>[];
   List<String> likedPosts = <String>[];
 
   UserDetails({

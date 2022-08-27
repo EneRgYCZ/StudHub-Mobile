@@ -39,209 +39,213 @@ class _PostWidgetState extends State<PostWidget> {
               ),
             );
           },
-          child: Column(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(
-                    context,
-                    '/profile',
-                    arguments: widget.post.uid,
-                  );
-                },
-                child: Row(
-                  children: [
-                    Container(
-                      width: 70,
-                      height: 70,
-                      padding: const EdgeInsets.all(10),
-                      margin: const EdgeInsets.all(10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        image: DecorationImage(
-                          image: NetworkImage(
-                            widget.post.userPhoto,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
+            child: Column(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      '/profile',
+                      arguments: widget.post.uid,
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 70,
+                        height: 70,
+                        padding: const EdgeInsets.all(10),
+                        margin: const EdgeInsets.all(10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(30),
+                          image: DecorationImage(
+                            image: NetworkImage(
+                              widget.post.userPhoto,
+                            ),
+                            fit: BoxFit.cover,
                           ),
-                          fit: BoxFit.cover,
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(2.0),
-                      child: Column(
-                        children: [
-                          Text(
-                            widget.post.userName,
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                          Text(
-                            widget.post.date,
-                            style: Theme.of(context).textTheme.bodyMedium,
-                          ),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.all(2.0),
+                        child: Column(
+                          children: [
+                            Text(
+                              widget.post.userName,
+                              style: Theme.of(context).textTheme.bodyText1,
+                            ),
+                            Text(
+                              widget.post.date,
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15, bottom: 10),
-                child: Row(
+                Padding(
+                  padding: const EdgeInsets.only(left: 15, bottom: 10),
+                  child: Row(
+                    children: [
+                      Tags(
+                        itemCount: widget.post.skills.length,
+                        itemBuilder: (int index) {
+                          return Tooltip(
+                            message: widget.post.skills[index],
+                            child: ItemTags(
+                              onPressed: (i) {
+                                Navigator.pushNamed(
+                                  context,
+                                  '/search',
+                                  arguments: widget.post.skills[index],
+                                );
+                              },
+                              textActiveColor: Colors.white,
+                              activeColor: userExtraData.skills.contains(widget
+                                      .post.skills[index]
+                                      .toString()
+                                      .toLowerCase())
+                                  ? Colors.orange
+                                  : Colors.blueGrey,
+                              color: userExtraData.skills.contains(widget
+                                      .post.skills[index]
+                                      .toString()
+                                      .toLowerCase())
+                                  ? Colors.orange
+                                  : Colors.blueGrey,
+                              textColor: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              index: index,
+                              title: widget.post.skills[index],
+                            ),
+                          );
+                        },
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding:
+                      const EdgeInsets.only(left: 15, bottom: 10, right: 15),
+                  child: Text(
+                    widget.post.text,
+                    style: const TextStyle(
+                      height: 1.5,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 3,
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Tags(
-                      itemCount: widget.post.skills.length,
-                      itemBuilder: (int index) {
-                        return Tooltip(
-                          message: widget.post.skills[index],
-                          child: ItemTags(
-                            onPressed: (i) {
-                              Navigator.pushNamed(
-                                context,
-                                '/search',
-                                arguments: widget.post.skills[index],
-                              );
-                            },
-                            textActiveColor: Colors.white,
-                            activeColor: userExtraData.skills.contains(widget
-                                    .post.skills[index]
-                                    .toString()
-                                    .toLowerCase())
-                                ? Colors.orange
-                                : Colors.blueGrey,
-                            color: userExtraData.skills.contains(widget
-                                    .post.skills[index]
-                                    .toString()
-                                    .toLowerCase())
-                                ? Colors.orange
-                                : Colors.blueGrey,
-                            textColor: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                            index: index,
-                            title: widget.post.skills[index],
+                    LikeButton(
+                      size: 30.0,
+                      isLiked: isLiked,
+                      likeCount: widget.post.likes,
+                      likeBuilder: (isTaped) {
+                        return Icon(
+                          Icons.favorite,
+                          color: contains ? Colors.red : Colors.white,
+                        );
+                      },
+                      onTap: (isLiked) async {
+                        if (contains) {
+                          FirestoreService().updateLikeCounter(
+                            widget.post.postId,
+                            isLiked,
+                            widget.post.likes,
+                          );
+                        } else {
+                          FirestoreService().updateLikeCounter(
+                            widget.post.postId,
+                            !isLiked,
+                            widget.post.likes,
+                          );
+                        }
+                        return !isLiked;
+                      },
+                    ),
+                    IconButton(
+                      onPressed: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                PostsHeroWidget(post: widget.post),
                           ),
                         );
                       },
-                    )
+                      icon: const Icon(Icons.comment),
+                    ),
+                    (userExtraData.uid == widget.post.uid)
+                        ? PopupMenuButton(
+                            icon: const Icon(Icons.more_horiz),
+                            itemBuilder: (BuildContext context) =>
+                                <PopupMenuEntry>[
+                              const PopupMenuItem(
+                                child: ListTile(
+                                  leading: Icon(Icons.add),
+                                  title: Text('Add to favorites'),
+                                ),
+                              ),
+                              PopupMenuItem(
+                                child: ListTile(
+                                  onTap: () {
+                                    CoolAlert.show(
+                                      type: CoolAlertType.confirm,
+                                      context: context,
+                                      text:
+                                          "Are you sure you want to delete the post?",
+                                      onConfirmBtnTap: () {
+                                        setState(() {
+                                          FirestoreService()
+                                              .deletePost(widget.post);
+                                          Navigator.of(context)
+                                              .pushNamedAndRemoveUntil(
+                                                  '/', (route) => false);
+                                        });
+                                      },
+                                    );
+                                  },
+                                  leading: const Icon(Icons.delete),
+                                  title: const Text('Delete Post'),
+                                ),
+                              ),
+                              const PopupMenuItem(
+                                child: ListTile(
+                                  leading: Icon(Icons.article),
+                                  title: Text('Item 3'),
+                                ),
+                              ),
+                            ],
+                          )
+                        : PopupMenuButton(
+                            icon: const Icon(Icons.more_horiz),
+                            itemBuilder: (BuildContext context) =>
+                                <PopupMenuEntry>[
+                              const PopupMenuItem(
+                                child: ListTile(
+                                  leading: Icon(Icons.add),
+                                  title: Text('Add to favorites'),
+                                ),
+                              ),
+                              const PopupMenuItem(
+                                child: ListTile(
+                                  leading: Icon(Icons.article),
+                                  title: Text('Option 3'),
+                                ),
+                              ),
+                            ],
+                          ),
                   ],
-                ),
-              ),
-              Container(
-                alignment: Alignment.topLeft,
-                padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
-                child: Text(
-                  widget.post.text,
-                  style: const TextStyle(
-                    height: 1.5,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                  maxLines: 3,
-                ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  LikeButton(
-                    size: 30.0,
-                    isLiked: isLiked,
-                    likeCount: widget.post.likes,
-                    likeBuilder: (isTaped) {
-                      return Icon(
-                        Icons.favorite,
-                        color: contains ? Colors.red : Colors.white,
-                      );
-                    },
-                    onTap: (isLiked) async {
-                      if (contains) {
-                        FirestoreService().updateLikeCounter(
-                          widget.post.postId,
-                          isLiked,
-                          widget.post.likes,
-                        );
-                      } else {
-                        FirestoreService().updateLikeCounter(
-                          widget.post.postId,
-                          !isLiked,
-                          widget.post.likes,
-                        );
-                      }
-                      return !isLiked;
-                    },
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (BuildContext context) =>
-                              PostsHeroWidget(post: widget.post),
-                        ),
-                      );
-                    },
-                    icon: const Icon(Icons.comment),
-                  ),
-                  (userExtraData.uid == widget.post.uid)
-                      ? PopupMenuButton(
-                          icon: const Icon(Icons.more_horiz),
-                          itemBuilder: (BuildContext context) =>
-                              <PopupMenuEntry>[
-                            const PopupMenuItem(
-                              child: ListTile(
-                                leading: Icon(Icons.add),
-                                title: Text('Add to favorites'),
-                              ),
-                            ),
-                            PopupMenuItem(
-                              child: ListTile(
-                                onTap: () {
-                                  CoolAlert.show(
-                                    type: CoolAlertType.confirm,
-                                    context: context,
-                                    text:
-                                        "Are you sure you want to delete the post?",
-                                    onConfirmBtnTap: () {
-                                      setState(() {
-                                        FirestoreService()
-                                            .deletePost(widget.post);
-                                        Navigator.of(context)
-                                            .pushNamedAndRemoveUntil(
-                                                '/', (route) => false);
-                                      });
-                                    },
-                                  );
-                                },
-                                leading: const Icon(Icons.delete),
-                                title: const Text('Delete Post'),
-                              ),
-                            ),
-                            const PopupMenuItem(
-                              child: ListTile(
-                                leading: Icon(Icons.article),
-                                title: Text('Item 3'),
-                              ),
-                            ),
-                          ],
-                        )
-                      : PopupMenuButton(
-                          icon: const Icon(Icons.more_horiz),
-                          itemBuilder: (BuildContext context) =>
-                              <PopupMenuEntry>[
-                            const PopupMenuItem(
-                              child: ListTile(
-                                leading: Icon(Icons.add),
-                                title: Text('Add to favorites'),
-                              ),
-                            ),
-                            const PopupMenuItem(
-                              child: ListTile(
-                                leading: Icon(Icons.article),
-                                title: Text('Option 3'),
-                              ),
-                            ),
-                          ],
-                        ),
-                ],
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),

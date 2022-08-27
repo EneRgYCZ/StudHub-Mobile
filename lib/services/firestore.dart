@@ -158,7 +158,8 @@ class FirestoreService {
       'isVerified': user.emailVerified,
       'bio': "You might want to change this",
       'likedPosts': [],
-      'notifications': 0
+      'notifications': 0,
+      'contacts': []
     };
 
     return ref.set(data, SetOptions(merge: true));
@@ -176,7 +177,8 @@ class FirestoreService {
       'isVerified': user.emailVerified,
       'bio': "You might want to change this",
       'likedPosts': [],
-      'notifications': 0
+      'notifications': 0,
+      'contacts': []
     };
 
     return ref.set(data, SetOptions(merge: true));
@@ -213,6 +215,17 @@ class FirestoreService {
     };
 
     return ref.set(data, SetOptions(merge: true));
+  }
+
+  Future<void> updateUserContacts(String uidOfOtherUser) async {
+    var user = AuthService().user!;
+    var ref = _db.collection("users").doc(user.uid);
+
+    var data = {
+      'contacts': FieldValue.arrayUnion([uidOfOtherUser]),
+    };
+
+    await ref.set(data, SetOptions(merge: true));
   }
 
   Stream<UserDetails> streamCurrentUserData() {
