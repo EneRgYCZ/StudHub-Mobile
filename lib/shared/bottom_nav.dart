@@ -10,7 +10,6 @@ class BottomNavBar extends StatelessWidget {
     return BottomAppBar(
       shape: const CircularNotchedRectangle(),
       child: SizedBox(
-        height: 75,
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

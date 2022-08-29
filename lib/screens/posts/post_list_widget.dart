@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import 'package:studhub/services/models.dart';
@@ -8,7 +9,7 @@ import 'package:studhub/widgets/post/post_widget.dart';
 import '../../shared/bottom_nav.dart';
 import '../../widgets/sidemenu/build_sidemenu_widget.dart';
 
-class PostListWidget extends StatelessWidget {
+class PostListWidget extends StatefulWidget {
   final UserDetails user;
   final List<Post> posts;
   const PostListWidget({
@@ -18,8 +19,28 @@ class PostListWidget extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  State<PostListWidget> createState() => _PostListWidgetState();
+}
+
+class _PostListWidgetState extends State<PostListWidget> {
+  bool showBottomAppBar = true;
+
+  @override
   Widget build(BuildContext context) {
+    ScrollController _scrollController = ScrollController();
     final GlobalKey<SideMenuState> _sideMenuKey = GlobalKey<SideMenuState>();
+    /* _scrollController.addListener(() {
+      if (_scrollController.position.userScrollDirection ==
+          ScrollDirection.reverse) {
+        setState(() {
+          showBottomAppBar = false;
+        });
+      } else {
+        setState(() {
+          showBottomAppBar = true;
+        });
+      }
+    }); */
     return GestureDetector(
       onTap: () {
         final _state = _sideMenuKey.currentState;
@@ -31,7 +52,7 @@ class PostListWidget extends StatelessWidget {
         background: Colors.orange,
         key: _sideMenuKey,
         type: SideMenuType.slideNRotate,
-        menu: buildSideMenu(user, context),
+        menu: buildSideMenu(widget.user, context),
         child: GestureDetector(
           onTap: () {
             final _state = _sideMenuKey.currentState;
@@ -64,9 +85,10 @@ class PostListWidget extends StatelessWidget {
                       width: 120,
                       height: 120,
                     ),
-                    if (user.notifications > 0)
+                    if (widget.user.notifications > 0)
                       Badge(
-                        badgeContent: Text(user.notifications.toString()),
+                        badgeContent:
+                            Text(widget.user.notifications.toString()),
                         child: IconButton(
                           onPressed: () {
                             Navigator.pushNamed(context, '/chat');
@@ -78,7 +100,7 @@ class PostListWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-                    if (user.notifications == 0)
+                    if (widget.user.notifications == 0)
                       IconButton(
                         icon: const Icon(
                           FontAwesomeIcons.comment,
@@ -94,10 +116,14 @@ class PostListWidget extends StatelessWidget {
               ),
               preferredSize: const Size.fromHeight(60),
             ),
-            body: ListView(
-              primary: true,
-              padding: const EdgeInsets.all(20.0),
-              children: posts.map((posts) => PostWidget(post: posts)).toList(),
+            body: SafeArea(
+              child: ListView(
+                primary: true,
+                padding: const EdgeInsets.all(20.0),
+                children: widget.posts
+                    .map((posts) => PostWidget(post: posts))
+                    .toList(),
+              ),
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
@@ -108,7 +134,12 @@ class PostListWidget extends StatelessWidget {
                 Navigator.pushNamed(context, '/post_create');
               },
             ),
-            bottomNavigationBar: const BottomNavBar(),
+            bottomNavigationBar: AnimatedContainer(
+              height: 75,
+              curve: Curves.easeInOutSine,
+              child: const BottomNavBar(),
+              duration: const Duration(milliseconds: 800),
+            ),
           ),
         ),
       ),
