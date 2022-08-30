@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:studhub/services/models.dart';
 import 'package:studhub/services/firestore.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:studhub/screens/posts/post_list_widget.dart';
+import 'package:studhub/widgets/post/post_list_widget.dart';
 
 import '../../shared/error.dart';
 import '../../shared/loading.dart';

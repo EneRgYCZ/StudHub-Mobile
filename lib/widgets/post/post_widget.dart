@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cool_alert/cool_alert.dart';
@@ -209,6 +210,19 @@ class _PostWidgetState extends State<PostWidget> {
                                               .pushNamedAndRemoveUntil(
                                                   '/', (route) => false);
                                         });
+                                        var snackBar = SnackBar(
+                                          elevation: 0,
+                                          behavior: SnackBarBehavior.floating,
+                                          backgroundColor: Colors.transparent,
+                                          content: AwesomeSnackbarContent(
+                                            title: 'Great decision!',
+                                            message:
+                                                'Maybe the idea needs more baking time...',
+                                            contentType: ContentType.success,
+                                          ),
+                                        );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(snackBar);
                                       },
                                     );
                                   },
@@ -431,6 +445,18 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
                               .pushNamedAndRemoveUntil('/', (route) => false);
                           FirestoreService().deletePost(widget.post);
                         });
+                        var snackBar = SnackBar(
+                          elevation: 0,
+                          behavior: SnackBarBehavior.floating,
+                          backgroundColor: Colors.transparent,
+                          content: AwesomeSnackbarContent(
+                            title: 'Great decision!',
+                            message: 'Maybe the idea needs more baking time...',
+                            contentType: ContentType.success,
+                          ),
+                        );
+
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                       text: "Are you sure you want to delete the post?",
                     );

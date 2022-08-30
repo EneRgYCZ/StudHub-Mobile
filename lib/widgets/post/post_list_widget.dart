@@ -7,7 +7,7 @@ import 'package:studhub/services/models.dart';
 import 'package:studhub/widgets/post/post_widget.dart';
 
 import '../../shared/bottom_nav.dart';
-import '../../widgets/sidemenu/build_sidemenu_widget.dart';
+import '../sidemenu/build_sidemenu_widget.dart';
 
 class PostListWidget extends StatefulWidget {
   final UserDetails user;
@@ -27,20 +27,7 @@ class _PostListWidgetState extends State<PostListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    ScrollController _scrollController = ScrollController();
     final GlobalKey<SideMenuState> _sideMenuKey = GlobalKey<SideMenuState>();
-    /* _scrollController.addListener(() {
-      if (_scrollController.position.userScrollDirection ==
-          ScrollDirection.reverse) {
-        setState(() {
-          showBottomAppBar = false;
-        });
-      } else {
-        setState(() {
-          showBottomAppBar = true;
-        });
-      }
-    }); */
     return GestureDetector(
       onTap: () {
         final _state = _sideMenuKey.currentState;
@@ -134,11 +121,9 @@ class _PostListWidgetState extends State<PostListWidget> {
                 Navigator.pushNamed(context, '/post_create');
               },
             ),
-            bottomNavigationBar: AnimatedContainer(
+            bottomNavigationBar: const SizedBox(
               height: 75,
-              curve: Curves.easeInOutSine,
-              child: const BottomNavBar(),
-              duration: const Duration(milliseconds: 800),
+              child: BottomNavBar(),
             ),
           ),
         ),
