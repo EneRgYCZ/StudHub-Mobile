@@ -19,8 +19,7 @@ class FirestoreService {
         .toList());
   }
 
-  Future<void> createPost(String text, List skills) async {
-    var user = AuthService().user!;
+  Future<void> createPost(String text, List skills, UserDetails user) async {
     var ref = _db.collection('posts');
 
     var newData = {
@@ -29,8 +28,8 @@ class FirestoreService {
       'skills': skills,
       'text': text,
       'uid': user.uid,
-      'userName': user.displayName,
-      'userPhoto': user.photoURL,
+      'userName': user.userName,
+      'userPhoto': user.userPhoto,
       "postId": "",
     };
 
@@ -92,15 +91,14 @@ class FirestoreService {
     await _db.collection("posts").doc(postId).update({"likes": likeFinal});
   }
 
-  Future<void> postComment(String text, String postId) async {
-    var user = AuthService().user!;
+  Future<void> postComment(String text, String postId, UserDetails user) async {
     var ref = _db.collection("posts").doc(postId).collection("comments");
     var comment = {
       'uid': user.uid,
       'postedAt': Timestamp.now(),
       'text': text,
-      'userName': user.displayName,
-      'userPhoto': user.photoURL
+      'userName': user.userName,
+      'userPhoto': user.userPhoto
     };
 
     await ref.add(comment);

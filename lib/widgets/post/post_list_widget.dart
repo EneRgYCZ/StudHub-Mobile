@@ -1,10 +1,9 @@
 import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import 'package:studhub/services/models.dart';
+import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import 'package:studhub/widgets/post/post_widget.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../shared/bottom_nav.dart';
 import '../sidemenu/build_sidemenu_widget.dart';

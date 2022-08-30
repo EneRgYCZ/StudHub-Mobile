@@ -286,7 +286,11 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
 
     void _postComment() {
       FocusScope.of(context).unfocus();
-      FirestoreService().postComment(_enteredComment, widget.post.postId);
+      FirestoreService().postComment(
+        _enteredComment,
+        widget.post.postId,
+        userExtraData,
+      );
       _enteredComment = "";
       _controller.clear();
     }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tags_x/flutter_tags_x.dart';
+import 'package:provider/provider.dart';
+import 'package:studhub/services/models.dart';
 
 import '../../services/firestore.dart';
 
@@ -23,6 +25,7 @@ class _PostFromWidgetState extends State<PostFromWidget> {
 
   @override
   Widget build(BuildContext context) {
+    UserDetails user = Provider.of<UserDetails>(context);
     return Form(
       key: _formKey,
       child: Column(
@@ -92,7 +95,7 @@ class _PostFromWidgetState extends State<PostFromWidget> {
               onPressed: () {
                 // Validate returns true if the form is valid, or false otherwise.
                 if (_formKey.currentState!.validate()) {
-                  FirestoreService().createPost(_text.text, arrayOfTags);
+                  FirestoreService().createPost(_text.text, arrayOfTags, user);
                   Navigator.of(context)
                       .pushNamedAndRemoveUntil('/', (route) => false);
                 }
