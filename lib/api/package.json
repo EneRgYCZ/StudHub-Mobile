@@ -1,0 +1,17 @@
+{
+  "name": "notification_server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "FCM"
+  ],
+  "author": "EneRgY_CZ",
+  "license": "MIT",
+  "dependencies": {
+    "firebase-admin": "^11.0.1"
+  }
+}

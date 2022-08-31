@@ -23,6 +23,12 @@ class _PostsScreenState extends State<PostsScreen> {
     _fbm.requestPermission();
   }
 
+  void token() async {
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+
+    print(fcmToken);
+  }
+
   @override
   Widget build(BuildContext context) {
     var userExtraData = Provider.of<UserDetails>(context);
@@ -33,6 +39,7 @@ class _PostsScreenState extends State<PostsScreen> {
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
       Navigator.pushNamed(context, '/chat');
     });
+    token();
     return StreamBuilder<List<Post>>(
       stream: FirestoreService().streamPosts(),
       builder: (context, snapshot) {
