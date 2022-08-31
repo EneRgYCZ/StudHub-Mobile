@@ -1,3 +1,4 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tags_x/flutter_tags_x.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,7 @@ class _PostFromWidgetState extends State<PostFromWidget> {
   @override
   Widget build(BuildContext context) {
     UserDetails user = Provider.of<UserDetails>(context);
+
     return Form(
       key: _formKey,
       child: Column(
@@ -99,6 +101,17 @@ class _PostFromWidgetState extends State<PostFromWidget> {
                   Navigator.of(context)
                       .pushNamedAndRemoveUntil('/', (route) => false);
                 }
+                var snackBar = SnackBar(
+                  elevation: 0,
+                  behavior: SnackBarBehavior.floating,
+                  backgroundColor: Colors.transparent,
+                  content: AwesomeSnackbarContent(
+                    title: 'Congratulation!',
+                    message: 'Your post is up...enjoy the fame 😎',
+                    contentType: ContentType.success,
+                  ),
+                );
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
               },
               child: const Text('Post'),
             ),
