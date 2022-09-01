@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studhub/services/auth.dart';
@@ -7,10 +8,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:studhub/screens/login/login_screen.dart';
 import 'package:studhub/screens/posts/posts_screen.dart';
 
+import '../../services/firestore.dart';
 import '../profile/profile_setup_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+    final FirebaseMessaging _fbm = FirebaseMessaging.instance;
+    _fbm.requestPermission();
+  }
 
   @override
   Widget build(BuildContext context) {

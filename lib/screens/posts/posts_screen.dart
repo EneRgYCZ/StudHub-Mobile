@@ -1,8 +1,8 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studhub/services/models.dart';
 import 'package:studhub/services/firestore.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:studhub/widgets/post/post_list_widget.dart';
 
 import '../../shared/error.dart';
@@ -17,19 +17,6 @@ class PostsScreen extends StatefulWidget {
 
 class _PostsScreenState extends State<PostsScreen> {
   @override
-  void initState() {
-    super.initState();
-    final FirebaseMessaging _fbm = FirebaseMessaging.instance;
-    _fbm.requestPermission();
-  }
-
-  void token() async {
-    final fcmToken = await FirebaseMessaging.instance.getToken();
-
-    print(fcmToken);
-  }
-
-  @override
   Widget build(BuildContext context) {
     var userExtraData = Provider.of<UserDetails>(context);
 
@@ -39,7 +26,6 @@ class _PostsScreenState extends State<PostsScreen> {
     FirebaseMessaging.onMessageOpenedApp.listen((event) {
       Navigator.pushNamed(context, '/chat');
     });
-    token();
     return StreamBuilder<List<Post>>(
       stream: FirestoreService().streamPosts(),
       builder: (context, snapshot) {

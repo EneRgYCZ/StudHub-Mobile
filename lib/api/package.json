@@ -6,12 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "FCM"
-  ],
   "author": "EneRgY_CZ",
-  "license": "MIT",
+  "license": "ISC",
   "dependencies": {
-    "firebase-admin": "^11.0.1"
+    "firebase-admin": "^11.0.1",
+    "mock-jwks": "^1.0.3"
   }
 }
