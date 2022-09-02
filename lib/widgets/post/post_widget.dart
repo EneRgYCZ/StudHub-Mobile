@@ -468,7 +468,7 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
                   icon: const Icon(Icons.delete),
                   label: const Text("Delete"),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.red,
+                    backgroundColor: Colors.red,
                   ),
                 ),
               ),
