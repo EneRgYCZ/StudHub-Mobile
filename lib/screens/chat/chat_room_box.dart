@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studhub/shared/loading.dart';
@@ -12,6 +13,8 @@ class ChatRoomBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final FirebaseMessaging fbm = FirebaseMessaging.instance;
+    fbm.subscribeToTopic(chatRoom.roomId);
     String _otherUserUid;
     final userExtraData = Provider.of<UserDetails>(context);
     if (chatRoom.participants[0] == userExtraData.uid) {

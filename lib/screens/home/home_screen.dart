@@ -1,4 +1,3 @@
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studhub/services/auth.dart';
@@ -7,8 +6,8 @@ import 'package:studhub/shared/loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:studhub/screens/login/login_screen.dart';
 import 'package:studhub/screens/posts/posts_screen.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
-import '../../services/firestore.dart';
 import '../profile/profile_setup_screen.dart';
 
 class HomeScreen extends StatefulWidget {
