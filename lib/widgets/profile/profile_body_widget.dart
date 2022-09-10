@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:studhub/services/auth.dart';
@@ -22,6 +23,7 @@ class ProfileBodyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var userExtraData = Provider.of<UserDetails>(context);
+    final FirebaseMessaging fbm = FirebaseMessaging.instance;
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
@@ -64,10 +66,13 @@ class ProfileBodyWidget extends StatelessWidget {
                   padding: const EdgeInsets.all(10),
                   child: ElevatedButton.icon(
                     onPressed: () {
-                      FirestoreService()
+                      var roomId = FirestoreService()
                           .createChatRoom(userExtraData.uid, uid!);
                       FirestoreService().updateUserContacts(uid!);
                       Navigator.pushNamed(context, '/chat');
+                      roomId.then(
+                        (id) => fbm.subscribeToTopic(id),
+                      );
                     },
                     icon: const Icon(Icons.message),
                     label: const Text("Message"),

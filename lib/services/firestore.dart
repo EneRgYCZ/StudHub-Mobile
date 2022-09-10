@@ -273,7 +273,7 @@ class FirestoreService {
     return room;
   }
 
-  Future<void> createChatRoom(String uid_1, String uid_2) async {
+  Future<String> createChatRoom(String uid_1, String uid_2) async {
     List participants = [uid_1, uid_2];
     var room = _db.collection("rooms");
     var data = {"participants": participants};
@@ -292,6 +292,7 @@ class FirestoreService {
     };
     await messages.add(newMessage);
     await room.doc(newRoom.id).set(roomDetails, SetOptions(merge: true));
+    return newRoom.id;
   }
 
   Future<void> uploadMessage(String roomId, String message) async {
@@ -341,7 +342,7 @@ class FirestoreService {
   void getPermisions() async {
     FirebaseMessaging messaging = FirebaseMessaging.instance;
 
-    NotificationSettings settings = await messaging.requestPermission(
+    await messaging.requestPermission(
       alert: true,
       announcement: false,
       badge: true,
