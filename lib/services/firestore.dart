@@ -157,7 +157,8 @@ class FirestoreService {
       'bio': "You might want to change this",
       'likedPosts': [],
       'notifications': 0,
-      'contacts': []
+      'contacts': [],
+      'history': []
     };
 
     return ref.set(data, SetOptions(merge: true));
@@ -176,7 +177,8 @@ class FirestoreService {
       'bio': "You might want to change this",
       'likedPosts': [],
       'notifications': 0,
-      'contacts': []
+      'contacts': [],
+      'history': []
     };
 
     return ref.set(data, SetOptions(merge: true));
