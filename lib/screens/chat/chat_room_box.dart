@@ -25,8 +25,6 @@ class ChatRoomBox extends StatelessWidget {
       builder: (context, AsyncSnapshot snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: LoadingScreen());
-        } else if (!snapshot.hasData) {
-          return const Center(child: Text("You have no contacts"));
         } else {
           var user = snapshot.data;
           return ChatRoomBoxWidget(
