@@ -53,10 +53,11 @@ class _PostWidgetState extends State<PostWidget> {
                     );
                   },
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        width: 70,
-                        height: 70,
+                        width: 45,
+                        height: 45,
                         padding: const EdgeInsets.all(10),
                         margin: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
@@ -69,26 +70,24 @@ class _PostWidgetState extends State<PostWidget> {
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(2.0),
-                        child: Column(
-                          children: [
-                            Text(
-                              widget.post.userName,
-                              style: Theme.of(context).textTheme.bodyText1,
-                            ),
-                            Text(
-                              widget.post.date,
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                          ],
-                        ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.post.userName,
+                            style: Theme.of(context).textTheme.bodyText2,
+                          ),
+                          Text(
+                            widget.post.date,
+                            style: Theme.of(context).textTheme.bodyText2,
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15, bottom: 10),
+                  padding: const EdgeInsets.only(left: 15),
                   child: Row(
                     children: [
                       Tags(
