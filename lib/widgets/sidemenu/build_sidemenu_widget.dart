@@ -44,14 +44,18 @@ Widget buildSideMenu(UserDetails user, BuildContext context) {
           dense: true,
         ),
         ListTile(
-          onTap: () {},
+          onTap: () {
+            //Navigator.pushNamed(context, '/blog');
+          },
           leading: const Icon(Icons.favorite, size: 20.0, color: Colors.black),
           title: const Text("Favorite"),
           textColor: Colors.black,
           dense: true,
         ),
         ListTile(
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, '/blog');
+          },
           leading: const Icon(Icons.comment, size: 20.0, color: Colors.black),
           title: const Text("Blog"),
           textColor: Colors.black,

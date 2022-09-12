@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:studhub/services/models.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key? key}) : super(key: key);
@@ -17,7 +19,7 @@ class _SearchScreenState extends State<SearchScreen> {
     final recivedSearchTerm =
         ModalRoute.of(context)!.settings.arguments as dynamic;
     _searchTerm.text = recivedSearchTerm;
-
+    final user = Provider.of<UserDetails>(context);
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -25,7 +27,7 @@ class _SearchScreenState extends State<SearchScreen> {
             onPressed: () {
               showSearch(
                 context: context,
-                delegate: CustomSearchDelegate(),
+                delegate: CustomSearchDelegate(searchHistory: user.history),
               );
             },
             icon: const Icon(Icons.search),
@@ -52,7 +54,8 @@ class _SearchScreenState extends State<SearchScreen> {
 }
 
 class CustomSearchDelegate extends SearchDelegate {
-  List<dynamic> searchTerms = ["Mama", "Tata", "Tunete", "Fulgere"];
+  List<dynamic> searchHistory;
+  CustomSearchDelegate({this.searchHistory = const []});
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -77,7 +80,7 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     List<dynamic> matchQuerry = [];
-    for (var results in searchTerms) {
+    for (var results in searchHistory) {
       if (results.contains(query.toLowerCase())) {
         matchQuerry.add(results);
       }
@@ -96,7 +99,7 @@ class CustomSearchDelegate extends SearchDelegate {
   @override
   Widget buildSuggestions(BuildContext context) {
     List<dynamic> matchQuerry = [];
-    for (var result in searchTerms) {
+    for (var result in searchHistory) {
       if (result.contains(query.toLowerCase())) {
         matchQuerry.add(result);
       }

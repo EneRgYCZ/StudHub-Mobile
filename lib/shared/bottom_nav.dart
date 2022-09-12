@@ -50,9 +50,9 @@ class BottomNavBar extends StatelessWidget {
             IconButton(
               iconSize: 30.0,
               padding: const EdgeInsets.only(right: 28.0),
-              icon: const Icon(FontAwesomeIcons.user, color: Colors.orange),
+              icon: const Icon(FontAwesomeIcons.scroll, color: Colors.orange),
               onPressed: () {
-                Navigator.pushNamed(context, '/profile');
+                Navigator.pushNamed(context, '/threads');
               },
             ),
           ],
