@@ -7,8 +7,8 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import '../../services/firestore.dart';
 
 class SkillPicksWidget extends StatefulWidget {
-  String text;
-  SkillPicksWidget({Key? key, this.text = ""}) : super(key: key);
+  final String text;
+  const SkillPicksWidget({Key? key, this.text = ""}) : super(key: key);
 
   @override
   State<SkillPicksWidget> createState() => _SkillPicksWidgetState();

@@ -10,9 +10,9 @@ class ThreadScreen extends StatelessWidget {
         title: const Text("Thread"),
       ),
       body: Column(
-        children: [
+        children: const [
           Center(
-            child: const Text("Thread"),
+            child: Text("Thread"),
           )
         ],
       ),
