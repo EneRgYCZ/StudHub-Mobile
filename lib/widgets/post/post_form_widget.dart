@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:studhub/widgets/post/skill_picks_widget.dart';
 
 class PostFromWidget extends StatefulWidget {
   const PostFromWidget({Key? key}) : super(key: key);
@@ -12,6 +11,18 @@ class _PostFromWidgetState extends State<PostFromWidget> {
   final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _text = TextEditingController();
+
+  var isEmpty = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _text.addListener(() {
+      setState(() {
+        isEmpty = _text.text.isNotEmpty;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +39,20 @@ class _PostFromWidgetState extends State<PostFromWidget> {
                     .pushNamedAndRemoveUntil('/', (route) => false),
                 icon: const Icon(Icons.cancel_outlined),
               ),
-              TextButton(
-                  onPressed: () {
-                    SkillPicksWidget(text: _text.text);
-                  },
-                  child: const Text("Next"))
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                ),
+                onPressed: isEmpty
+                    ? () {
+                        Navigator.of(context).pushNamedAndRemoveUntil(
+                            '/profile_setup', (route) => false);
+                      }
+                    : null,
+                child: const Text("Next"),
+              )
             ],
           ),
           Padding(
@@ -47,8 +67,10 @@ class _PostFromWidgetState extends State<PostFromWidget> {
               ),
               validator: (value) {
                 if (value == null || value.isEmpty) {
+                  isEmpty = true;
                   return 'Please enter some text';
                 }
+                isEmpty = false;
                 return null;
               },
             ),
