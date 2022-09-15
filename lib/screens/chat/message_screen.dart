@@ -9,7 +9,7 @@ class MessageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final passedData =
-        ModalRoute.of(context)!.settings.arguments as ScreenArguments;
+        ModalRoute.of(context)!.settings.arguments as ChatArguments;
     return Scaffold(
       appBar: AppBar(
         title: Row(

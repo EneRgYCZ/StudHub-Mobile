@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../shared/screen_arguments.dart';
+
 class PostFromWidget extends StatefulWidget {
   const PostFromWidget({Key? key}) : super(key: key);
 
@@ -12,7 +14,7 @@ class _PostFromWidgetState extends State<PostFromWidget> {
 
   final TextEditingController _text = TextEditingController();
 
-  var isEmpty = true;
+  var isEmpty = false;
 
   @override
   void initState() {
@@ -47,8 +49,10 @@ class _PostFromWidgetState extends State<PostFromWidget> {
                 ),
                 onPressed: isEmpty
                     ? () {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            '/profile_setup', (route) => false);
+                        Navigator.of(context).pushNamed(
+                          '/skill_pick',
+                          arguments: PostArguments(_text.text, []),
+                        );
                       }
                     : null,
                 child: const Text("Next"),

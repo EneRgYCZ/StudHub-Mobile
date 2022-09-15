@@ -7,12 +7,12 @@ import 'package:studhub/screens/chat/message_screen.dart';
 import 'package:studhub/screens/search/search_screen.dart';
 import 'package:studhub/screens/profile/profile_screen.dart';
 import 'package:studhub/screens/threads/threads_screen.dart';
+import 'package:studhub/widgets/post/skill_picks_widget.dart';
 import 'package:studhub/screens/posts/post_create_screen.dart';
 import 'package:studhub/screens/login/email_login_screen.dart';
 import 'package:studhub/screens/profile/profile_edit_screen.dart';
 import 'package:studhub/screens/profile/profile_setup_screen.dart';
 import 'package:studhub/screens/notifications/notifications_screen.dart';
-import 'package:studhub/widgets/post/skill_picks_widget.dart';
 
 var appRoutes = {
   '/': (context) => const HomeScreen(),
