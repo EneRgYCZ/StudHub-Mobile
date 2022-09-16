@@ -19,18 +19,20 @@ class FirestoreService {
         .toList());
   }
 
-  Future<void> createPost(String text, List skills, UserDetails user) async {
+  Future<void> createPost(
+      String text, String title, List skills, UserDetails user) async {
     var ref = _db.collection('posts');
 
     var newData = {
-      'date': DateFormat.yMMMMd('en_US').format(DateTime.now()),
       'likes': 0,
-      'skills': skills,
       'text': text,
+      "postId": "",
+      'title': title,
       'uid': user.uid,
+      'skills': skills,
       'userName': user.userName,
       'userPhoto': user.userPhoto,
-      "postId": "",
+      'date': DateFormat.yMMMMd('en_US').format(DateTime.now()),
     };
 
     var result = await ref.add(newData);

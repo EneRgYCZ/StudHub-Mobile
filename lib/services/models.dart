@@ -10,15 +10,17 @@ class Post {
   String date;
   List skills;
   String text;
+  String title;
+  String postId;
   String userName;
   String userPhoto;
-  String postId;
 
   Post({
     this.uid = '',
     this.likes = 0,
     this.date = '',
     this.text = '',
+    this.title = '',
     this.postId = '',
     this.userName = '',
     this.userPhoto = '',
