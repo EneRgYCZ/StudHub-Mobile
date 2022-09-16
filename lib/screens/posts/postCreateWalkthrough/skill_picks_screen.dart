@@ -1,20 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tags_x/flutter_tags_x.dart';
-import 'package:provider/provider.dart';
-import 'package:studhub/services/models.dart';
 import 'package:studhub/shared/screen_arguments.dart';
 
-import '../../services/firestore.dart';
-
-class SkillPicksWidget extends StatefulWidget {
+class SkillPicksScreen extends StatefulWidget {
   final String text;
-  const SkillPicksWidget({Key? key, this.text = ""}) : super(key: key);
+  const SkillPicksScreen({Key? key, this.text = ""}) : super(key: key);
 
   @override
-  State<SkillPicksWidget> createState() => _SkillPicksWidgetState();
+  State<SkillPicksScreen> createState() => _SkillPicksWidgetState();
 }
 
-class _SkillPicksWidgetState extends State<SkillPicksWidget> {
+class _SkillPicksWidgetState extends State<SkillPicksScreen> {
   String tags = '';
 
   List arrayOfTags = [];
@@ -25,7 +21,6 @@ class _SkillPicksWidgetState extends State<SkillPicksWidget> {
   Widget build(BuildContext context) {
     final passedData =
         ModalRoute.of(context)!.settings.arguments as PostArguments;
-    final user = Provider.of<UserDetails>(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(left: 5, right: 5, top: 25),
@@ -47,13 +42,14 @@ class _SkillPicksWidgetState extends State<SkillPicksWidget> {
                   ),
                   onPressed: arrayOfTags.isNotEmpty
                       ? () {
-                          FirestoreService()
-                              .createPost(passedData.title, arrayOfTags, user);
-                          Navigator.of(context)
-                              .pushNamedAndRemoveUntil('/', (route) => false);
+                          Navigator.of(context).pushNamed(
+                            '/post_text',
+                            arguments:
+                                PostArguments(passedData.title, arrayOfTags),
+                          );
                         }
                       : null,
-                  child: const Text("Post"),
+                  child: const Text("Next"),
                 )
               ],
             ),

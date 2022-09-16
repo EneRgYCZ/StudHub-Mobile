@@ -56,8 +56,8 @@ class _PostWidgetState extends State<PostWidget> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        width: 45,
-                        height: 45,
+                        width: 30,
+                        height: 30,
                         padding: const EdgeInsets.all(10),
                         margin: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
@@ -75,11 +75,14 @@ class _PostWidgetState extends State<PostWidget> {
                         children: [
                           Text(
                             widget.post.userName,
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: const TextStyle(fontSize: 13),
                           ),
                           Text(
                             widget.post.date,
-                            style: Theme.of(context).textTheme.bodyText2,
+                            style: const TextStyle(
+                              fontSize: 9,
+                              color: Colors.grey,
+                            ),
                           ),
                         ],
                       ),
@@ -96,6 +99,7 @@ class _PostWidgetState extends State<PostWidget> {
                           return Tooltip(
                             message: widget.post.skills[index],
                             child: ItemTags(
+                              textScaleFactor: 0.6,
                               onPressed: (i) {
                                 Navigator.pushNamed(
                                   context,
@@ -145,13 +149,14 @@ class _PostWidgetState extends State<PostWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     LikeButton(
-                      size: 30.0,
+                      size: 20.0,
                       isLiked: isLiked,
                       likeCount: widget.post.likes,
                       likeBuilder: (isTaped) {
                         return Icon(
                           Icons.favorite,
                           color: contains ? Colors.red : Colors.white,
+                          size: 20,
                         );
                       },
                       onTap: (isLiked) async {
@@ -181,10 +186,14 @@ class _PostWidgetState extends State<PostWidget> {
                         );
                       },
                       icon: const Icon(Icons.comment),
+                      iconSize: 20,
                     ),
                     (userExtraData.uid == widget.post.uid)
                         ? PopupMenuButton(
-                            icon: const Icon(Icons.more_horiz),
+                            icon: const Icon(
+                              Icons.more_horiz,
+                              size: 20,
+                            ),
                             itemBuilder: (BuildContext context) =>
                                 <PopupMenuEntry>[
                               const PopupMenuItem(
@@ -231,14 +240,19 @@ class _PostWidgetState extends State<PostWidget> {
                               ),
                               const PopupMenuItem(
                                 child: ListTile(
-                                  leading: Icon(Icons.article),
+                                  leading: Icon(
+                                    Icons.article,
+                                  ),
                                   title: Text('Item 3'),
                                 ),
                               ),
                             ],
                           )
                         : PopupMenuButton(
-                            icon: const Icon(Icons.more_horiz),
+                            icon: const Icon(
+                              Icons.more_horiz,
+                              size: 20,
+                            ),
                             itemBuilder: (BuildContext context) =>
                                 <PopupMenuEntry>[
                               const PopupMenuItem(
