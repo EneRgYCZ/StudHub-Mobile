@@ -58,8 +58,13 @@ class _PostWidgetState extends State<PostWidget> {
                       Container(
                         width: 30,
                         height: 30,
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.only(top: 10),
+                        margin: const EdgeInsets.only(
+                          top: 7,
+                          left: 10,
+                          bottom: 5,
+                          right: 5,
+                        ),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(30),
                           image: DecorationImage(
@@ -71,7 +76,7 @@ class _PostWidgetState extends State<PostWidget> {
                         ),
                       ),
                       Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
                             widget.post.userName,
@@ -90,7 +95,7 @@ class _PostWidgetState extends State<PostWidget> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15),
+                  padding: const EdgeInsets.only(left: 10),
                   child: Row(
                     children: [
                       Tags(
@@ -99,7 +104,7 @@ class _PostWidgetState extends State<PostWidget> {
                           return Tooltip(
                             message: widget.post.skills[index],
                             child: ItemTags(
-                              textScaleFactor: 0.6,
+                              textStyle: const TextStyle(fontSize: 9),
                               onPressed: (i) {
                                 Navigator.pushNamed(
                                   context,
@@ -131,19 +136,38 @@ class _PostWidgetState extends State<PostWidget> {
                     ],
                   ),
                 ),
-                Container(
-                  alignment: Alignment.topLeft,
-                  padding:
-                      const EdgeInsets.only(left: 15, bottom: 10, right: 15),
-                  child: Text(
-                    widget.post.text,
-                    style: const TextStyle(
-                      height: 1.5,
-                      fontWeight: FontWeight.bold,
+                Column(
+                  children: [
+                    Container(
+                      alignment: Alignment.topLeft,
+                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      child: Text(
+                        widget.post.title,
+                        style: const TextStyle(
+                          height: 1.5,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                      ),
                     ),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                  ),
+                    Container(
+                      alignment: Alignment.topLeft,
+                      padding: const EdgeInsets.only(
+                          left: 15, bottom: 10, right: 15),
+                      child: Text(
+                        widget.post.text,
+                        style: const TextStyle(
+                          height: 1.5,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 11,
+                          color: Colors.grey,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                      ),
+                    ),
+                  ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -325,12 +349,18 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
                 );
               },
               child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
                   Container(
-                    width: 70,
-                    height: 70,
-                    padding: const EdgeInsets.all(10),
-                    margin: const EdgeInsets.all(10),
+                    width: 30,
+                    height: 30,
+                    padding: const EdgeInsets.only(top: 15, left: 10),
+                    margin: const EdgeInsets.only(
+                      top: 15,
+                      left: 10,
+                      bottom: 5,
+                      right: 5,
+                    ),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
                       image: DecorationImage(
@@ -342,16 +372,20 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(2.0),
+                    padding: const EdgeInsets.only(top: 10),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
                           widget.post.userName,
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: const TextStyle(fontSize: 13),
                         ),
                         Text(
                           widget.post.date,
-                          style: Theme.of(context).textTheme.bodyMedium,
+                          style: const TextStyle(
+                            fontSize: 9,
+                            color: Colors.grey,
+                          ),
                         ),
                       ],
                     ),
@@ -361,7 +395,7 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 15, bottom: 10, right: 15),
+            padding: const EdgeInsets.only(left: 10),
             child: Row(
               children: [
                 Tags(
@@ -370,6 +404,7 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
                     return Tooltip(
                       message: widget.post.skills[index],
                       child: ItemTags(
+                        textStyle: const TextStyle(fontSize: 9),
                         onPressed: (i) {
                           Navigator.pushNamed(
                             context,
@@ -402,21 +437,36 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
             ),
           ),
           SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Text(
-                widget.post.text,
-                style: const TextStyle(
-                  height: 2,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+            child: Column(
+              children: [
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding:
+                      const EdgeInsets.only(left: 15, right: 15, bottom: 17),
+                  child: Text(
+                    widget.post.title,
+                    style: const TextStyle(
+                      height: 1.5,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-              ),
+                Container(
+                  alignment: Alignment.topLeft,
+                  padding:
+                      const EdgeInsets.only(left: 15, bottom: 10, right: 15),
+                  child: Text(
+                    widget.post.text,
+                    style: const TextStyle(
+                      height: 1.5,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 11,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text("Comments:"),
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),

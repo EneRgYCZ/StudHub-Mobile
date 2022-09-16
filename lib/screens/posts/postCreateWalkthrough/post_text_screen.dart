@@ -75,7 +75,7 @@ class _PostTextScreenState extends State<PostTextScreen> {
                   maxLines: 5,
                   decoration: const InputDecoration(
                     border: InputBorder.none,
-                    hintText: 'Title',
+                    hintText: 'Text',
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
