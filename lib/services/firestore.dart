@@ -158,7 +158,8 @@ class FirestoreService {
       'likedPosts': [],
       'notifications': 0,
       'contacts': [],
-      'history': []
+      'history': [],
+      'interests': []
     };
 
     return ref.set(data, SetOptions(merge: true));
@@ -178,7 +179,8 @@ class FirestoreService {
       'likedPosts': [],
       'notifications': 0,
       'contacts': [],
-      'history': []
+      'history': [],
+      'interests': []
     };
 
     return ref.set(data, SetOptions(merge: true));

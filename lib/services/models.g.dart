@@ -42,6 +42,8 @@ UserDetails _$UserDetailsFromJson(Map<String, dynamic> json) => UserDetails(
           (json['history'] as List<dynamic>).map((e) => e as String).toList()
       ..contacts =
           (json['contacts'] as List<dynamic>).map((e) => e as String).toList()
+      ..interests =
+          (json['interests'] as List<dynamic>).map((e) => e as String).toList()
       ..likedPosts = (json['likedPosts'] as List<dynamic>)
           .map((e) => e as String)
           .toList();
@@ -57,6 +59,7 @@ Map<String, dynamic> _$UserDetailsToJson(UserDetails instance) =>
       'skills': instance.skills,
       'history': instance.history,
       'contacts': instance.contacts,
+      'interests': instance.interests,
       'likedPosts': instance.likedPosts,
     };
 

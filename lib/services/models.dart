@@ -40,6 +40,7 @@ class UserDetails {
   List<String> skills = <String>[];
   List<String> history = <String>[];
   List<String> contacts = <String>[];
+  List<String> interests = <String>[];
   List<String> likedPosts = <String>[];
 
   UserDetails({
