@@ -26,7 +26,7 @@ class ChatRoomBoxWidget extends StatelessWidget {
             Navigator.pushNamed(
               context,
               '/message_screen',
-              arguments: ScreenArguments(roomId, user),
+              arguments: ChatArguments(roomId, user),
             );
           },
           leading: CircleAvatar(

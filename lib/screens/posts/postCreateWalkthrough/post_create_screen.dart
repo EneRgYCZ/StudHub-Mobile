@@ -7,12 +7,8 @@ class PostCreateScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Post create'),
-      ),
       body: Container(
-        margin: const EdgeInsets.all(8.0),
-        // hack textfield height
+        margin: const EdgeInsets.only(top: 25, left: 5, right: 5),
         padding: const EdgeInsets.only(bottom: 40.0),
         child: const MyCustomForm(),
       ),
