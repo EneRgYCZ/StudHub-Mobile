@@ -1,10 +1,9 @@
 import 'dart:async';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:intl/intl.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:studhub/services/auth.dart';
 import 'package:studhub/services/models.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 class FirestoreService {
   final FirebaseFirestore _db = FirebaseFirestore.instance;
@@ -13,14 +12,18 @@ class FirestoreService {
 // POSTS RELATED FUNCTIONS
 // **************************************************************************
 
-  Stream<List<Post>> streamPosts() {
-    return _db.collection('posts').snapshots().map((snapShot) => snapShot.docs
-        .map((document) => Post.fromJson(document.data()))
-        .toList());
+  Stream<List<Post>> streamPosts(List interests) {
+    return _db
+        .collection('posts')
+        .where("interests", arrayContainsAny: interests)
+        .snapshots()
+        .map((snapShot) => snapShot.docs
+            .map((document) => Post.fromJson(document.data()))
+            .toList());
   }
 
-  Future<void> createPost(
-      String text, String title, List skills, UserDetails user) async {
+  Future<void> createPost(String text, String title, List skills,
+      UserDetails user, List listOfTags) async {
     var ref = _db.collection('posts');
 
     var newData = {
@@ -30,9 +33,10 @@ class FirestoreService {
       'title': title,
       'uid': user.uid,
       'skills': skills,
+      'interests': listOfTags,
+      'date': Timestamp.now(),
       'userName': user.userName,
       'userPhoto': user.userPhoto,
-      'date': DateFormat.yMMMMd('en_US').format(DateTime.now()),
     };
 
     var result = await ref.add(newData);
@@ -357,5 +361,13 @@ class FirestoreService {
       provisional: false,
       sound: true,
     );
+  }
+
+  Future<List<Tag>> getTags() async {
+    var ref = _db.collection('interestTags');
+    var snapshot = await ref.get();
+    var data = snapshot.docs.map((s) => s.data());
+    var tags = data.map((d) => Tag.fromJson(d));
+    return tags.toList();
   }
 }

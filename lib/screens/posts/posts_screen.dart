@@ -27,7 +27,7 @@ class _PostsScreenState extends State<PostsScreen> {
       Navigator.pushNamed(context, '/chat');
     });
     return StreamBuilder<List<Post>>(
-      stream: FirestoreService().streamPosts(),
+      stream: FirestoreService().streamPosts(userExtraData.interests),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const LoadingScreen();

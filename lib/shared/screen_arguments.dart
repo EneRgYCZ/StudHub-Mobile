@@ -8,8 +8,9 @@ class ChatArguments {
 }
 
 class PostArguments {
-  final String title;
+  final List tags;
   final List skills;
+  final String title;
 
-  PostArguments(this.title, this.skills);
+  PostArguments(this.title, this.skills, this.tags);
 }

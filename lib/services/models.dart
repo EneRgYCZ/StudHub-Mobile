@@ -3,28 +3,43 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'models.g.dart';
 
+class TimestampConverter implements JsonConverter<DateTime, Timestamp> {
+  const TimestampConverter();
+
+  @override
+  DateTime fromJson(Timestamp timestamp) {
+    return timestamp.toDate();
+  }
+
+  @override
+  Timestamp toJson(DateTime date) => Timestamp.fromDate(date);
+}
+
 @JsonSerializable()
 class Post {
   int likes;
   String uid;
-  String date;
   List skills;
   String text;
   String title;
   String postId;
+  List interests;
   String userName;
   String userPhoto;
+  @TimestampConverter()
+  DateTime date;
 
   Post({
     this.uid = '',
     this.likes = 0,
-    this.date = '',
     this.text = '',
     this.title = '',
     this.postId = '',
     this.userName = '',
+    required this.date,
     this.userPhoto = '',
     this.skills = const [],
+    this.interests = const [],
   });
 
   factory Post.fromJson(Map<String, dynamic> json) => _$PostFromJson(json);
@@ -67,18 +82,6 @@ class Blog {
   Blog({this.title = '', this.photo = '', this.text = const []});
   factory Blog.fromJson(Map<String, dynamic> json) => _$BlogFromJson(json);
   Map<String, dynamic> toJson() => _$BlogToJson(this);
-}
-
-class TimestampConverter implements JsonConverter<DateTime, Timestamp> {
-  const TimestampConverter();
-
-  @override
-  DateTime fromJson(Timestamp timestamp) {
-    return timestamp.toDate();
-  }
-
-  @override
-  Timestamp toJson(DateTime date) => Timestamp.fromDate(date);
 }
 
 @JsonSerializable()
@@ -132,4 +135,14 @@ class PostComment {
   factory PostComment.fromJson(Map<String, dynamic> json) =>
       _$PostCommentFromJson(json);
   Map<String, dynamic> toJson() => _$PostCommentToJson(this);
+}
+
+@JsonSerializable()
+class Tag {
+  String title;
+  int numberOfPosts;
+
+  Tag({this.title = '', this.numberOfPosts = 0});
+  factory Tag.fromJson(Map<String, dynamic> json) => _$TagFromJson(json);
+  Map<String, dynamic> toJson() => _$TagToJson(this);
 }

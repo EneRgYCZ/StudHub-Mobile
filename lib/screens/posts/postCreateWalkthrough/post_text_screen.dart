@@ -57,8 +57,13 @@ class _PostTextScreenState extends State<PostTextScreen> {
                     ),
                     onPressed: isEmpty
                         ? () {
-                            FirestoreService().createPost(_text.text,
-                                passedData.title, passedData.skills, user);
+                            FirestoreService().createPost(
+                              _text.text,
+                              passedData.title,
+                              passedData.skills,
+                              user,
+                              passedData.tags,
+                            );
                             Navigator.of(context)
                                 .pushNamedAndRemoveUntil('/', (route) => false);
                           }

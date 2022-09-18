@@ -51,7 +51,7 @@ class _PostFromWidgetState extends State<PostFromWidget> {
                     ? () {
                         Navigator.of(context).pushNamed(
                           '/skill_pick',
-                          arguments: PostArguments(_text.text, []),
+                          arguments: PostArguments(_text.text, [], []),
                         );
                       }
                     : null,

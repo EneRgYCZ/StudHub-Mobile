@@ -37,7 +37,7 @@ class _PostListWidgetState extends State<PostListWidget> {
       child: SideMenu(
         background: Colors.orange,
         key: _sideMenuKey,
-        type: SideMenuType.slideNRotate,
+        type: SideMenuType.slide,
         menu: buildSideMenu(widget.user, context),
         child: GestureDetector(
           onTap: () {

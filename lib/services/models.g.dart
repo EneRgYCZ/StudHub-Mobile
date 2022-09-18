@@ -9,25 +9,27 @@ part of 'models.dart';
 Post _$PostFromJson(Map<String, dynamic> json) => Post(
       uid: json['uid'] as String? ?? '',
       likes: json['likes'] as int? ?? 0,
-      date: json['date'] as String? ?? '',
       text: json['text'] as String? ?? '',
       title: json['title'] as String? ?? '',
       postId: json['postId'] as String? ?? '',
       userName: json['userName'] as String? ?? '',
+      date: const TimestampConverter().fromJson(json['date'] as Timestamp),
       userPhoto: json['userPhoto'] as String? ?? '',
       skills: json['skills'] as List<dynamic>? ?? const [],
+      interests: json['interests'] as List<dynamic>? ?? const [],
     );
 
 Map<String, dynamic> _$PostToJson(Post instance) => <String, dynamic>{
       'likes': instance.likes,
       'uid': instance.uid,
-      'date': instance.date,
       'skills': instance.skills,
       'text': instance.text,
       'title': instance.title,
       'postId': instance.postId,
+      'interests': instance.interests,
       'userName': instance.userName,
       'userPhoto': instance.userPhoto,
+      'date': const TimestampConverter().toJson(instance.date),
     };
 
 UserDetails _$UserDetailsFromJson(Map<String, dynamic> json) => UserDetails(
@@ -119,4 +121,14 @@ Map<String, dynamic> _$PostCommentToJson(PostComment instance) =>
       'userName': instance.userName,
       'userPhoto': instance.userPhoto,
       'postedAt': const TimestampConverter().toJson(instance.postedAt),
+    };
+
+Tag _$TagFromJson(Map<String, dynamic> json) => Tag(
+      title: json['title'] as String? ?? '',
+      numberOfPosts: json['numberOfPosts'] as int? ?? 0,
+    );
+
+Map<String, dynamic> _$TagToJson(Tag instance) => <String, dynamic>{
+      'title': instance.title,
+      'numberOfPosts': instance.numberOfPosts,
     };

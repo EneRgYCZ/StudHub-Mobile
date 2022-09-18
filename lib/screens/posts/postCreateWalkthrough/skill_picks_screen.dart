@@ -43,9 +43,9 @@ class _SkillPicksWidgetState extends State<SkillPicksScreen> {
                   onPressed: arrayOfTags.isNotEmpty
                       ? () {
                           Navigator.of(context).pushNamed(
-                            '/post_text',
-                            arguments:
-                                PostArguments(passedData.title, arrayOfTags),
+                            '/post_tag',
+                            arguments: PostArguments(
+                                passedData.title, arrayOfTags, []),
                           );
                         }
                       : null,

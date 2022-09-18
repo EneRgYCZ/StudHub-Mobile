@@ -1,10 +1,12 @@
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:like_button/like_button.dart';
 import 'package:studhub/services/firestore.dart';
+import 'package:timeago/timeago.dart' as timeago;
 import 'package:flutter_tags_x/flutter_tags_x.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+
 import 'package:studhub/widgets/post/comment_box_widget.dart';
 
 import '../../services/models.dart';
@@ -22,6 +24,8 @@ bool isLiked = false;
 class _PostWidgetState extends State<PostWidget> {
   @override
   Widget build(BuildContext context) {
+    var date = timeago.format(widget.post.date, locale: 'en_short');
+
     var userExtraData = Provider.of<UserDetails>(context);
     bool contains;
     userExtraData.likedPosts.contains(widget.post.postId)
@@ -78,15 +82,31 @@ class _PostWidgetState extends State<PostWidget> {
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.post.userName,
-                            style: const TextStyle(fontSize: 13),
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Row(
+                            children: [
+                              for (var index in Iterable.generate(
+                                  widget.post.interests.length))
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 3),
+                                  child: Text(
+                                    "#" +
+                                        widget.post.interests[index]
+                                            .toString()
+                                            .toUpperCase(),
+                                    style: const TextStyle(
+                                      fontSize: 11,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                )
+                            ],
                           ),
                           Text(
-                            widget.post.date,
+                            widget.post.userName + " · " + date,
                             style: const TextStyle(
-                              fontSize: 9,
+                              fontSize: 10,
                               color: Colors.grey,
                             ),
                           ),
@@ -141,7 +161,10 @@ class _PostWidgetState extends State<PostWidget> {
                   children: [
                     Container(
                       alignment: Alignment.topLeft,
-                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      padding: const EdgeInsets.only(
+                        left: 10,
+                        right: 15,
+                      ),
                       child: Text(
                         widget.post.title,
                         style: const TextStyle(
@@ -155,7 +178,10 @@ class _PostWidgetState extends State<PostWidget> {
                     Container(
                       alignment: Alignment.topLeft,
                       padding: const EdgeInsets.only(
-                          left: 15, bottom: 10, right: 15),
+                        left: 10,
+                        bottom: 10,
+                        right: 15,
+                      ),
                       child: Text(
                         widget.post.text,
                         style: const TextStyle(
@@ -336,6 +362,8 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
       _controller.clear();
     }
 
+    var date = timeago.format(widget.post.date, locale: 'en_short');
+
     bool contains;
     userExtraData.likedPosts.contains(widget.post.postId)
         ? contains = true
@@ -381,18 +409,34 @@ class _PostsHeroWidgetState extends State<PostsHeroWidget> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.only(top: 10.0),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          widget.post.userName,
-                          style: const TextStyle(fontSize: 13),
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Row(
+                          children: [
+                            for (var index in Iterable.generate(
+                                widget.post.interests.length))
+                              Padding(
+                                padding: const EdgeInsets.only(left: 3),
+                                child: Text(
+                                  "#" +
+                                      widget.post.interests[index]
+                                          .toString()
+                                          .toUpperCase(),
+                                  style: const TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
+                          ],
                         ),
                         Text(
-                          widget.post.date,
+                          widget.post.userName + " · " + date,
                           style: const TextStyle(
-                            fontSize: 9,
+                            fontSize: 10,
                             color: Colors.grey,
                           ),
                         ),
