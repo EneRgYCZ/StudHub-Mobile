@@ -39,7 +39,7 @@ class _PostsScreenState extends State<PostsScreen> {
           var posts = snapshot.data!;
           return PostListWidget(posts: posts, user: userExtraData);
         } else {
-          return const Text('No posts found in database.');
+          return const Text('No posts was found in database.');
         }
       },
     );
