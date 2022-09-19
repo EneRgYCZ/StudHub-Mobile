@@ -25,6 +25,20 @@ class FirestoreService {
   Future<void> createPost(String text, String title, List skills,
       UserDetails user, List listOfTags) async {
     var ref = _db.collection('posts');
+    for (var y in Iterable.generate(listOfTags.length)) {
+      _db
+          .collection("interestTags")
+          .where("title", isEqualTo: listOfTags[y])
+          .get()
+          .then((value) async {
+        for (var i in Iterable.generate(value.size)) {
+          await _db
+              .collection("interestTags")
+              .doc(value.docs[i].id)
+              .update({"numberOfPosts": FieldValue.increment(1)});
+        }
+      });
+    }
 
     var newData = {
       'likes': 0,
@@ -63,6 +77,21 @@ class FirestoreService {
         docId.add(doc.id);
       }
     });
+
+    for (var y in Iterable.generate(post.interests.length)) {
+      _db
+          .collection("interestTags")
+          .where("title", isEqualTo: post.interests[y])
+          .get()
+          .then((value) async {
+        for (var i in Iterable.generate(value.size)) {
+          await _db
+              .collection("interestTags")
+              .doc(value.docs[i].id)
+              .update({"numberOfPosts": FieldValue.increment(-1)});
+        }
+      });
+    }
 
     var delete = _db.collection('posts').doc(docId[0]);
 
