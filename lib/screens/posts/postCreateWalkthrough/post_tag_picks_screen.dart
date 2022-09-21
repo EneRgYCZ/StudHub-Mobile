@@ -12,9 +12,9 @@ class PostTagPicksScreen extends StatefulWidget {
   State<PostTagPicksScreen> createState() => _PostTagPicksScreenState();
 }
 
-class _PostTagPicksScreenState extends State<PostTagPicksScreen> {
-  List<String> arrayOfTags = [];
+List<String> arrayOfTags = [];
 
+class _PostTagPicksScreenState extends State<PostTagPicksScreen> {
   @override
   Widget build(BuildContext context) {
     final passedData =
@@ -55,13 +55,13 @@ class _PostTagPicksScreenState extends State<PostTagPicksScreen> {
               ],
             ),
             const Text(
-              "Pick the right tags",
+              "Most popular tags",
               style: TextStyle(fontSize: 20),
             ),
             Align(
               alignment: Alignment.center,
               child: FutureBuilder<List<Tag>>(
-                future: FirestoreService().getTags(),
+                future: FirestoreService().getLimitTags(),
                 builder: (context, AsyncSnapshot snapshot) {
                   if (snapshot.hasData) {
                     List<Tag> tags = snapshot.data;
@@ -94,10 +94,95 @@ class _PostTagPicksScreenState extends State<PostTagPicksScreen> {
                   }
                 },
               ),
+            ),
+            FutureBuilder<List<Tag>>(
+              future: FirestoreService().getAllTags(),
+              builder: (context, AsyncSnapshot snapshot) {
+                List<Tag> tags = snapshot.data;
+                List<String> tagsTitle = [];
+                for (var element in tags) {
+                  tagsTitle.add(element.title);
+                }
+                return IconButton(
+                  onPressed: () {
+                    showSearch(
+                      context: context,
+                      delegate: CustomSearchDelegate(tagsList: tagsTitle),
+                    );
+                  },
+                  icon: const Icon(Icons.search),
+                );
+              },
             )
           ],
         ),
       ),
+    );
+  }
+}
+
+class CustomSearchDelegate extends SearchDelegate {
+  List<dynamic> tagsList;
+  CustomSearchDelegate({this.tagsList = const []});
+
+  @override
+  List<Widget> buildActions(BuildContext context) {
+    return [
+      IconButton(
+          onPressed: () {
+            query = '';
+          },
+          icon: const Icon(Icons.clear))
+    ];
+  }
+
+  @override
+  Widget buildLeading(BuildContext context) {
+    return IconButton(
+        onPressed: () {
+          close(context, null);
+        },
+        icon: const Icon(Icons.arrow_back));
+  }
+
+  @override
+  Widget buildResults(BuildContext context) {
+    List<dynamic> matchQuerry = [];
+    for (var results in tagsList) {
+      if (results.contains(query.toLowerCase())) {
+        matchQuerry.add(results.title);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuerry.length,
+      itemBuilder: ((context, index) {
+        var result = matchQuerry[index];
+        return ListTile(
+          title: Text(result.title),
+        );
+      }),
+    );
+  }
+
+  @override
+  Widget buildSuggestions(BuildContext context) {
+    List<dynamic> matchQuerry = [];
+    for (var result in tagsList) {
+      if (result.contains(query.toLowerCase())) {
+        matchQuerry.add(result);
+      }
+    }
+    return ListView.builder(
+      itemCount: matchQuerry.length,
+      itemBuilder: ((context, index) {
+        var result = matchQuerry[index];
+        return ListTile(
+          title: Text(result),
+          onTap: () {
+            arrayOfTags.add(result);
+          },
+        );
+      }),
     );
   }
 }

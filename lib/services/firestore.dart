@@ -392,8 +392,21 @@ class FirestoreService {
     );
   }
 
-  Future<List<Tag>> getTags() async {
-    var ref = _db.collection('interestTags');
+  Future<List<Tag>> getLimitTags() async {
+    var ref = _db
+        .collection('interestTags')
+        .orderBy("numberOfPosts", descending: true)
+        .limit(5);
+    var snapshot = await ref.get();
+    var data = snapshot.docs.map((s) => s.data());
+    var tags = data.map((d) => Tag.fromJson(d));
+    return tags.toList();
+  }
+
+  Future<List<Tag>> getAllTags() async {
+    var ref = _db
+        .collection('interestTags')
+        .orderBy("numberOfPosts", descending: true);
     var snapshot = await ref.get();
     var data = snapshot.docs.map((s) => s.data());
     var tags = data.map((d) => Tag.fromJson(d));
